@@ -4,7 +4,8 @@ var PasswordSetting = React.createClass({
 			confirmPassword:"",
 			password:"",
 			oldPassword:"",
-			newPasswordAndConfirmPasswordNotMatched:false
+			errorMessage:"",
+			successMessaage:""
 		}
 	},
 	render: function(){
@@ -17,8 +18,10 @@ var PasswordSetting = React.createClass({
 					<div className="f1"><label>Old Password</label><input type="password" name="oldPassword" className="form-control" onChange={this._onChange}/></div>
 					<div className="f2"><label>New Password</label><input type="password" name="password" className="form-control" onChange={this._onChange}/></div>
 					<div className="f3"><label>Confirm Password</label><input type="password" name="confirmPassword" className="form-control" onChange={this._onChange}/></div>
-					{	this.state.newPasswordAndConfirmPasswordNotMatched &&
-						<div>new password and confirm password must be same</div>}
+					{	this.state.errorMessage &&
+						<div>{this.state.errorMessage}</div>}
+					{	this.state.successMessaage &&
+						<div>{this.state.successMessaage}</div>}
 					<div className="button-block">
 						<button type="button" onClick={this._onClick}>Change Password</button>
 
@@ -52,12 +55,31 @@ var PasswordSetting = React.createClass({
 			requestData.newPassword = this.state.password;
 			requestData.confirmPassword = this.state.confirmPassword
 			requestData.token = this.props.token;
-			/*services.POST(config.url.changePassword,requestData)
+			services.POST(config.url.changePassword,requestData)
 			.then(function(data){
+				if(data && data.code == 200)
+				{
+					currentThis.setState({
+						successMessaage:data.response.message,
+						errorMessage:""
+					})
+					setTimeout(function() {
+						currentThis.setState({
+							successMessaage:""
+						});
+					},5000);
+				}
+				else{
+					currentThis.setState({
+						errorMessage:"something goes wrong"
+					});
+				}
+			})
+			.catch(function(error){
 				currentThis.setState({
-					userList:data.response.result
-				});
-			})*/	
+					errorMessage:error.response.message
+				})
+			});	
 		}
 		else if(this.state.password == ""  || this.state.newPassword == ""  || this.state.confirmPassword == ""){
 			alert("fields can not be  blank");
