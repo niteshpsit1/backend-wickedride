@@ -56,6 +56,7 @@ header, .wrapper{
 aside{
 	background-color: #33363f; 
 	width: 275px;
+	max-width: 275px;
 }
 table{
 	width: 100%;
@@ -579,10 +580,6 @@ header, .wrapper{
 	background-color: #eeeeee;
 	vertical-align: top;
 	padding: 22px;
-}
-aside{
-	background-color: #33363f; 
-	width: 275px;
 }
 table{
 	width: 100%;
@@ -1304,3 +1301,13 @@ td th{
 .members-listing-expanded .page-title h1:before {
     background-position: -356px -4px;
 }
+#content, #content > div{
+	height: 100%;
+}
+/*.wrapper > *{
+	transition: none;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+}*/

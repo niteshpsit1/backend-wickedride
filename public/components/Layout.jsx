@@ -14,32 +14,30 @@ var Layout =  React.createClass({
     render: function() {
         return (
             <div>
-                <div>
-                    <header>
-                        <div className="logo-wrapper">
-                            <a href="#">
-                                <img src="images/wicked-ride-logo.png"/>
-                            </a>
-                        </div>
-                        <div className="admin-details">
-                            <p>Admin Name <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
-                            <p className="account-img"><img src="images/bg_imgs/user-icon1.jpg"/></p>
-                            <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
-                        </div>
-                    </header>
-                    <div className="wrapper">
-                        <aside>
-                            <ul className="navigation clearfix">
-                                <li className="active"><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
-                                <li><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
-                                <li><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
-                                <li><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
-                                <li><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
-                                <li><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
-                            </ul>
-                        </aside>
-                        {this.props.children}
+                <header>
+                    <div className="logo-wrapper">
+                        <a href="#">
+                            <img src="images/wicked-ride-logo.png"/>
+                        </a>
                     </div>
+                    <div className="admin-details">
+                        <p>Admin Name <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
+                        <p className="account-img"><img src="images/bg_imgs/user-icon1.jpg"/></p>
+                        <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
+                    </div>
+                </header>
+                <div className="wrapper">
+                    <aside>
+                        <ul className="navigation clearfix">
+                            <li className="active"><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
+                            <li><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
+                            <li><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
+                            <li><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
+                            <li><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
+                            <li><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
+                        </ul>
+                    </aside>
+                    {this.props.children}
                 </div>
             </div>    
         );
