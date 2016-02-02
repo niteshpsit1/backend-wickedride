@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>Super Admin</title>
+    <!-- html -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- html -->
 </head>
 <body>
 
@@ -12,11 +16,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/rsvp/3.0.6/rsvp.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/1.0.3/ReactRouter.js"></script>
+    <script src="https://npmcdn.com/history/umd/History.min.js"></script>
     <script src="config/development.js"></script>
     <script src="globalFunctions/services.js"></script>
+    <script type="text/jsx" src="components/App.jsx"></script>
     <script type="text/jsx" src="components/PasswordSetting.jsx"></script>
     <script type="text/jsx" src="components/PersonalSetting.jsx"></script>
     <script type="text/jsx" src="components/ClubRidesList.jsx"></script>
@@ -26,12 +32,29 @@
     <script type="text/jsx" src="components/TermAndConditions.jsx"></script>
     <script type="text/jsx" src="components/MessagesFromGroupAdmin.jsx"></script>
     <script type="text/jsx" src="components/ClubManagement.jsx"></script>
+    <script type="text/jsx" src="components/SelectOption.jsx"></script>
+    <script type="text/jsx" src="components/UserList.jsx"></script>
     <script type="text/jsx" src="components/UserManagement.jsx"></script>
     <script type="text/jsx" src="components/SettingComponent.jsx"></script>
     <script type="text/jsx" src="components/AllClubsInfo.jsx"></script>
     <script type="text/jsx" src="components/Layout.jsx"></script>
     <script type="text/jsx">
-		React.render(<Layout />, document.getElementById('content'));
-	</script>
+        var Router = window.ReactRouter.Router;
+        var Route = window.ReactRouter.Route;
+        var Redirect = window.ReactRouter.Redirect;
+        var History = new window.History.createHistory();
+        React.render((
+            <Router history={History}>
+                <Route path="/home" component={Layout}>
+                    <Route path="/clubs" component={ClubManagement}/>
+                    <Route path="/users" component={UserManagement}/>
+                    <Route path="/setting" component={SettingComponent}/>
+                    <Route path="/aboutus" component={AboutUs}/>
+                    <Route path="/termAndConditions" component={TermAndConditions}/>
+                </Route>
+                <Redirect from="*" to="/home" />
+            </Router>
+        ), document.getElementById('content'));
+    </script>
 </body>
 </html>

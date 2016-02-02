@@ -22,51 +22,13 @@ var ClubList = React.createClass({
 		var currentThis = this;
 		var time = Date.parse(this.props.club.date);
 		return (
-			<div>
-				{ 	this.state.clubDelete &&
-					<div>
-					<div className="row">
-					<div className="well col-md-2">{this.props.club.clubName}:</div>
-					<div className="well col-md-2">{this.props.club.creatorName}</div>
-					<div className="well col-md-2">{this.props.club.date}</div>
-					<div className="well col-md-2">{this.props.club.time}</div>
-					<div className="well col-md-2"><a onClick={this._onClick} href="#"><div name="totalRides">see total Rides</div></a></div>
-					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubDelete">Delete Club</div></a></div>
-					<div className="well col-md-1"><a onClick={this._onClick} href="#"><div name="clubMembers">see membses</div></a></div>
-				
-					{ 	this.state.totalRides &&
-						<div>
-						<div className="row">
-							<div className="well col-md-3">Ride Name</div>
-							<div className="well col-md-3">Description</div>
-							<div className="well col-md-2">start Date</div>
-							<div className="well col-md-2">state Time</div>
-							<div className="well col-md-2">Members</div>
-						</div>
-						{this.state.clubRideList.map(function(ride){
-							return <ClubRidesList ride={ride}/>
-						})}
-						</div>
-					}
-
-					{	this.state.clubMembers &&
-						<div>
-						<div className="row">
-							<div className="well col-md-3">User Name</div>
-							<div className="well col-md-3">Designation</div>
-							<div className="well col-md-3">Awards</div>
-							<div className="well col-md-3">Number of clubs joined</div>
-						</div>
-						{this.state.clubMembersList.map(function(member){
-							return <ClubMembers member={member}/>
-						})}
-						</div>
-					}
-
-					</div>
-					</div>
-				}
-			</div>
+			<tr>
+				<td><p>{this.props.club.clubName}</p></td>
+				<td><p>{this.props.club.creatorName}</p></td>
+				<td><p>{this.props.club.date}</p></td>
+				<td><p>{this.props.club.time}</p></td>
+				<td><a href="#" className="users"></a> <a href="#" className="gallery"></a> <a href="#" className="ride"></a></td>
+			</tr>
 		);
 	},
 	_onClick: function(event){

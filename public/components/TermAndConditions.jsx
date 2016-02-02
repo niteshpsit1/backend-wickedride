@@ -1,6 +1,8 @@
 var TermAndConditions = React.createClass({
 	getInitialState: function (){
 		return {
+			token: localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).token : "",
+
 			termAndConditionMessage:"ram",
 			edit:false
 		}
@@ -8,13 +10,18 @@ var TermAndConditions = React.createClass({
 	componentWillMount: function () {
 		var currentThis = this;
 		var requestData = {
-			token: this.props.token
+			token: this.state.token
 		};
-		services.POST(config.url.getAllClub, requestData)
+		services.POST(config.url.getTermAndConditions, requestData)
 		.then(function(data){
-			currentThis.setState({
-				//termAndConditionMessage:data.response.message
-			});
+			setTimeout(function() {
+				currentThis.setState({
+					termAndConditionMessage:data.response.tncText
+				})	
+			}, 0);
+			setTimeout(function() {
+				$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/^\s+|\s+$/g, ''));
+			}, 0);
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -22,36 +29,68 @@ var TermAndConditions = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
-				{	!this.state.edit	&&
-					<div>
-					<button type="button" name="edit" class="btn btn-primary" onClick={this._onClick}>EDIT</button>
-					<p>{this.state.termAndConditionMessage}</p>
-					</div>}
+			<div className="main tc-page">
+				<div className="main-content">
+					<div className="page-title">
+						<h1>Term & Conditions</h1>
+						<div className="filter-block edit">
+							<a href="#" name="edit" onClick={this._onClick}>Edit</a>
+						</div>
+					</div>
+					{	!this.state.edit	&&
+						<div className="content">
+							<div className="tc-block">
+								<p className="abt-text">
+									<div id="termAndConditionMessage"></div>
+								</p>
+							</div>
+						</div>}
 
-				{	this.state.edit	&&
-					<div>
-					<textarea rows="10" cols="15" name="aboutUsMessage" onChange={this._onChange} value={this.state.termAndConditionMessage}></textarea>
-					<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
-					</div>}
-			
-			</div>
+					{	this.state.edit	&&
+						<div className="content">
+							<div className="tc-block">
+								<p className="abt-text">
+									<textarea rows="10" cols="15" name="termAndConditionMessage"  value={this.state.termAndConditionMessage}></textarea>
+									<button type="button" name="change" class="btn btn-danger" onClick={this._onClick}>CHANGE</button>
+								</p>
+							</div>
+						</div>}
+				</div>
+			</div>	
 		);
 	},
-	_onChange: function(event){
-		this.setState({
-			termAndConditionMessage:event.target.value
-		})
-	},
 	_onClick: function(event){
+		var currentThis = this;
 		if($(event.target).attr("name") == "edit"){
-			this.setState({
-				edit:true
-			})
+			setTimeout(function() {
+				currentThis.setState({
+					edit:true
+				})	
+			}, 0);
+			setTimeout(function() {
+				CKEDITOR.replace( 'termAndConditionMessage' )
+			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-			this.setState({
-				edit:false
+			var requestData = {};
+			requestData.token = this.state.token
+			requestData.tncText = CKEDITOR.instances.termAndConditionMessage.getData();
+			services.POST(config.url.postTermAndConditions, requestData)
+			.then(function(data){
+				if(data.response.flag){
+					setTimeout(function() {
+					currentThis.setState({
+						termAndConditionMessage:CKEDITOR.instances.termAndConditionMessage.getData(),
+						edit:false
+					})	
+					}, 0);
+					setTimeout(function() {
+						$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/(\r\n|\n|\r)/gm," "));
+					}, 0);
+				}
+			})
+			.catch(function(error){
+				console.log(error);
 			})
 		}
 	}

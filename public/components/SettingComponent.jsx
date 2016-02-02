@@ -1,14 +1,13 @@
 var SettingComponent = React.createClass({
 	render: function(){
 		return (
-			<div>
-				<div><h6>Password Setting</h6></div>
-				<div>
-					<PasswordSetting token={this.props.token}/>
+			<div className="main-content">
+				<div className="page-title">
+					<h1>General Settings</h1>
 				</div>
-				<div><h6>Personal Information</h6></div>
-				<div>
-					<PersonalSetting token={this.props.token}/>
+				<div className="content setting-content">
+					<PasswordSetting token={this.props.token} userCredentials={this.props.userCredentials}/>
+					<PersonalSetting token={this.props.token} userCredentials={this.props.userCredentials} personalSetting={this.props.personalSetting}/>
 				</div>
 			</div>
 		);

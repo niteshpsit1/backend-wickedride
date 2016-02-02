@@ -4,6 +4,7 @@ var allUrlData = {
 var ClubManagement = React.createClass({
 	getInitialState: function(){
 		return {
+			token: localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).token : "",
 			clubs:[],
 			showClubMenberList:false,
 			ClubMembers:[],
@@ -13,14 +14,15 @@ var ClubManagement = React.createClass({
 	componentWillMount: function () {
 		var currentThis = this;
 		var requestData = {
-			token: this.props.token
+			token: this.state.token
 			//pageSize:config.pagination.pageSize,
 			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
+			console.log(data);
 			currentThis.setState({
-				clubs:data.response
+				clubs:data.response.result
 			});
 		})
 		.catch(function(error){
@@ -30,18 +32,34 @@ var ClubManagement = React.createClass({
 	render: function (){
 		var currentThis = this;
 		return (
-			<div>
-			<div className="row">
-				<div className="well col-md-3">club Name</div>
-				<div className="well col-md-3">creator name</div>
-				<div className="well col-md-3">Date</div>
-				<div className="well col-md-3">Time</div>
-			</div>
-			{this.state.clubs.map(function(club){
-				return <ClubList token={currentThis.props.token} club={club}/>
-			})}
+			<div className="main user-mgt-page-filtered common-table expandable">
+				<div className="page-title">
+					<h1>All Club Details</h1>
+					<div className="filter-block">
+						<a href="#" onClick={this._onFilter}></a>
+					</div>
+				</div>
+				<div className="content">
+					<table cellspacing="0" cellpadding="25" className="club-details">
+						<th><p>Club Name</p></th>
+						<th>Creator Name</th>
+						<th>Date</th>
+						<th>Time</th>
+						<th></th>
+						<tbody>
+							{this.state.clubs.map(function(club){
+								return <ClubList token={currentThis.state.token} club={club}/>
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		);
+	},
+	_onFilter: function(){
+		this.setState({
+			userFilter: !this.state.userFilter
+		});
 	},
 	_onClick: function(event){
 		var currentThis = this;
