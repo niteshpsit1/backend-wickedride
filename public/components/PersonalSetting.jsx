@@ -23,7 +23,7 @@ var PersonalSetting = React.createClass({
 				}
 				{	this.state.editProfile &&
 					<form>
-						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} value={this.state.userName}/></div>
+						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} defaultValue={this.state.userName}/></div>
 						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
 						<div className="button-block">
 							<button type="button" onClick={this._onClick}>Submit</button>
@@ -66,6 +66,7 @@ var PersonalSetting = React.createClass({
 		}	
 	},
 	_onChange: function(){
+		console.log("nameeeeeee",event.target.value);
 		if(event.target.name == "userName"){
 			this.setState({
 				userName:event.target.value

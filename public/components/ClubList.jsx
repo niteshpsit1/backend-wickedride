@@ -10,25 +10,83 @@ var ClubList = React.createClass({
 			clubMembersList:[],
 			clubDelete: true,
 			totalRides: false,
-			clubRideList:[]
+			clubRideList:[],
+			showUser: false,
+			showRide: false,
+			showGallery: false,
+			token: this.props.token,
+			users:[],
+			classUser : "users",
+			classRide : "ride",
+			classGallery : "gallery",
+			disableRide : false
 		});
 	},
 	componentWillMount: function(){
 		this.setState({
-			club: this.props.club
+			club: this.props.club,
+			token: this.props.token
 		});
 	},
+
+	appendUser: function(){
+		if(this.state.classRide=="ride active") {
+            this.setState({showUser:false, classUser : "users"});
+        }else {
+        	this.setState({showUser:true, classUser : "users active"});
+        }
+	},
+
+	appendRide: function(){
+		if(this.state.classUser=="users active") {
+            this.setState({showRide:false, classRide : "ride"});
+        }else {
+        	this.setState({showRide:true, classRide : "ride active"});
+        }
+	},
+
+	appendGallery: function(){
+
+        this.setState({showGallery:true, classGallery : "gallery active"});
+	},
+
+	handleHideUser: function() {
+        this.setState({showUser:false, classUser : "users"});
+	},
+
+	handleHideRide: function() {
+        this.setState({showRide:false, classRide : "ride"});
+	},
+
+	handleHideGallery: function() {
+        this.setState({showGallery:false, classGallery : "gallery"});
+	},
+
 	render: function () {
 		var currentThis = this;
 		var time = Date.parse(this.props.club.date);
+		
+		
 		return (
-			<tr>
-				<td><p>{this.props.club.clubName}</p></td>
-				<td><p>{this.props.club.creatorName}</p></td>
-				<td><p>{this.props.club.date}</p></td>
-				<td><p>{this.props.club.time}</p></td>
-				<td><a href="#" className="users"></a> <a href="#" className="gallery"></a> <a href="#" className="ride"></a></td>
-			</tr>
+			<tbody cellSpacing="0" cellPadding="25">
+			    <tr>
+			        <td><p>{this.props.club.clubName}</p></td>
+				    <td><p>{this.props.club.creatorName}</p></td>
+				    <td><p>{this.props.club.date}</p></td>
+				    <td><p>{this.props.club.time}</p></td>
+				    <td><p><a onClick={this.appendUser} className={this.state.classUser}></a></p>
+				        <p><a className={this.state.classGallery}></a></p>
+				        <p><a onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>
+				    </td>
+                </tr>
+                <tr>
+				    
+				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId}/>:null}
+				        {this.state.showRide ? <RidesListing handleHideRide={this.handleHideRide} token={this.props.token} clubID={this.props.club.clubId}/>:null}
+				        {this.state.showGallery ? <MembersListing handleHideGallery={this.handleHideGallery}/>:null}
+				   
+				</tr>
+			</tbody>
 		);
 	},
 	_onClick: function(event){

@@ -10,10 +10,11 @@ var UserManagement = React.createClass({
 			filterByName:"",
 			filterByEmail:"",
 			filterByDesignation:"",
-			value:"select"
+			value:"select",
+			name: this.props.name
 		}
 	},
-	componentDidMount: function(){
+	componentDidMount: function(){ 
 		var currentThis = this;
 		var requestData = {};
 		requestData.token = this.state.token;
@@ -28,6 +29,8 @@ var UserManagement = React.createClass({
 		})
 	},
 	render: function() {
+		var self = this;
+		console.log("___________________________________________",this.state.name);
 		return (
 			<div className="main user-mgt-page common-table">
                 <div className="main-content">
@@ -70,7 +73,7 @@ var UserManagement = React.createClass({
 									</tbody>
 								</table>
 						</div>}
-						<table cellspacing="0" cellpadding="25">
+						<table cellSpacing="0" cellPadding="25">
 							<th><p>User Name</p></th>
 							<th>Email</th>
 							<th>Number</th>
@@ -78,7 +81,8 @@ var UserManagement = React.createClass({
 							<th></th>
 							<tbody>
 								{this.state.userList.map(function(user){
-			  						return <UserList user={user}/> 
+									console.log("%%%%%%%%%%%%",user);
+			  						return <UserList user={user} token={self.state.token} key={user.userID}/> 
 			  					})}
 			  				</tbody>
 						</table>

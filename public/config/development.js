@@ -4,7 +4,9 @@ var config = {
 		adminLogin:baseUrl+'/rest/connect',
 		getAllClub:baseUrl+'/rest/service/getClubListForSuperAdmin',
 		getClubMembers:baseUrl+'/rest/service/getClubMembersListForSuperAdmin',
+		getClubMemberNameList:baseUrl+'/rest/service/getClubMemberNameListForSuperAdmin',
 		getClubRides:baseUrl+'/rest/service/rideList',
+		getClubRideMembers:baseUrl+'/rest/service/rideMembers',
 		getAllUser:baseUrl+'/rest/service/userList',
 		getTermAndConditions:baseUrl+'/rest/service/showTnc',
 		postTermAndConditions:baseUrl+'/rest/service/tnc',
@@ -12,9 +14,13 @@ var config = {
 		postAboutUs:baseUrl+'/rest/service/aboutUs',
 		changePassword:baseUrl+'/rest/service/resetPassword',
 		updateProfile:baseUrl+'/rest/service/setting',
-		userListFilter:baseUrl+'/rest/service/filter'
+		userListFilter:baseUrl+'/rest/service/filter',
+		getMemberDetail:baseUrl+'/rest/service/memberDetail',
+		removeMember:baseUrl+'/rest/service/removeClubMember'
 	},
 	pagination:{
-		pageSize:5
+		pageSize:20
 	}
 }
+
+

@@ -26,6 +26,7 @@ html, body{
 	height: 90%; /* fallback if needed */
   	height: calc(100% - 68px);
 }
+
 body{
 	min-width: 1024px;
 }
@@ -1171,6 +1172,18 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
 .club-details tr td:first-child{
 	padding-left: 40px;
 }
+.club-details tr td:first-child.no-Club{padding-left:0px!important; padding-right: 0px!important;}
+.page-title h4{font-size: 16px;line-height: 32px;    font-weight: 400;    padding: 6px 15px 5px 52px;    position: relative}
+.club-details tr td.no-Club{padding: 0px !important;}
+.club-details td .page-title .users{background-position: -389px -28px;
+    margin: 0 15px;
+    width: 23px;
+    height: 23px;
+        background-image: url('../images/bg_imgs/icons-sprite.png');
+        position: absolute;
+    margin-top: 10px;
+}
+.club-details td, th {border: 1px solid #e7e7e7;}
 .club-details td:last-child {
 	text-align: center;
 }
@@ -1179,7 +1192,7 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
 	float: none;
 }
 .club-details tr td{
-	padding: 18px 10px;
+	padding: 18px 4px;
 }
 .expandable .filter-block a{
 	display: block;
@@ -1311,3 +1324,13 @@ td th{
 	-ms-transition: none;
 	-o-transition: none;
 }*/
+
+.modal-body td, .modal-body th {border: 1px solid #e7e7e7;}
+.modal-body table.club-details tr th{background:#edf7f9;border: 1px solid #edf7f9;}
+.modal-body table.club-details tr td{color:#4e5050;background:#fff!important;border: 1px solid #e7e7e7!important;}
+.modal-body{padding:0px!important;}
+.modal-body table tr td .page-title{background: #fff;}
+.common-table tr td .modal-dialog .page-title{background:#fff;color:#4e5050!important;border-bottom:4px solid #cfcfcf;}
+.club-details td .modal-dialog .page-title .users{background-position: -30px 0px;width: 30px;}
+.common-table tr td .modal-dialog .filter-block a:after{background-position:-327px -3px;}
+.common-table tr td .modal-dialog .filter-block{border-color:#979898;}
