@@ -1334,3 +1334,12 @@ td th{
 .club-details td .modal-dialog .page-title .users{background-position: -30px 0px;width: 30px;}
 .common-table tr td .modal-dialog .filter-block a:after{background-position:-327px -3px;}
 .common-table tr td .modal-dialog .filter-block{border-color:#979898;}
+.modal-Description tr th{background-color: #e00777;color: #fff;border:0;}
+.club-details table.modal-Description tr td{background-color: #fff;color:#929393;border: 0;}
+.common-table td .modal-dialog .ride{position: absolute;margin-top: 10px;}
+.modal-Description th p .time, .modal-Description th p .date{height: 22px;width: 25px;display: inline-block;margin-right: 8px;vertical-align: bottom;}
+.modal-Description th p .time{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -445px -30px;}
+.modal-Description th p .date{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -474px -4px;}
+.detail-modal{height: 200px;overflow: auto;}
+.detail-modal-td{padding: 0;}
+.modal-dialog .page-title {background: #fff;color: #4e5050!important;border-bottom: 4px solid #cfcfcf;}

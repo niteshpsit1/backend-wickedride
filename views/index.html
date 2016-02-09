@@ -52,10 +52,12 @@
         var Router = window.ReactRouter.Router;
         var Route = window.ReactRouter.Route;
         var Redirect = window.ReactRouter.Redirect;
+        /*var RouteHandler = window.ReactRouter.RouteHandler;*/
         var History = new window.History.createHistory();
         React.render((
             <Router history={History}>
                 <Route path="/home" component={Layout} >
+                <Route path="/" component={ClubManagement}/>
                     <Route path="/clubs" component={ClubManagement}/>
                     <Route path="/users" component={UserManagement}/>
                     <Route path="/setting" component={SettingComponent}/>

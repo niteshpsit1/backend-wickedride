@@ -2,11 +2,13 @@ var RideMembersModal = React.createClass({
 
 	getInitialState : function(){
 		return {
-			members : []
+			members : [],
+			membersAvailable: false
 		};
 	},
 
 	componentWillMount: function() {
+		console.log("HHHHHHHHHHHHHHHHHH");
 		var self= this,
         result = [];
 		var requestData = {
@@ -36,7 +38,7 @@ var RideMembersModal = React.createClass({
 	componentDidMount: function() {
 
 		$(React.findDOMNode(this)).modal('show');
-		$(React.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
+		$(React.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideRideMembersModal);
 
         console.log("modalllll");
 	},
@@ -53,7 +55,7 @@ var RideMembersModal = React.createClass({
 			            <div className="page-title">
 			                <span className="users"></span>
 				            <h4>Ride Members Listing</h4>
-				            <div className="filter-block" data-dismiss="modal">
+				            <div className="filter-block"  data-dismiss="modal">
 					            <a href="#"></a>
 				            </div>
 			            </div>
@@ -67,7 +69,8 @@ var RideMembersModal = React.createClass({
 						        <th>Number of clubs</th>
 						        <tbody>
 						        {this.state.members.map(function(member){
-								        return( <tr>
+						        	
+								        return( <tr key={member.memberID}>
 				                                    <td><p>{member.memberName}</p></td>
 				                                    <td><p>{member.designation}</p></td>
 				                                    <td><p>{member.noOfClubJoined}</p></td>
@@ -85,22 +88,4 @@ var RideMembersModal = React.createClass({
 
 });
 
-/*var Member1 = React.createClass({
-	getInitialState : function(){
-		return {
-			member : this.props.member
-		};
-	},
 
-	render: function () {
-		
-		return (
-			
-			
-			
-		)
-	}
-
-});
-
-*/

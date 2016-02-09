@@ -3,6 +3,7 @@
 	password: "hrhk@super"
 };*/
 var Layout =  React.createClass({
+    
 	getInitialState: function (){
 		return {
 			token: localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).token : "",
@@ -13,6 +14,8 @@ var Layout =  React.createClass({
 		}
 	},
     render: function() {
+        /*var component = this.getRouteHandler({ myProp: 'value'});
+        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",component);*/
         return (
             <div>
                 <header>
@@ -39,6 +42,7 @@ var Layout =  React.createClass({
                         </ul>
                     </aside>
                     {this.props.children}
+                    
                 </div>
             </div>    
         );

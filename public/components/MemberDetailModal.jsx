@@ -7,8 +7,10 @@ var MemberDetailModal = React.createClass({
 	},
 
 	componentWillMount: function(){
+		console.log("JJJJJJJJJJJJJJJ");
         var self= this,
         result = [];
+        var image = {};
 		var requestData = {
 			token: this.props.token,
 			userID: this.props.userID
@@ -17,9 +19,9 @@ var MemberDetailModal = React.createClass({
 		};
 		services.GET(config.url.getMemberDetail, requestData)
 		.then(function(data){
-			console.log("getClubMemberssssssssssss*********",data);
+			image = data.response.result[0];
 			result=data.response.result[0].club;
-			console.log("resultttttttttttttttt",result);
+			console.log("lllllllllllll",image);
 			if(result.length) {
 				self.setState({
 				detail:result
@@ -54,8 +56,8 @@ var MemberDetailModal = React.createClass({
 
 			<div id="myModal" className="modal fade" role="dialog">
 			    <div className="modal-dialog">
-			        <div className="modal-content">
-			            <div className="modal-header">
+			        <div>
+			            <div>
 			                
 			                <div className="page-title">
 			                <span className="ride"></span>
@@ -68,21 +70,35 @@ var MemberDetailModal = React.createClass({
 			            </div>
 			            <div className="modal-body">
 			                <table cellSpacing="0"  className="club-details">
-			                    <th></th>
-						        <th>Club Name</th>
-						        <th>Joined As</th>
+			                    <tr>
+			                        <th>User Name</th>
+						            <th>Club Name</th>
+						            <th>Joined As</th>
+						        </tr>
 
 						        <tbody>
-						            {this.state.detail.map(function(club){
-						            	console.log("detailssssssssss",club);
-								            return( 
-								                <tr>
-								                    <td></td>
-				                                    <td><p>{club.clubName}</p></td>
-				                                    <td><p>{club.designation}</p></td>
-				                                </tr>
-				                            )
-							        })}
+						             
+								    <tr>
+								        <td><img src={this.props.userImage}/></td>
+								        <td colSpan="2" className="detail-modal-td">
+								            <div className="detail-modal">
+								                <table>
+								                {this.state.detail.map(function(club){
+						            	            console.log("detailssssssssss",club);
+								                    return(
+                                                    
+                                                        <tr key={club.clubID}>
+                                                            <td><p>{club.clubName}</p></td>
+				                                            <td><p>{club.designation}</p></td>
+				                                        </tr>
+                                                    
+                                                    )
+							                    })}
+							                    </table>
+                                            </div>
+								        </td>
+				                    </tr>
+				                        
 						        </tbody>
 					        </table>
 					    </div>

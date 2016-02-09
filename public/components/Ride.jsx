@@ -18,6 +18,7 @@ var Ride = React.createClass({
     },
     
     handleHideRideMembersModal: function(){
+    	console.log("KKKKKKKKKKKKKKKK",this.state.showRideMembersModal);
         this.setState({showRideMembersModal: false});
     },
     handleHideRideDescriptionModal: function(){
@@ -33,8 +34,8 @@ var Ride = React.createClass({
 				<td><p>{this.state.ride.date}</p></td>
 				<td><p>{this.state.ride.time}</p></td>
 				<td><p>{this.state.ride.member}</p></td>
-				{this.state.showRideMembersModal ? <RideMembersModal handleHideRideMembersModal={this.handleHideRideMembersModal.bind(this)} token={this.props.token} rideID={this.state.ride.rideID}/> : null}
-				{this.state.showRideDescriptionModal ? <RideDescriptionModal handleHideRideDescriptionModal={this.handleHideRideDescriptionModal.bind(this)} rideName={this.state.ride.rideName} time={this.state.ride.time} date={this.state.ride.date} description={this.state.ride.description}/> : null}
+				{this.state.showRideMembersModal ? <RideMembersModal handleHideRideMembersModal={this.handleHideRideMembersModal} token={this.props.token} rideID={this.state.ride.rideID}/> : null}
+				{this.state.showRideDescriptionModal ? <RideDescriptionModal handleHideRideDescriptionModal={this.handleHideRideDescriptionModal} rideName={this.state.ride.rideName} time={this.state.ride.time} date={this.state.ride.date} description={this.state.ride.description}/> : null}
 			</tr>
 			
 			

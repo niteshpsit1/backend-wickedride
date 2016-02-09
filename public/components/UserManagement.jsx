@@ -11,7 +11,7 @@ var UserManagement = React.createClass({
 			filterByEmail:"",
 			filterByDesignation:"",
 			value:"select",
-			name: this.props.name
+			name: 'vidhi'
 		}
 	},
 	componentDidMount: function(){ 
@@ -88,7 +88,10 @@ var UserManagement = React.createClass({
 						</table>
 					</div>
 				</div>
+				
 			</div>
+			
+     
 		);
 	},
 	_onFilter: function(){

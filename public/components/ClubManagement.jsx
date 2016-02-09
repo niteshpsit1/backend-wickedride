@@ -17,6 +17,7 @@ var ClubManagement = React.createClass({
 		}
 	},
 	componentWillMount: function () {
+		console.log("///////////////////////////",this.props);
 		var self = this;
 		var requestData = {
 			token: self.state.token
@@ -51,21 +52,9 @@ var ClubManagement = React.createClass({
 										<tr>
 											<td style={{width:'100px'}}><label>Club Name</label></td>
 											<td><input type="text" name="filterByClubName" onChange={this._onchange}/></td>
-											<td style={{width:'100px'}}><label>Creator Name</label></td>
-											<td> <input type="email" name="filterByCreatorName" onChange={this._onchange}/></td>
+											
 										</tr>
-										<tr>
-											<td style={{width:'100px'}}><label>Designation</label> </td>
-											<td className="select-parent">
-												<select name="filterByDesignation" onChange={this._onchange}>
-													<option value="">Select</option>
-													{	this.state.designations.map(function(designation){
-															return <option value={designation.name}>{designation.name}</option>
-														})
-													}
-												</select>
-											</td>
-										</tr>
+										
 										<tr>
 											<td colspan="4">
 												<div className="button-block">
@@ -123,7 +112,7 @@ var ClubManagement = React.createClass({
 	_onClick: function(event){
 		var currentThis = this;
 		if($(event.target).attr("name") == "prev"){
-			alert("can't see pvevious records");
+			alert("can't see previous records");
 		}
 		else if($(event.target).attr("name") == "next"){
 			var requestData = {
