@@ -19,7 +19,7 @@ var UserList =	React.createClass({
     },
 	
 	render: function() {
-		console.log(this.props.user);
+		console.log(this.props.user.image,"AAAAAAAAAAAAAAAAAAAAA");
 		return (
 			<tr key={this.props.user.userID}>
 				<td><p>{this.props.user.userName}</p></td>
@@ -27,7 +27,7 @@ var UserList =	React.createClass({
 				<td><p>{this.props.user.number}</p></td>
 				<td onClick={this.handleShowModal}><p className="ride"></p><p>{this.props.user.noOfClubJoined}</p></td>
 				<td><a href="#" className="trophies"></a></td>
-				{this.state.showModal ? <MemberDetailModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.props.user.userID} userImage={this.props.user.image}/> : null}
+				{this.state.showModal ? <MemberDetailModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.props.user.userID} user={this.props.user}/> : null}
 			</tr>
 		)
 	}

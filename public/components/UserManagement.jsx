@@ -1,3 +1,7 @@
+var allUrlData = {
+	pageSize: 10
+}
+
 var UserManagement = React.createClass({
 	getInitialState: function (){
 		return {
@@ -11,15 +15,25 @@ var UserManagement = React.createClass({
 			filterByEmail:"",
 			filterByDesignation:"",
 			value:"select",
-			name: 'vidhi'
+			name: 'vidhi',
+			noOfPages: null,
+			pageNo : 1,
+			disablePrevious : true,
+			disableNext : false
 		}
 	},
-	componentDidMount: function(){ 
-		var currentThis = this;
+	componentWillMount: function(){ 
+		var currentThis = this,
+		pages = null,
+		LOD = null;
 		var requestData = {};
 		requestData.token = this.state.token;
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
+
+			LOD = data.response.lengthOfDocument;
+			pages = LOD/allUrlData.pageSize;
+
 			currentThis.setState({
 				userList:data.response.result
 			});
@@ -86,6 +100,10 @@ var UserManagement = React.createClass({
 			  					})}
 			  				</tbody>
 						</table>
+						<div className="text-right">
+					        <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					        <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                        </div>
 					</div>
 				</div>
 				
@@ -116,7 +134,7 @@ var UserManagement = React.createClass({
 				filterByName: event.target.value
 			});
 		}
-	},
+	}, 
 	_onClick: function(){
 		var currentThis = this;
 		var requestData = {};
@@ -133,6 +151,78 @@ var UserManagement = React.createClass({
 		.catch(function(error){
 			console.log(error)
 		})
+	},
+
+	_onPaginationPrevious: function(event){
+		var currentThis = this;
+		if(this.state.pageNo==this.state.noOfPages) {
+			this.setState({disableNext : false})
+		}
+		
+		var decrement = this.state.pageNo;
+		
+		var minus = null;
+		
+		if(decrement==1){
+			this.setState({disablePrevious : true})
+		}else {
+		   
+		    decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		    console.log("nooooooo",this.state.pageNo-1);
+		    
+		    
+		
+			var requestData = {
+				token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.POST(config.url.getAllUser, requestData)
+			.then(function(data){
+				currentThis.setState({
+				userList:data.response.result
+			});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}
+	},
+
+	_onPaginationNext: function(event){
+		var currentThis = this;
+		var increment = this.state.pageNo;
+		this.setState({disablePrevious: false});
+		
+        increment = increment+1;
+		if(increment==Math.ceil(this.state.noOfPages)){
+			this.setState({disableNext : true})
+		}else {
+			
+		    this.setState({pageNo : increment});
+		    console.log("noooooooooo",this.state.pageNo+1);
+		
+		    
+		
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo+1
+			};
+			services.POST(config.url.getAllUser, requestData)
+			.then(function(data){
+				
+				currentThis.setState({
+				userList:data.response.result
+			});
+				console.log("newwwwwwwww",currentThis.state.userList);
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}
+		
 	}
 	
 });

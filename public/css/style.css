@@ -608,6 +608,7 @@ td, th{
     display: table-cell;
     height: 100%;
 }
+.wrapper aside.sidebar{display: table-cell;}
 .admin-details, .logo-wrapper{
     vertical-align: middle;
 }
@@ -972,9 +973,9 @@ ol p {
     margin-left: 25px;
 }
 .common-table td p {
-	display: inline;
+	display: inline-block;
 	vertical-align: middle;
-	margin-left: 10px;
+	margin-left: 0;
 }
 .common-table td td p {
     margin: 0;
@@ -1341,5 +1342,9 @@ td th{
 .modal-Description th p .time{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -445px -30px;}
 .modal-Description th p .date{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -474px -4px;}
 .detail-modal{height: 200px;overflow: auto;}
-.detail-modal-td{padding: 0;}
+.modal-body table.club-details td.detail-modal-td{padding: 0;}
 .modal-dialog .page-title {background: #fff;color: #4e5050!important;border-bottom: 4px solid #cfcfcf;}
+.modal-body table.club-details td.user-image{padding: 18px;width: 156px;}
+td.user-image img{width: 120px;height: auto;} 
+.club-details .detail-modal tr td:first-child {padding-left: 40px!important;}
+.modal-dialog .filter-block a:after{background-position: -327px -3px;}

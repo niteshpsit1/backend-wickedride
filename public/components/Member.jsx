@@ -9,7 +9,11 @@ var Member = React.createClass({
 	},
 
 	removeUser: function() {
-		var self= this;
+		/*e.preventDefault;*/
+		/*var Alert = ReactBootstrap.Alert;*/
+		var r = confirm("Are you sure want to delete member?");
+		if(r==true) {
+		var self= this,
         result = {};
 		var requestData = {
 			token: this.props.token,
@@ -28,6 +32,9 @@ var Member = React.createClass({
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
+	} else{
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
 
 	},
 
@@ -51,7 +58,7 @@ var Member = React.createClass({
 				    <td><p>{this.state.member.designation}</p></td>
 				    <td><p>{this.state.member.awards}</p></td>
 				    <td onClick={this.handleShowModal}><span className="ride"></span><p>{this.state.member.clubJoined.length}</p></td>
-				    <td><a href="#" className="remove" onClick={this.removeUser}></a></td> 
+				    <td><a href="#" className="remove" onClick={this.removeUser.bind(this)}></a></td> 
 				    {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}
 			    </tr>}
 			    </tbody>

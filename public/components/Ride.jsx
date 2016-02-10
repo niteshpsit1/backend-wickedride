@@ -33,7 +33,7 @@ var Ride = React.createClass({
 				<td onClick={this.handleShowRideDescriptionModal}><p>{this.state.ride.description}</p></td>
 				<td><p>{this.state.ride.date}</p></td>
 				<td><p>{this.state.ride.time}</p></td>
-				<td><p>{this.state.ride.member}</p></td>
+				<td><p>{this.state.ride.member.length}</p></td>
 				{this.state.showRideMembersModal ? <RideMembersModal handleHideRideMembersModal={this.handleHideRideMembersModal} token={this.props.token} rideID={this.state.ride.rideID}/> : null}
 				{this.state.showRideDescriptionModal ? <RideDescriptionModal handleHideRideDescriptionModal={this.handleHideRideDescriptionModal} rideName={this.state.ride.rideName} time={this.state.ride.time} date={this.state.ride.date} description={this.state.ride.description}/> : null}
 			</tr>

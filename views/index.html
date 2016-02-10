@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.js"></script>
     <!-- html -->
 </head>
 <body>
@@ -47,22 +48,26 @@
     <script type="text/jsx" src="components/Ride.jsx"></script>
     <script type="text/jsx" src="components/RideMembersModal.jsx"></script>
     <script type="text/jsx" src="components/RideDescriptionModal.jsx"></script>
+    <script type="text/jsx" src="components/Notification.jsx"></script>
+    <script type="text/jsx" src="components/Notify.jsx"></script>
+    <script type="text/jsx" src="components/LiMembers.jsx"></script>
     
     <script type="text/jsx">
         var Router = window.ReactRouter.Router;
         var Route = window.ReactRouter.Route;
         var Redirect = window.ReactRouter.Redirect;
+        var Window = window;
         /*var RouteHandler = window.ReactRouter.RouteHandler;*/
         var History = new window.History.createHistory();
         React.render((
             <Router history={History}>
                 <Route path="/home" component={Layout} >
-                <Route path="/" component={ClubManagement}/>
-                    <Route path="/clubs" component={ClubManagement}/>
-                    <Route path="/users" component={UserManagement}/>
-                    <Route path="/setting" component={SettingComponent}/>
-                    <Route path="/aboutus" component={AboutUs}/>
-                    <Route path="/termAndConditions" component={TermAndConditions}/>
+                    <Route path="/home/notification" component={Notification}/>
+                    <Route path="/home/clubs" component={ClubManagement}/>
+                    <Route path="/home/users" component={UserManagement}/>
+                    <Route path="/home/setting" component={SettingComponent}/>
+                    <Route path="/home/aboutus" component={AboutUs}/>
+                    <Route path="/home/termAndConditions" component={TermAndConditions}/>
                 </Route>
                 <Redirect from="*" to="/home" />
             </Router>

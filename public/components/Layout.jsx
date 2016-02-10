@@ -21,17 +21,17 @@ var Layout =  React.createClass({
                 <header>
                     <div className="logo-wrapper">
                         <a href="#">
-                            <img src="images/wicked-ride-logo.png"/>
+                            <img src="/images/wicked-ride-logo.png"/>
                         </a>
                     </div>
                     <div className="admin-details">
                         <p>Admin Name <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
-                        <p className="account-img"><img src="images/bg_imgs/user-icon1.jpg"/></p>
+                        <p className="account-img"><img src="/images/bg_imgs/user-icon1.jpg"/></p>
                         <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
                     </div>
                 </header>
                 <div className="wrapper">
-                    <aside>
+                    <aside className="sidebar">
                         <ul className="navigation clearfix">
                             <li className="active"><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
                             <li><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
@@ -48,7 +48,7 @@ var Layout =  React.createClass({
         );
     },
     componentDidMount: function(){
-    	 	
+    	 	History.pushState(null,"/home/notification");
     },
     _onChange: function(event){
         var currentThis = this
@@ -71,19 +71,22 @@ var Layout =  React.createClass({
     _onClick: function(event){
         var currentThis = this;
         if($(event.target).attr("name") == 'termAndConditions'){
-            History.pushState(null,"/termAndConditions");
+            History.pushState(null,"/home/termAndConditions");
+        }
+        else if ($(event.target).attr("name") == 'homeState') {
+             History.pushState(null,"/home/notification");
         }
         else if ($(event.target).attr("name") == 'userManagementState') {
-             History.pushState(null,"/users");
+             History.pushState(null,"/home/users");
         }
         else if ($(event.target).attr("name") == 'clubManagementState') {
-             History.pushState(null,"/clubs");
+             History.pushState(null,"/home/clubs");
         }
         else if ($(event.target).attr("name") == 'settingState') {
-             History.pushState(null,"/setting");
+             History.pushState(null,"/home/setting");
         }
         else if ($(event.target).attr("name") == 'aboutUs') {
-             History.pushState(null,"/aboutus");
+             History.pushState(null,"/home/aboutus");
         }
 
         if($(event.target).attr("name") == "logout"){

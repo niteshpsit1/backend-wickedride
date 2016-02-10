@@ -32,7 +32,7 @@ var MembersListing = React.createClass({
 		});
 	},
 	componentWillMount: function(){
-		console.log("MembersListinggggggggggg");
+		console.log("MembersListinggggggggggg^^^^^^^^^^^",this.props.clubID);
         
         var self= this,
         result = [];
@@ -100,7 +100,7 @@ var MembersListing = React.createClass({
 						<th>Designation</th>
 						<th>Awards</th>
 						<th>ClubJoined</th>
-						<th></th>
+						<th>Delete Member</th>
 			
 						<tbody>
 						{this.state.members.map(function(member){

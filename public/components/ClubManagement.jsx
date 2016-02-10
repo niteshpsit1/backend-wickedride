@@ -1,5 +1,5 @@
 var allUrlData = {
-	pageSize: 2
+	pageSize: 10
 }
 var ClubManagement = React.createClass({
 	getInitialState: function(){
@@ -13,12 +13,20 @@ var ClubManagement = React.createClass({
 			filterByClubName:"",
 			filterByCreatorName:"",
 			filterByDesignation:"",
-			designations:[{name:"ram1"},{name:"ram2"}]
+			designations:[{name:"ram1"},{name:"ram2"}],
+			noOfPages: null,
+			pageNo : 1,
+			disablePrevious : true,
+			disableNext : false,
+			filterByClubName : null
 		}
 	},
+	
 	componentWillMount: function () {
-		console.log("///////////////////////////",this.props);
-		var self = this;
+		
+		var self = this,
+		pages = null,
+		LOD = null;
 		var requestData = {
 			token: self.state.token
 			
@@ -26,7 +34,11 @@ var ClubManagement = React.createClass({
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
 			
-			self.setState({clubs:data.response.result});
+			LOD = data.response.lengthOfDocument;
+			pages = LOD/allUrlData.pageSize;
+
+			
+			self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -36,8 +48,10 @@ var ClubManagement = React.createClass({
 	render: function (){
 		var currentThis = this;
 		
+		
 		return (
 			<div className="main user-mgt-page-filtered common-table expandable">
+				<div className="main-content">
 				<div className="page-title">
 					<h1>All Club Details</h1>
 					<div className="filter-block">
@@ -56,9 +70,9 @@ var ClubManagement = React.createClass({
 										</tr>
 										
 										<tr>
-											<td colspan="4">
+											<td colSpan="4">
 												<div className="button-block">
-													<button onClick={this._onClick}>Filter</button>
+													<button onClick={this._onFilterClick}>Filter</button>
 												</div>
 											</td>
 										</tr>
@@ -66,13 +80,16 @@ var ClubManagement = React.createClass({
 								</table>
 						</div>}
 					<table cellSpacing="0" cellPadding="25" className="club-details">
+					    <tr>
 						<th>Club Name</th>
 						<th>Creator Name</th>
 						<th>Date</th>
 						<th>Time</th>
 						<th></th>
+						</tr>
 						
 							{this.state.clubs.map(function(club){
+
 		
 								
 								    return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
@@ -80,8 +97,14 @@ var ClubManagement = React.createClass({
 							})}
 						
 					</table>
+					<div className="text-right">
+					    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                        
+					</div>
 				</div>
 			</div>
+		</div>
 		);
 	},
 	_onFilter: function(){
@@ -92,42 +115,104 @@ var ClubManagement = React.createClass({
 
 	_onchange: function(event){
 		
-		if(event.target.name == "filterByDesignation"){
-			this.setState({
-				filterByDesignation: event.target.value
-			});
-		}
-		else if(event.target.name == "filterByClubName"){
+		if(event.target.name == "filterByClubName"){
 			this.setState({
 				filterByClubName: event.target.value
 			});
 		}
-		else if( event.target.name == "filterByCreatorName"){
-			this.setState({
-				filterByCreatorName: event.target.value
-			});
-		}
+		
 	},
 
-	_onClick: function(event){
+	_onPaginationPrevious: function(event){
 		var currentThis = this;
-		if($(event.target).attr("name") == "prev"){
-			alert("can't see previous records");
+		if(this.state.pageNo==this.state.noOfPages) {
+			this.setState({disableNext : false})
 		}
-		else if($(event.target).attr("name") == "next"){
+		
+		var decrement = this.state.pageNo;
+		
+		var minus = null;
+		
+		if(decrement==1){
+			this.setState({disablePrevious : true})
+		}else {
+		   
+		    decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		    console.log("nooooooo",this.state.pageNo-1);
+		    
+		    
+		
 			var requestData = {
-			pageSize:allUrlData.pageSize,
-			createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
+				token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
 			};
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
 				currentThis.setState({
-					clubs:data.response
+					clubs:data.response.result
 				});
 			})
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
 		}
+	},
+
+	_onPaginationNext: function(event){
+		var currentThis = this;
+		var increment = this.state.pageNo;
+		this.setState({disablePrevious: false});
+		
+        increment = increment+1;
+		if(increment==Math.ceil(this.state.noOfPages)){
+			this.setState({disableNext : true})
+		}else {
+			
+		    this.setState({pageNo : increment});
+		    console.log("noooooooooo",this.state.pageNo+1);
+		
+		    
+		
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo+1
+			};
+			services.POST(config.url.getAllClub, requestData)
+			.then(function(data){
+				
+				currentThis.setState({
+					clubs:data.response.result
+				});
+				console.log("newwwwwwwww",currentThis.state.clubs);
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}
+		
+	},
+
+	_onFilterClick: function(){
+
+		var currentThis = this;
+		var requestData = {
+			token : this.state.token,
+			clubName : this.state.filterByClubName
+		};
+		
+		services.POST(config.url.getAllClub, requestData)
+		.then(function(data){
+			currentThis.setState({
+				clubs:data.response.result
+			});
+		}) 		
+		.catch(function(error){
+			console.log(error)
+		})
 	}
 });
+
+/*clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null*/

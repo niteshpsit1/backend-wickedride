@@ -19,13 +19,19 @@ var ClubList = React.createClass({
 			classUser : "users",
 			classRide : "ride",
 			classGallery : "gallery",
-			disableRide : false
+			disableRide : false,
+			date : {}
 		});
 	},
 	componentWillMount: function(){
+		
+		var dd = new Date(this.props.club.date),
+		date = (dd.getMonth() + 1) + '/' + dd.getDate() + '/' +  dd.getFullYear()
+        
 		this.setState({
 			club: this.props.club,
-			token: this.props.token
+			token: this.props.token,
+			date : date
 		});
 	},
 
@@ -64,7 +70,8 @@ var ClubList = React.createClass({
 
 	render: function () {
 		var currentThis = this;
-		var time = Date.parse(this.props.club.date);
+		var time = Date.parse(this.props.club.time);
+		
 		
 		
 		return (
@@ -72,9 +79,9 @@ var ClubList = React.createClass({
 			    <tr>
 			        <td><p>{this.props.club.clubName}</p></td>
 				    <td><p>{this.props.club.creatorName}</p></td>
-				    <td><p>{this.props.club.date}</p></td>
+				    <td><p>{this.state.date}</p></td>
 				    <td><p>{this.props.club.time}</p></td>
-				    <td><p><a onClick={this.appendUser} className={this.state.classUser}></a></p>
+				    <td><p><a onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
 				        <p><a className={this.state.classGallery}></a></p>
 				        <p><a onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>
 				    </td>

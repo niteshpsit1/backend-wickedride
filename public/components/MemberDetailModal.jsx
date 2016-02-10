@@ -47,12 +47,14 @@ var MemberDetailModal = React.createClass({
 	render: function () {
 		
 		var arr = this.state.detail;
+		console.log(this.props.user.image,"zzzzzzzzzzzzzzzz"); 
 		/*console.log("@@@@@@@@@@@",arr);
 		console.log("@@@@@@@@@@@222",arr[0]);
 		var clubs = arr[0];*/
 		/*console.log("@@@@@@@@@@@333",arr[0].club);*/
 
 		return (
+
 
 			<div id="myModal" className="modal fade" role="dialog">
 			    <div className="modal-dialog">
@@ -71,15 +73,15 @@ var MemberDetailModal = React.createClass({
 			            <div className="modal-body">
 			                <table cellSpacing="0"  className="club-details">
 			                    <tr>
-			                        <th>User Name</th>
-						            <th>Club Name</th>
-						            <th>Joined As</th>
+			                        <th className="text-center">User Name</th>
+						            <th className="text-center">Club Name</th>
+						            <th className="text-center">Joined As</th>
 						        </tr>
 
 						        <tbody>
 						             
 								    <tr>
-								        <td><img src={this.props.userImage}/></td>
+								        <td className="user-image"><img src="https://s3-ap-northeast-1.amazonaws.com/bikersclub/ride_new/EDDD8374-2B4F-4137-B941-9BEDD2CB5B63.jpg"/></td>
 								        <td colSpan="2" className="detail-modal-td">
 								            <div className="detail-modal">
 								                <table>

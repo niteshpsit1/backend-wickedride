@@ -16,7 +16,11 @@ var config = {
 		updateProfile:baseUrl+'/rest/service/setting',
 		userListFilter:baseUrl+'/rest/service/filter',
 		getMemberDetail:baseUrl+'/rest/service/memberDetail',
-		removeMember:baseUrl+'/rest/service/removeClubMember'
+		removeMember:baseUrl+'/rest/service/removeClubMember',
+		getDeleteRequests:baseUrl+'/rest/service/deleteRequests',
+		makeNewAdmin:baseUrl+'/rest/service/makeNewAdmin',
+		handleClubDeleteRequest:baseUrl+'/rest/service/handleClubDeleteRequest'
+
 	},
 	pagination:{
 		pageSize:20
