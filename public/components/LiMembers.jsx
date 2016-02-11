@@ -8,7 +8,7 @@ var LiMembers = React.createClass({
 	},
 
 	transferRights: function() {
-        console.log("rights9999999999999999999999999999",this.props.oldAdminID,"ttt",this.props.token,"new",this.props.newAdminID);
+        
         var self= this,
         result = [];
 		var requestData = {
@@ -23,12 +23,10 @@ var LiMembers = React.createClass({
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
-			console.log("hurreyyyyyyyyyy",data.response);
+			console.log("Rights transferred successfully",data.response);
 			if(result) {
-				self.setState({
-				transferred:true
-				
-			});
+				self.setState({transferred:true});
+				self.props.rightsMessage(true,self.props.name);
 			}
 			
 			

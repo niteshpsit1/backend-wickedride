@@ -9,13 +9,21 @@ var Notify = React.createClass({
 			oldAdmin : this.props.request.requestedBy._id,
 			newAdmin : {},
 			transferred: false,
-			showApproveMsg: false
+			showApproveMsg: false,
+			rejectMessage:false,
+			msg : "",
+			newAdminName:""
 
 			
 		}
 	},
 	componentWillMount: function () {
-		
+		var dd = new Date(this.props.request.date);
+		var date = dd.getFullYear() + '/' + (dd.getMonth() + 1) + '/' + dd.getDate()  
+        var hours = dd.getHours();
+        var minutes = dd.getMinutes();
+        var time = hours + ':' + minutes;
+        this.setState({date:date,time:time});
 		
 	},
 
@@ -34,13 +42,10 @@ var Notify = React.createClass({
 		services.POST(config.url.handleClubDeleteRequest, requestData)
 		.then(function(data){
 			
-			console.log("hurreyyyyyyyyyyDEEEEEEEEEEEEE",data.response);
-			if(result.length) {
-				self.setState({
-				transferred:true
-				
-			});
-			}
+			console.log("successfully deleted club",data.response);
+			
+				self.setState({showApproveMsg:true,msg:"rejected"});
+			
 			
 			
 		})
@@ -60,8 +65,7 @@ var Notify = React.createClass({
 		};
 		services.GET(config.url.getClubMembers, requestData)
 		.then(function(data){
-			console.log("getClubMemberssssssssssss1111",data);
-			console.log("MembersListinggggggggggg^^^^^^^^^^^",self.props.request);
+			
 			result=data.response.result;
 			if(result.length) {
 				self.setState({
@@ -69,7 +73,7 @@ var Notify = React.createClass({
 				
 			});
 			}
-			console.log("getClubMemberssssssssssss22222",self.state.members);
+			
 			
 		})
 	    .catch(function(error){
@@ -80,14 +84,16 @@ var Notify = React.createClass({
 	},
 
 	transferRights: function(userID) {
-        console.log("rights9999999999999999999999999999",userID);
+        
         var self= this,
         result = [];
 		var requestData = {
 			token: this.props.token,
 			oldAdminID : this.state.oldAdmin,
 			newAdminID : this.state.newAdmin,
-			clubID: this.props.tag
+			clubID: this.props.tag,
+			date : "",
+			time : ""
 
 			//pageSize:config.pagination.pageSize,
 			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
@@ -95,7 +101,7 @@ var Notify = React.createClass({
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
-			console.log("hurreyyyyyyyyyy",data.response);
+			console.log("successfully transferred rights",data.response);
 			if(result.length) {
 				self.setState({
 				show:false
@@ -125,14 +131,10 @@ var Notify = React.createClass({
 		services.POST(config.url.handleClubDeleteRequest, requestData)
 		.then(function(data){
 			
-			console.log("hurreyyyyyyyyyyDEEEEEEEEEEEEE",data.response);
-			if(result.length) {
-				self.setState({
-				transferred:true,
-				showApproveMsg : true
-				
-			});
-			}
+			console.log("successfully approved request",data.response);
+			
+			self.setState({transferred:true,showApproveMsg : true,msg : "approved"});
+			
 			
 			
 		})
@@ -141,25 +143,47 @@ var Notify = React.createClass({
 		});
 	},
 
+	rightsMessage:function(msg,name) {
+        this.setState({adminMsg:msg,newAdminName:name});
+	},
+
 	render: function (){
 		var currentThis = this;
-		if(this.state.showApproveMsg==true) {
+		if(this.state.showApproveMsg) {
 
 		return (
 			<div>
-                {this.state.show &&
-				    <div className="messages-block">
-					    <div className="user-pic">
-						    <img src={this.props.request.image}/>
-					    </div>
-					    <div className="messages">
-						    <h4><span><a href="">{this.props.request.name}</a> </span>requested by {this.props.request.requestedBy.fullname} is successfully deleted.</h4>
-						    
-					    </div>
-				    </div>
+                {<div className="messages-block">
+                    <div className="messages">
+						<h4>
+						    <span>
+						        <a href="">{this.props.request.name}</a>
+						    </span><span>requested by {this.props.request.requestedBy.fullname} is {this.state.msg}.</span>
+
+						</h4>
+					</div>
+                </div>
 			    }
 			</div>
 		)
+	} else if(this.state.adminMsg){
+        
+        return (
+			<div>
+                {<div className="messages-block">
+                    <div className="messages">
+						<h4>
+						    <span>
+						        <a href="">Admin of club {this.props.request.name}</a>
+						    </span>&nbsp;&nbsp;<span>requested by {this.props.request.requestedBy.fullname} changed to {this.state.newAdminName}.</span>
+
+						</h4>
+					</div>
+                </div>
+			    }
+			</div>
+		)
+
 	} else {
 
 		return (
@@ -172,8 +196,10 @@ var Notify = React.createClass({
 					    <div className="messages">
 						    <h4><span><a href="">{this.props.request.name}</a> </span>requested by {this.props.request.requestedBy.fullname}</h4>
 						    <ul className="notifications-details clearfix">
-							    <li className="time">11:00 AM</li>
-							    <li className="date">20th Nov 2015</li>
+							    <li className="time">{this.state.time}</li>
+							    <li className="date">{this.state.date}</li>
+							    {this.state.message &&
+							    <span>Transferred rights successfully</span>}
 							    <li >
 								    <div className="button-block">
 								        <div className="dropdown">
@@ -182,8 +208,8 @@ var Notify = React.createClass({
                                             </button>
                                             <ul className="dropdown-menu">
                                                 {this.state.members.map(function(member){
-							                        console.log("&&&&&&&&&&&&&&",member.userID);
-								                        return <LiMembers name={member.userName} newAdminID={member.userID}  oldAdminID={currentThis.state.oldAdmin} token={currentThis.props.token} clubID={currentThis.props.tag}/>
+							                        
+								                        return <LiMembers name={member.userName} newAdminID={member.userID}  oldAdminID={currentThis.state.oldAdmin} token={currentThis.props.token} clubID={currentThis.props.tag} rightsMessage={currentThis.rightsMessage}/>
 							                        })}
                                             </ul>
                                         </div>
@@ -197,6 +223,7 @@ var Notify = React.createClass({
 				    </div>
 			    }
 			</div>
+
 		)
     } 
 	}

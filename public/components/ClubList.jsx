@@ -20,18 +20,23 @@ var ClubList = React.createClass({
 			classRide : "ride",
 			classGallery : "gallery",
 			disableRide : false,
-			date : {}
+			date : {},
+			time : {}
 		});
 	},
 	componentWillMount: function(){
 		
 		var dd = new Date(this.props.club.date),
 		date = (dd.getMonth() + 1) + '/' + dd.getDate() + '/' +  dd.getFullYear()
-        
+        var hours = dd.getHours();
+        var minutes = dd.getMinutes();
+        var time = hours + ':' + minutes;
+               
 		this.setState({
 			club: this.props.club,
 			token: this.props.token,
-			date : date
+			date : date,
+			time : time
 		});
 	},
 
@@ -80,7 +85,7 @@ var ClubList = React.createClass({
 			        <td><p>{this.props.club.clubName}</p></td>
 				    <td><p>{this.props.club.creatorName}</p></td>
 				    <td><p>{this.state.date}</p></td>
-				    <td><p>{this.props.club.time}</p></td>
+				    <td><p>{this.state.time}</p></td>
 				    <td><p><a onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
 				        <p><a className={this.state.classGallery}></a></p>
 				        <p><a onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>

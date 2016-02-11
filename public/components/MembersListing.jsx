@@ -32,7 +32,7 @@ var MembersListing = React.createClass({
 		});
 	},
 	componentWillMount: function(){
-		console.log("MembersListinggggggggggg^^^^^^^^^^^",this.props.clubID);
+		
         
         var self= this,
         result = [];
@@ -44,7 +44,7 @@ var MembersListing = React.createClass({
 		};
 		services.GET(config.url.getClubMembers, requestData)
 		.then(function(data){
-			console.log("getClubMemberssssssssssss1111",data);
+			
 			result=data.response.result;
 			if(result.length) {
 				self.setState({
@@ -56,7 +56,7 @@ var MembersListing = React.createClass({
 
 
 		
-		console.log("getClubMemberssssssssssss22222",self.state.members);
+		
 			
 		})
 	    .catch(function(error){
@@ -70,17 +70,11 @@ var MembersListing = React.createClass({
 	},
 
 	close: function() {
-		console.log("inside close function");
+		
 		this.props.handleHideUser(false);
        
 	},
-
-	componentDidMount: function() {
-
-		console.log("diddd mount");
-
-	},
-
+	
 	render: function () {
 		var self=this;
 		if(this.state.membersAvailable==true) {
@@ -104,7 +98,7 @@ var MembersListing = React.createClass({
 			
 						<tbody>
 						{this.state.members.map(function(member){
-							console.log("&&&&&&&&&&&&&&",member);
+							
 								return <Member member={member} token={self.props.token} clubID={self.props.clubID}/>
 							})}
 						</tbody>

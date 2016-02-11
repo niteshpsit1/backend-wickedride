@@ -7,7 +7,7 @@ var MemberDetailModal = React.createClass({
 	},
 
 	componentWillMount: function(){
-		console.log("JJJJJJJJJJJJJJJ");
+		
         var self= this,
         result = [];
         var image = {};
@@ -21,7 +21,7 @@ var MemberDetailModal = React.createClass({
 		.then(function(data){
 			image = data.response.result[0];
 			result=data.response.result[0].club;
-			console.log("lllllllllllll",image);
+			
 			if(result.length) {
 				self.setState({
 				detail:result
@@ -47,12 +47,7 @@ var MemberDetailModal = React.createClass({
 	render: function () {
 		
 		var arr = this.state.detail;
-		console.log(this.props.user.image,"zzzzzzzzzzzzzzzz"); 
-		/*console.log("@@@@@@@@@@@",arr);
-		console.log("@@@@@@@@@@@222",arr[0]);
-		var clubs = arr[0];*/
-		/*console.log("@@@@@@@@@@@333",arr[0].club);*/
-
+		
 		return (
 
 
@@ -86,7 +81,7 @@ var MemberDetailModal = React.createClass({
 								            <div className="detail-modal">
 								                <table>
 								                {this.state.detail.map(function(club){
-						            	            console.log("detailssssssssss",club);
+						            	            
 								                    return(
                                                     
                                                         <tr key={club.clubID}>

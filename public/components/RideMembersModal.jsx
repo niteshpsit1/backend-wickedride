@@ -53,7 +53,7 @@ var RideMembersModal = React.createClass({
 			    <div className="modal-dialog">
 			        
 			            <div className="page-title">
-			                <span className="users"></span>
+			                <span className="users"></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				            <h4>Ride Members Listing</h4>
 				            <div className="filter-block"  data-dismiss="modal">
 					            <a href="#"></a>

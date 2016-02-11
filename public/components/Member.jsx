@@ -25,7 +25,7 @@ var Member = React.createClass({
 		
 		services.POST(config.url.removeMember, requestData)
 		.then(function(data){
-			console.log("++++++++++++++++++++++",data);
+			
 		
 				self.setState({showMember:false});
 		})

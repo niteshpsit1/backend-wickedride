@@ -14,8 +14,7 @@ var Layout =  React.createClass({
 		}
 	},
     render: function() {
-        /*var component = this.getRouteHandler({ myProp: 'value'});
-        console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",component);*/
+        
         return (
             <div>
                 <header>

@@ -109,7 +109,9 @@ p.account-img {
 }
 p.account-img img, .user-pic img{
 	vertical-align: middle;
-	border-radius: 50%
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
 }
 a.log-out {
     width: 18px;
@@ -208,8 +210,11 @@ a.log-out {
 }
 .messages{
 	border-bottom: 2px solid #cfcfcf;
-	padding: 28px 0 27px;
+	
 	color: #757777;
+	width: 90%;
+    float: left;
+    padding: 0;
 }
 .page-title > *, .messages-block > * {
 	display: table-cell;
@@ -249,10 +254,10 @@ a.log-out {
 	color: #4e5050;
 	position: relative;
 }
-.messages-block{
+/*.messages-block{
 	position: relative;
 	height: 126px;
-}
+}*/
 .messages-block:hover {
     background: rgba(243, 243, 243, 0.56);
 }
@@ -288,13 +293,13 @@ ul.notifications-details li:nth-child(1):before{
 ul.notifications-details li:nth-child(2):before{
 	background-position: -221px -32px;
 }
-ul.notifications-details li:last-child {
+/*ul.notifications-details li:last-child {
     margin: 0;
     padding: 0;
     position: absolute;
     right: 16px;
     top: 18px;
-}
+}*/
 ul.notifications-details li:nth-child(3):before{
 	/*background-position: -221px -3px;*/
 	content: none;
@@ -525,7 +530,8 @@ a.forgot-pwd, a.change-pwd {
 	text-align: left;
 }
 .text-right{
-	text-align: right !important;
+	text-align: center !important;
+    padding: 20px 0px;
 }
 .text-center{
 	text-align: center !important;
@@ -599,6 +605,7 @@ td, th{
 .logo-wrapper{
 	width: 275px; 
 	text-align: center;
+	float: left;
 }
 .logo-wrapper img{
 	max-height: 57px; 
@@ -615,7 +622,9 @@ td, th{
 .admin-details{
 	font-size: 17px; 
 	line-height: 48px; 
-	color: #757777
+	color: #757777;
+	float: right;
+	margin-right: 25px;
 }
 .admin-details span{
 	color: #4e5050; 
@@ -630,6 +639,8 @@ p.account-img {
     height: 47px;
     width: 85px;
     text-align: center;
+        margin: 0;
+
 }
 p.account-img img, .user-pic img{
 	vertical-align: middle;
@@ -730,11 +741,11 @@ a.log-out {
 .page-title{
 	border-bottom: 4px solid #cfcfcf;
 }
-.messages{
+/*.messages{
 	border-bottom: 2px solid #cfcfcf;
 	padding: 28px 0 27px;
 	color: #757777;
-}
+}*/
 .page-title > *, .messages-block > * {
 	display: table-cell;
 	vertical-align: middle;
@@ -742,7 +753,7 @@ a.log-out {
 .page-title h1 {
 	font-size: 16px;
 	line-height: 32px;
-	font-weight: 400;
+	font-weight: 900;
 	padding: 6px 15px 5px 52px;
 	position: relative;
 }
@@ -782,6 +793,7 @@ a.log-out {
 .messages-block{
 	position: relative;
 	height: 126px;
+	margin-top: 15px;
 }
 .messages-block:hover {
     background: rgba(243, 243, 243, 0.56);
@@ -790,9 +802,11 @@ a.log-out {
     padding-bottom: 30px;
 }
 .user-pic{
-	width: 105px; 
+	width: 60px; 
 	text-align: center;
-	margin-left: 30px;
+	margin-left: 15px;
+    float: left;
+    margin-right: 15px;
 }
 ul.notifications-details {
     width: 100%;
@@ -813,17 +827,18 @@ ul.notifications-details li:before{
 	left: 0;
 }
 ul.notifications-details li:nth-child(1):before{
-	background-position: -247px -2px;
+	/*background-position: -247px -2px;*/
 }
 ul.notifications-details li:nth-child(2):before{
-	background-position: -221px -32px;
+	/*background-position: -221px -32px;*/
 }
 ul.notifications-details li:last-child {
     margin: 0;
     padding: 0;
-    position: absolute;
+    /*position: absolute;
     right: 16px;
-    top: 18px;
+    top: 18px;*/
+    float:right;
 }
 ul.notifications-details li:nth-child(3):before{
 	/*background-position: -221px -3px;*/
@@ -842,7 +857,7 @@ button {
     font-size: 12px;
     cursor: pointer;
     display: block;
-    min-width: 66px;
+    min-width: 120px;
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -851,6 +866,11 @@ button {
 }
 .home-page .button-block button:hover{
 	background: #2D2D2D;
+	    color: #fff;
+}
+.button-block {
+    margin-right: 54px;
+   
 }
 .abt-text{
 	padding: 0 20px;
@@ -1016,7 +1036,7 @@ ol p {
 	content: "";
 	margin-top: -2px;
     position: absolute;
-    right: 35px;
+    right: 32px;
     top: 50%;
 	border: 5px solid #fff;
 	border-top-color: #b2b2b2;
@@ -1027,7 +1047,7 @@ ol p {
 }
 .filter-form{
 	padding: 10px 0;
-	height: 205px;
+	
 }
 .filter-form td{
 	padding: 10px 20px;
@@ -1174,7 +1194,13 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
 	padding-left: 40px;
 }
 .club-details tr td:first-child.no-Club{padding-left:0px!important; padding-right: 0px!important;}
-.page-title h4{font-size: 16px;line-height: 32px;    font-weight: 400;    padding: 6px 15px 5px 52px;    position: relative}
+.page-title h4{
+	font-size: 16px;
+	line-height: 32px;    
+	font-weight: 400;   
+    padding: 5px 15px;
+    position: relative
+}
 .club-details tr td.no-Club{padding: 0px !important;}
 .club-details td .page-title .users{background-position: -389px -28px;
     margin: 0 15px;
@@ -1348,3 +1374,65 @@ td th{
 td.user-image img{width: 120px;height: auto;} 
 .club-details .detail-modal tr td:first-child {padding-left: 40px!important;}
 .modal-dialog .filter-block a:after{background-position: -327px -3px;}
+.button-block button{width:100%;}
+.dropdown-menu{
+	min-width: 100%!important;
+	padding: 5px 3px!important;
+}
+.dropdown-menu li{
+	display: block;
+    float: left;
+    margin: 0;
+    padding-left: 10px!important;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li:before{
+	display: none!important;
+}
+.ride{margin-left: 75px}
+.p-center {
+    margin-left: 75px;
+    margin-right: 15px;
+}
+.rideNo-center{margin-top: 5px}
+#termAndConditionMessage{padding-left: 20px}
+#aboutUsMessage{padding-left: 20px}
+.modal-content{border-radius: 0px!important}
+#myModal .modal-body{height: 300px!important;overflow: auto!important;}
+span.ride-listing {
+    background-image: url('../images/bg_imgs/icons-sprite.png');
+    background-position: -412px 13px;
+    width: 30px;
+    height: 30px;
+}
+.page-title .ride{
+	float: right;
+    margin-top: 10px!important;
+    background-image: url('../images/bg_imgs/icons-sprite.png')!important;
+    background-position: -270px -3px!important;
+}
+.page-title .ride a{background-image: none!important}
+.input-group-addon{
+
+	min-height: 38px;
+    display: inline-block;
+    width: 42px;
+    margin-top: -3px;
+}
+.main-content .button-block button {
+    width: 0%;
+}
+.main-content input[type='text']{width:60%;}
+.input-group-addon{
+	display: inline-block!important;
+    width: 48px!important;
+    height: 40px!important;
+}
+.filter-form td{
+	background: #fff!important;
+	color: #979898!important;
+	border:none!important;}
+.filter-input{width: 100%!important}
+.filter-form select{background: #fff!important}

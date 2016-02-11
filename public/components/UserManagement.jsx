@@ -30,13 +30,17 @@ var UserManagement = React.createClass({
 		requestData.token = this.state.token;
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
+			
 
 			LOD = data.response.lengthOfDocument;
-			pages = LOD/allUrlData.pageSize;
+			if(LOD<10){
+                pages = 1;
+			}else {
+			    pages = LOD/allUrlData.pageSize;
+		    }
 
 			currentThis.setState({
-				userList:data.response.result
-			});
+				userList:data.response.result,noOfPages : Math.ceil(pages)});
 		}) 		
 		.catch(function(error){
 			console.log(error)
@@ -44,7 +48,8 @@ var UserManagement = React.createClass({
 	},
 	render: function() {
 		var self = this;
-		console.log("___________________________________________",this.state.name);
+	
+		
 		return (
 			<div className="main user-mgt-page common-table">
                 <div className="main-content">
@@ -61,7 +66,7 @@ var UserManagement = React.createClass({
 									<tbody>
 										<tr>
 											<td style={{width:'100px'}}><label>Name</label></td>
-											<td><input type="text" name="filterByName" onChange={this._onchange}/></td>
+											<td><input type="text" name="filterByName" onChange={this._onchange} className="filter-input"/></td>
 											<td style={{width:'100px'}}><label>Email</label></td>
 											<td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
 										</tr>
@@ -78,7 +83,7 @@ var UserManagement = React.createClass({
 											</td>
 										</tr>
 										<tr>
-											<td colspan="4">
+											<td colSpan="4">
 												<div className="button-block">
 													<button onClick={this._onClick}>Filter</button>
 												</div>
@@ -92,10 +97,10 @@ var UserManagement = React.createClass({
 							<th>Email</th>
 							<th>Number</th>
 							<th>Number of Clubs Joined</th>
-							<th></th>
+							<th>Awards</th>
 							<tbody>
 								{this.state.userList.map(function(user){
-									console.log("%%%%%%%%%%%%",user);
+									
 			  						return <UserList user={user} token={self.state.token} key={user.userID}/> 
 			  					})}
 			  				</tbody>
@@ -155,7 +160,7 @@ var UserManagement = React.createClass({
 
 	_onPaginationPrevious: function(event){
 		var currentThis = this;
-		if(this.state.pageNo==this.state.noOfPages) {
+		if(this.state.pageNo==this.state.noOfPages-1) {
 			this.setState({disableNext : false})
 		}
 		
@@ -169,16 +174,14 @@ var UserManagement = React.createClass({
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
-		    console.log("nooooooo",this.state.pageNo-1);
 		    
 		    
-		
 			var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo-1
 			};
-			services.POST(config.url.getAllUser, requestData)
+			services.GET(config.url.getAllUser, requestData)
 			.then(function(data){
 				currentThis.setState({
 				userList:data.response.result
@@ -201,7 +204,7 @@ var UserManagement = React.createClass({
 		}else {
 			
 		    this.setState({pageNo : increment});
-		    console.log("noooooooooo",this.state.pageNo+1);
+		    
 		
 		    
 		
@@ -210,13 +213,13 @@ var UserManagement = React.createClass({
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo+1
 			};
-			services.POST(config.url.getAllUser, requestData)
+			services.GET(config.url.getAllUser, requestData)
 			.then(function(data){
 				
 				currentThis.setState({
 				userList:data.response.result
 			});
-				console.log("newwwwwwwww",currentThis.state.userList);
+				
 			})
 			.catch(function(error){
 				console.log("====catch",error);	

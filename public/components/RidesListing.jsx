@@ -113,6 +113,7 @@ var RidesListing = React.createClass({
 		return (
 			<td colSpan="5" className="no-Club">
 				<div className="page-title">
+				<span className="ride-listing"></span>
 					<h4>Ride Listing</h4>
 					<div className="ride" onClick={this.rideFilter}>
 						<a href="#"></a>
@@ -128,13 +129,13 @@ var RidesListing = React.createClass({
 						    <tbody>
 							    <tr>
 								    <td style={{width:'100px'}}><label>Start Date</label></td>
-								    <td><input type="text" name="filterByStartDate" onChange={this._onchange} id="#datetimepicker1"/>
+								    <td><input type="text" name="filterByStartDate" onChange={this._onchange} id="#datetimepicker1" className="rideFilter-input"/>
 								        <span className="input-group-addon">
                                             <span className="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </td>
 								    <td style={{width:'100px'}}><label>End Date</label></td>
-								    <td><input type="text" name="filterByEndDate" onChange={this._onchange} id="#datetimepicker2"/>
+								    <td><input type="text" name="filterByEndDate" onChange={this._onchange} id="#datetimepicker2" className="rideFilter-input"/>
 								        <span className="input-group-addon">
                                             <span className="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -188,8 +189,7 @@ var RidesListing = React.createClass({
 	},
 
 	_onFilterClick: function(){
-		console.log("sssssddddddd",this.state.filterByStartDate);
-		console.log("eeeeeeeddddddd",this.state.filterByStartDate);
+		
 		var self= this;
         var result = [];
 		var requestData = {
@@ -201,11 +201,11 @@ var RidesListing = React.createClass({
 
 		services.GET(config.url.getClubRides, requestData)
 		.then(function(data){
-			console.log("gridessssss1111",data);
+			
 			result=data.response.result;
-			console.log("gridessssss2222",result);
+			
 			if(result.length) {
-				console.log("333333333333333333",self);
+				
 				self.setState({
 				rides:result
 			});

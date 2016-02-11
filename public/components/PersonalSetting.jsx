@@ -66,7 +66,7 @@ var PersonalSetting = React.createClass({
 		}	
 	},
 	_onChange: function(){
-		console.log("nameeeeeee",event.target.value);
+		
 		if(event.target.name == "userName"){
 			this.setState({
 				userName:event.target.value

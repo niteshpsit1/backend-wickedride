@@ -24,7 +24,7 @@ var RideDescriptionModal = React.createClass({
 			    <div className="modal-dialog">
 			        
 			        <div className="page-title">
-			            <span className="ride"></span>
+			            <span className="ride"></span>&nbsp;&nbsp;&nbsp;
 			            
 						<h4>{this.props.rideName}</h4>
 				        <div className="filter-block" data-dismiss="modal">

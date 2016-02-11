@@ -27,12 +27,18 @@ var Ride = React.createClass({
 	
 	render: function () {
 		var self = this;
+		var dd = new Date(this.state.ride.date);
+		var date = dd.getFullYear() + '/' + (dd.getMonth() + 1) + '/' + dd.getDate()  
+        var hours = dd.getHours();
+        var minutes = dd.getMinutes();
+        var time = hours + ':' + minutes;
+                
 		return (
 			<tr>
 				<td onClick={this.handleShowRideMembersModal}><p>{this.state.ride.rideName}</p></td>
 				<td onClick={this.handleShowRideDescriptionModal}><p>{this.state.ride.description}</p></td>
-				<td><p>{this.state.ride.date}</p></td>
-				<td><p>{this.state.ride.time}</p></td>
+				<td><p>{date}</p></td>
+				<td><p>{time}</p></td>
 				<td><p>{this.state.ride.member.length}</p></td>
 				{this.state.showRideMembersModal ? <RideMembersModal handleHideRideMembersModal={this.handleHideRideMembersModal} token={this.props.token} rideID={this.state.ride.rideID}/> : null}
 				{this.state.showRideDescriptionModal ? <RideDescriptionModal handleHideRideDescriptionModal={this.handleHideRideDescriptionModal} rideName={this.state.ride.rideName} time={this.state.ride.time} date={this.state.ride.date} description={this.state.ride.description}/> : null}

@@ -35,7 +35,11 @@ var ClubManagement = React.createClass({
 		.then(function(data){
 			
 			LOD = data.response.lengthOfDocument;
-			pages = LOD/allUrlData.pageSize;
+			if(LOD<10){
+                pages = 1;
+			}else {
+			    pages = LOD/allUrlData.pageSize;
+		    }
 
 			
 			self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
@@ -125,7 +129,8 @@ var ClubManagement = React.createClass({
 
 	_onPaginationPrevious: function(event){
 		var currentThis = this;
-		if(this.state.pageNo==this.state.noOfPages) {
+    
+		if(this.state.pageNo==this.state.noOfPages-1) {
 			this.setState({disableNext : false})
 		}
 		
@@ -134,15 +139,12 @@ var ClubManagement = React.createClass({
 		var minus = null;
 		
 		if(decrement==1){
-			this.setState({disablePrevious : true})
+			this.setState({disablePrevious : true,disableNext:false})
 		}else {
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
-		    console.log("nooooooo",this.state.pageNo-1);
-		    
-		    
-		
+		   
 			var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
@@ -171,10 +173,7 @@ var ClubManagement = React.createClass({
 		}else {
 			
 		    this.setState({pageNo : increment});
-		    console.log("noooooooooo",this.state.pageNo+1);
-		
 		    
-		
 			var requestData = {
 		        token: this.state.token,
 			    pageSize:allUrlData.pageSize,
@@ -186,7 +185,7 @@ var ClubManagement = React.createClass({
 				currentThis.setState({
 					clubs:data.response.result
 				});
-				console.log("newwwwwwwww",currentThis.state.clubs);
+				
 			})
 			.catch(function(error){
 				console.log("====catch",error);	
@@ -215,4 +214,3 @@ var ClubManagement = React.createClass({
 	}
 });
 
-/*clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null*/
