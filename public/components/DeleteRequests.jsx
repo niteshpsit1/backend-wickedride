@@ -62,7 +62,7 @@ var DeleteRequests = React.createClass({
 	},
 	
 	_onClick: function(event){
-		console.log("asdfsd");
+		
 		var currentThis = this;
 		if($(event.target).attr("name") == "edit"){
 			setTimeout(function() {

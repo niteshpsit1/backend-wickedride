@@ -18,7 +18,7 @@ var Ride = React.createClass({
     },
     
     handleHideRideMembersModal: function(){
-    	console.log("KKKKKKKKKKKKKKKK",this.state.showRideMembersModal);
+    	
         this.setState({showRideMembersModal: false});
     },
     handleHideRideDescriptionModal: function(){

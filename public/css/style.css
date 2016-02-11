@@ -209,12 +209,14 @@ a.log-out {
 	border-bottom: 4px solid #cfcfcf;
 }
 .messages{
-	border-bottom: 2px solid #cfcfcf;
-	
+/*	border-bottom: 2px solid #cfcfcf;*/
 	color: #757777;
 	width: 90%;
     float: left;
     padding: 0;
+}
+.messages-block{
+	border-bottom: 2px solid #cfcfcf;
 }
 .page-title > *, .messages-block > * {
 	display: table-cell;
@@ -254,10 +256,10 @@ a.log-out {
 	color: #4e5050;
 	position: relative;
 }
-/*.messages-block{
+.messages-block{
 	position: relative;
 	height: 126px;
-}*/
+}
 .messages-block:hover {
     background: rgba(243, 243, 243, 0.56);
 }
@@ -807,10 +809,12 @@ a.log-out {
 	margin-left: 15px;
     float: left;
     margin-right: 15px;
+    padding-top: 10px;
 }
 ul.notifications-details {
     width: 100%;
     margin-top: 10px;
+    min-height: 70px;
 }
 ul.notifications-details li{
 	float: left;
@@ -832,17 +836,20 @@ ul.notifications-details li:nth-child(1):before{
 ul.notifications-details li:nth-child(2):before{
 	/*background-position: -221px -32px;*/
 }
-ul.notifications-details li:last-child {
+ul.notifications-details > li:last-child {
     margin: 0;
     padding: 0;
-    /*position: absolute;
-    right: 16px;
-    top: 18px;*/
+    position: absolute;
+    right: 0;
+    top: 9px;
     float:right;
 }
 ul.notifications-details li:nth-child(3):before{
 	/*background-position: -221px -3px;*/
 	content: none;
+}
+.messages h4 {
+    max-width: calc(100% - 200px);
 }
 .messages h4 span{
 	font-weight: 600;
@@ -864,9 +871,9 @@ button {
 .button-block button:nth-child(2){
 	margin: 6px 0;
 }
-.home-page .button-block button:hover{
-	background: #2D2D2D;
-	    color: #fff;
+.home-page .button-block button:hover, .button-block .open>.dropdown-toggle.btn-default:hover{
+	background-color: rgb(40, 124, 117);
+	color: #fff;
 }
 .button-block {
     margin-right: 54px;
@@ -1198,8 +1205,9 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
 	font-size: 16px;
 	line-height: 32px;    
 	font-weight: 400;   
-    padding: 5px 15px;
-    position: relative
+    padding: 10px 0 6px 45px;
+    position: relative;
+    padding-right: 25px
 }
 .club-details tr td.no-Club{padding: 0px !important;}
 .club-details td .page-title .users{background-position: -389px -28px;
@@ -1408,7 +1416,7 @@ span.ride-listing {
     height: 30px;
 }
 .page-title .ride{
-	float: right;
+	/*float: right;*/
     margin-top: 10px!important;
     background-image: url('../images/bg_imgs/icons-sprite.png')!important;
     background-position: -270px -3px!important;
@@ -1423,6 +1431,10 @@ span.ride-listing {
 }
 .main-content .button-block button {
     width: 0%;
+    color: #fff;
+    background: #3ABCB2;
+    min-width: 130px;
+    border-radius: 0;
 }
 .main-content input[type='text']{width:60%;}
 .input-group-addon{
@@ -1436,3 +1448,58 @@ span.ride-listing {
 	border:none!important;}
 .filter-input{width: 100%!important}
 .filter-form select{background: #fff!important}
+.open>.dropdown-menu {
+    display: block;
+    border-radius: 0;
+    border: 1px solid #B7B7B7;
+    padding: 0 !important;
+}
+ul.dropdown-menu > li {
+    border: none;
+    padding: 3px 0;
+    border-bottom: 1px solid #CACACA;
+    margin: 0;
+}
+.main-content .button-block button > .caret {
+    margin-left: 7px;
+}
+.messages h4.approve-msg {
+    padding-left: 11%;
+    text-align: center;
+    padding-top: 35px;
+    max-width: 100%;
+    color: #56A756;
+}
+.messages h4.approve-msg a{
+	color: #56A756;
+}
+.messages h4.approve-msg > span{
+	padding-left: 5px
+}
+.user-mgt-page td p.ride, .user-mgt-page td p.rideNo-center{
+	float: none;
+}
+.user-mgt-page .content > table th:nth-child(4),
+.user-mgt-page .content > table >tbody>tr>td:nth-child(4){
+	text-align: center !important;
+}
+.user-mgt-page-filtered td>.page-title h4{
+	padding: 10px 0 2px 10px;
+}
+.user-mgt-page-filtered td>.page-title span.ride-listing {
+    background-image: url('../images/bg_imgs/icons-sprite.png');
+    background-position: -412px 1px;
+    width: 30px;
+    height: 30px;
+}
+.user-mgt-page-filtered td>.page-title > *{
+	display: inline-block;
+}
+.user-mgt-page-filtered td>.page-title{
+	padding: 0 0 0 15px;
+	display: block;
+}
+.user-mgt-page-filtered td>.page-title > h4{
+	width: calc(100% - 150px);
+	margin: 0
+}

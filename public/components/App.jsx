@@ -64,7 +64,7 @@ var App = React.createClass({
     },
   _onClick: function(event){
         var currentThis = this;
-        console.log("userCredentials",this.state.userCredentials);
+        
       if(event.target.name == "login"){
             var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var requestData = {};

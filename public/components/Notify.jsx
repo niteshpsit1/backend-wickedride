@@ -155,7 +155,7 @@ var Notify = React.createClass({
 			<div>
                 {<div className="messages-block">
                     <div className="messages">
-						<h4>
+						<h4 className="approve-msg">
 						    <span>
 						        <a href="">{this.props.request.name}</a>
 						    </span><span>requested by {this.props.request.requestedBy.fullname} is {this.state.msg}.</span>
@@ -172,7 +172,7 @@ var Notify = React.createClass({
 			<div>
                 {<div className="messages-block">
                     <div className="messages">
-						<h4>
+						<h4 className="approve-msg">
 						    <span>
 						        <a href="">Admin of club {this.props.request.name}</a>
 						    </span>&nbsp;&nbsp;<span>requested by {this.props.request.requestedBy.fullname} changed to {this.state.newAdminName}.</span>
@@ -203,7 +203,7 @@ var Notify = React.createClass({
 							    <li >
 								    <div className="button-block">
 								        <div className="dropdown">
-                                            <button className="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" onClick={this.membersList}>Change Admin
+                                            <button className="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" onClick={this.membersList}>Change Admin
                                                 <span className="caret"></span>
                                             </button>
                                             <ul className="dropdown-menu">

@@ -54,7 +54,7 @@ var Notification = React.createClass({
 				
 				    <div className="content home-page">
 				        {this.state.requests.map(function(request,i) {
-                            console.log("notiiiiii",request);
+                            
                             return <Notify request={request} key={i} token={currentThis.state.token} tag={request._id}/>
 					    })}
 					    

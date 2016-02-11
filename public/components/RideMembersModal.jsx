@@ -8,7 +8,7 @@ var RideMembersModal = React.createClass({
 	},
 
 	componentWillMount: function() {
-		console.log("HHHHHHHHHHHHHHHHHH");
+		
 		var self= this,
         result = [];
 		var requestData = {
@@ -19,7 +19,7 @@ var RideMembersModal = React.createClass({
 		};
 		services.GET(config.url.getClubRideMembers, requestData)
 		.then(function(data){
-			console.log("Ridememberslistinggggg",data);
+			
 			result=data.response.result;
 			if(result.length) {
 				self.setState({
@@ -39,11 +39,7 @@ var RideMembersModal = React.createClass({
 
 		$(React.findDOMNode(this)).modal('show');
 		$(React.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideRideMembersModal);
-
-        console.log("modalllll");
 	},
-
-	
 
 	render: function () {
 		var self = this;

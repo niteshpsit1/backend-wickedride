@@ -39,7 +39,6 @@ var RidesListing = React.createClass({
 		});
 	},
 	componentWillMount: function(){
-		console.log('RidesListinggggggg');
     
         var self= this;
         /*var current = this;*/
@@ -51,11 +50,11 @@ var RidesListing = React.createClass({
 
 		services.GET(config.url.getClubRides, requestData)
 		.then(function(data){
-			console.log("gridessssss1111",data);
+			
 			result=data.response.result;
-			console.log("gridessssss2222",result);
+			
 			if(result.length) {
-				console.log("333333333333333333",self);
+				
 				self.setState({
 				rides:result,
 				ridesAvailable:true
@@ -70,19 +69,13 @@ var RidesListing = React.createClass({
     },
 
 	close: function() {
-		console.log("inside close function");
+		
 		this.props.handleHideRide(false);
        
 	},
 
-	componentDidMount: function() {
-
-		console.log("diddd mount");
-
-	},
-
 	rideFilter: function(){
-		console.log("oooooooooooo");
+		
 		this.setState({
 			filter: !this.state.filter
 		});
@@ -95,14 +88,14 @@ var RidesListing = React.createClass({
 			this.setState({
 				filterByStartDate: event.target.value
 			});
-			console.log("starttttttttt",this.state.filterByStartDate);
+			
 			
 		}
 		else if(event.target.name == "filterByEndDate"){
 			this.setState({
 				filterByEndDate: event.target.value
 			});
-			console.log("starttttttttt",this.state.filterByEndtDate);
+			
 		}
 		
 	},
@@ -177,6 +170,7 @@ var RidesListing = React.createClass({
 			return(
 				<td colSpan="5" className="no-Club">
 				    <div className="page-title">
+				    <span className="ride-listing"></span>
 					    <h4>No rides are available</h4>
 					    <div className="filter-block" onClick={this.close}>
 						    <a href="#"></a>

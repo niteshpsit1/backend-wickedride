@@ -11,7 +11,6 @@ var RideDescriptionModal = React.createClass({
 		$(React.findDOMNode(this)).modal('show');
 		$(React.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideRideDescriptionModal);
 
-        console.log("modalllll");
 	},
 
 	
