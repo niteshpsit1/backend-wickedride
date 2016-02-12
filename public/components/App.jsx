@@ -10,11 +10,6 @@ var App = React.createClass({
       adminName:localStorage.getItem("wikedrideSuperAdminName") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminName")).adminName : ""
     }
   },
-  componentWillMount: function(){
-    if(this.state.token && this.state.token !==""){
-      window.location.href = "/home";
-    }
-  },
   render() {
     return (
      <div className="wrapper login-page">
@@ -80,7 +75,7 @@ var App = React.createClass({
                     localStorage.setItem('wikedrideSuperAdminName', JSON.stringify({
                         adminName:data.response.user.fullname
                     }));
-                    window.location.href = "/home"
+                    window.location.href = "/adminlogin";
                 })
                 .catch(function(error){
                     console.log("======error",error);

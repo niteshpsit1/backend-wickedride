@@ -94,7 +94,7 @@ var Layout =  React.createClass({
             currentThis.setState({
                 userCredentials:{}
             });
-            window.location.href = "/";
+            window.location.href = "/adminlogout";
         }
     }
 });
