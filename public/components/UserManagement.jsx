@@ -33,8 +33,10 @@ var UserManagement = React.createClass({
 			
 
 			LOD = data.response.lengthOfDocument;
-			if(LOD<10){
+			
+			if(LOD<10||LOD==10){
                 pages = 1;
+                currentThis.setState({disableNext:true,disablePrevious:true});
 			}else {
 			    pages = LOD/allUrlData.pageSize;
 		    }
@@ -169,7 +171,7 @@ var UserManagement = React.createClass({
 		var minus = null;
 		
 		if(decrement==1){
-			this.setState({disablePrevious : true})
+			this.setState({disablePrevious : true,disableNext:false})
 		}else {
 		   
 		    decrement=decrement-1;
@@ -199,11 +201,11 @@ var UserManagement = React.createClass({
 		this.setState({disablePrevious: false});
 		
         increment = increment+1;
-		if(increment==Math.ceil(this.state.noOfPages)){
+		if(increment==this.state.noOfPages){
 			this.setState({disableNext : true})
-		}else {
+		}
 			
-		    this.setState({pageNo : increment});
+		    this.setState({pageNo : increment}); 
 		    
 		
 		    
@@ -224,7 +226,7 @@ var UserManagement = React.createClass({
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
-		}
+		
 		
 	}
 	

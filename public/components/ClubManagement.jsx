@@ -37,8 +37,10 @@ var ClubManagement = React.createClass({
 			LOD = data.response.lengthOfDocument;
 			if(LOD<10){
                 pages = 1;
+                self.setState({disablePrevious:true,disableNext:true});
 			}else {
 			    pages = LOD/allUrlData.pageSize;
+			   
 		    }
 
 			
@@ -165,12 +167,14 @@ var ClubManagement = React.createClass({
 	_onPaginationNext: function(event){
 		var currentThis = this;
 		var increment = this.state.pageNo;
-		this.setState({disablePrevious: false});
+
+		this.setState({disablePrevious : false});
 		
         increment = increment+1;
-		if(increment==Math.ceil(this.state.noOfPages)){
-			this.setState({disableNext : true})
-		}else {
+
+		if(increment==this.state.noOfPages){
+			this.setState({disableNext : true});
+		}
 			
 		    this.setState({pageNo : increment});
 		    
@@ -190,7 +194,7 @@ var ClubManagement = React.createClass({
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
-		}
+		
 		
 	},
 

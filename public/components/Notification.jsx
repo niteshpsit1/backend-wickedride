@@ -10,8 +10,8 @@ var Notification = React.createClass({
 			noOfPages: null,
 			pageNo : 1,
 			disablePrevious : true,
-			disableNext : true
-			
+			disableNext : true,
+			notAvailable : false
 		}
 	},
 	componentWillMount: function () {
@@ -26,10 +26,13 @@ var Notification = React.createClass({
 		services.POST(config.url.getDeleteRequests, requestData)
 		.then(function(data){
 			LOD = data.response.lengthOfDocument;
-			if(LOD<10){
+			if((LOD>0&&LOD<10)||LOD==10){
                 pages = 1;
                 self.setState({disablePrevious : true,disableNext : true});
-			}else {
+			}else if(LOD==0){
+				
+			    self.setState({notAvailable : true});
+		    }else {
 			    pages = LOD/allUrlData.pageSize;
 		    }
 			
@@ -43,6 +46,23 @@ var Notification = React.createClass({
 	render: function (){
 		var currentThis = this;
 		
+		if(this.state.notAvailable){
+			
+		return (
+		
+			<div className="main user-mgt-page-filtered common-table expandable">
+				<div className="main-content">
+				    <div className="page-title">
+					    <h1>Notifications for Delete Requests from Admins</h1>
+				    </div>
+				    
+				    <div className="content home-page">
+				        <div><b>No Notifications present</b></div>
+			        </div>
+		        </div>
+		    </div>
+		)
+	} else {
 		
 		return (
 		
@@ -51,7 +71,7 @@ var Notification = React.createClass({
 				    <div className="page-title">
 					    <h1>Notifications for Delete Requests from Admins</h1>
 				    </div>
-				
+				    
 				    <div className="content home-page">
 				        {this.state.requests.map(function(request,i) {
                             
@@ -67,7 +87,8 @@ var Notification = React.createClass({
 		        </div>
 		    </div>
 		)
-	},
+	    }
+    },
 
 	_onPaginationPrevious: function(event){
 		var currentThis = this;
