@@ -86,9 +86,8 @@ var ClubList = React.createClass({
 				    <td><p>{this.props.club.creatorName}</p></td>
 				    <td><p>{this.state.date}</p></td>
 				    <td><p>{this.state.time}</p></td>
-				    <td><p><a onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
-				        <p><a className={this.state.classGallery}></a></p>
-				        <p><a onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>
+				    <td><p><a href="#" onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
+				        <p><a href="#" onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>
 				    </td>
                 </tr>
                 <tr>

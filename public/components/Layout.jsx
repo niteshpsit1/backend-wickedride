@@ -10,7 +10,14 @@ var Layout =  React.createClass({
             userCredentials:localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).userCredentials : {},
             isLogin:localStorage.getItem("wikedrideSuperAdminIsLogin") ? true : false,
             adminName:localStorage.getItem("wikedrideSuperAdminName") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminName")).adminName : "",
-            name:"Deepak"
+            homeClass: "active",
+            userClass: "",
+            clubClass: "",
+            settingClass: "",
+            termClass: "",
+            aboutClass: ""
+
+
 		}
 	},
     render: function() {
@@ -19,12 +26,12 @@ var Layout =  React.createClass({
             <div>
                 <header>
                     <div className="logo-wrapper">
-                        <a href="#">
+                        
                             <img src="/images/wicked-ride-logo.png"/>
-                        </a>
+                        
                     </div>
                     <div className="admin-details">
-                        <p>Admin Name <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
+                        <p>Admin Name  : <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
                         <p className="account-img"><img src="/images/bg_imgs/user-icon1.jpg"/></p>
                         <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
                     </div>
@@ -32,12 +39,12 @@ var Layout =  React.createClass({
                 <div className="wrapper">
                     <aside className="sidebar">
                         <ul className="navigation clearfix">
-                            <li className="active"><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
-                            <li><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
-                            <li><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
-                            <li><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
-                            <li><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
-                            <li><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
+                            <li className={this.state.homeClass}><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
+                            <li className={this.state.userClass}><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
+                            <li className={this.state.clubClass}><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
+                            <li className={this.state.aboutClass}><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
+                            <li className={this.state.termClass}><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
+                            <li className={this.state.settingClass}><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
                         </ul>
                     </aside>
                     {this.props.children}
@@ -69,6 +76,16 @@ var Layout =  React.createClass({
     },
     _onClick: function(event){
         var currentThis = this;
+
+        this.setState({
+          homeClass: $(event.target).attr("name") == 'homeState' ? "active" : "",
+          userClass: $(event.target).attr("name") == 'userManagementState' ? "active" : "",
+          clubClass: $(event.target).attr("name") == 'clubManagementState' ? "active" : "",
+          settingClass: $(event.target).attr("name") == 'settingState' ? "active" : "",
+          termClass: $(event.target).attr("name") == 'termAndConditions' ? "active" : "",
+          aboutClass: $(event.target).attr("name") == 'aboutUs' ? "active" : ""
+        });
+
         if($(event.target).attr("name") == 'termAndConditions'){
             History.pushState(null,"/home/termAndConditions");
         }
@@ -76,6 +93,7 @@ var Layout =  React.createClass({
              History.pushState(null,"/home/notification");
         }
         else if ($(event.target).attr("name") == 'userManagementState') {
+            this.setState({activeClass : "active"});
              History.pushState(null,"/home/users");
         }
         else if ($(event.target).attr("name") == 'clubManagementState') {

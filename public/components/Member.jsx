@@ -53,14 +53,21 @@ var Member = React.createClass({
 		    return (
 		    	<tbody>
 			    {self.state.showMember &&
-			    <tr>
-			        <td><p>{this.state.member.userName}</p></td>
-				    <td><p>{this.state.member.designation}</p></td>
-				    <td><p>{this.state.member.awards}</p></td>
-				    <td onClick={this.handleShowModal}><span className="ride"></span><p>{this.state.member.clubJoined.length}</p></td>
-				    <td><a href="#" className="remove" onClick={this.removeUser.bind(this)}></a></td> 
-				    {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}
-			    </tr>}
+			        <tr>
+			            <td><p>{this.state.member.userName}</p></td>
+				        <td><p>{this.state.member.designation}</p></td>
+				        <td><p>{this.state.member.awards}</p></td>
+				        <td onClick={this.handleShowModal}>
+				            <a href="#">
+				                <span className="ride"></span>
+				                <p>{this.state.member.clubJoined.length}</p>
+				            </a>
+				        </td>
+				        <td>
+				            <a href="#" className="remove" onClick={this.removeUser.bind(this)}></a>
+				        </td> 
+				        {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}
+			        </tr>}
 			    </tbody>
 			    
 			    

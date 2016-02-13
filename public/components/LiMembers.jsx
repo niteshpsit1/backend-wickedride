@@ -2,13 +2,20 @@ var LiMembers = React.createClass({
 	getInitialState: function(){
 		return ({
 			
-			showMember: true
+			showMember: true,
+			showAlert : false,
+			alertMessage : "Are you sure you want to delete the club?",
+			action : "changeAdmin"
 			
 		});
 	},
+    
+    componentWillMount: function() {
+       /* console.log("ooooooooooo");*/
+    },
 
-	transferRights: function() {
-        
+	changeAdminApi: function() {
+        console.log("changeAdminApi");
         var self= this,
         result = [];
 		var requestData = {
@@ -27,6 +34,7 @@ var LiMembers = React.createClass({
 			if(result) {
 				self.setState({transferred:true});
 				self.props.rightsMessage(true,self.props.name);
+				/*self.props.handleHideAlertModal();*/
 			}
 			
 			
@@ -37,12 +45,22 @@ var LiMembers = React.createClass({
         
 	},
 
+	handleShowAlertModal: function() {
+		console.log("newadminnn iddddddd",this.props.newAdminID)
+		this.props.handleShowAlertModal(this.state.action,this.props.newAdminID);
+		/*
+		*/
+
+    },
 	
-	
-	render: function () {
+	render: function() {
+		    console.log("liiiiiiiiiiiiiii");
 	        var self= this;
 		    return (
-		    	<li onClick={this.transferRights}>{this.props.name}</li>
+		    	<div>
+		    	    <li onClick={this.handleShowAlertModal}><a href="#">{this.props.name}</a></li>
+		    	    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.props.action} message={this.props.message}/> : null}
+		    	</div>
 			)
 	}
 });

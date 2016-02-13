@@ -94,7 +94,7 @@ var MembersListing = React.createClass({
 						<th>Designation</th>
 						<th>Awards</th>
 						<th>ClubJoined</th>
-						<th>Delete Member</th>
+						<th></th>
 			
 						<tbody>
 						{this.state.members.map(function(member){

@@ -18,8 +18,13 @@ var ClubManagement = React.createClass({
 			pageNo : 1,
 			disablePrevious : true,
 			disableNext : false,
-			filterByClubName : null
-		}
+			filterByClubName : null,
+			notAvailable : false,
+			result : true,
+			noResult : false,
+			filterResult : [],
+			filterData : false
+		} 
 	},
 	
 	componentWillMount: function () {
@@ -35,10 +40,14 @@ var ClubManagement = React.createClass({
 		.then(function(data){
 			
 			LOD = data.response.lengthOfDocument;
-			if(LOD<10){
+
+			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
                 self.setState({disablePrevious:true,disableNext:true});
-			}else {
+			}else if(LOD==0){
+				
+			    self.setState({notAvailable : true});
+		    }else {
 			    pages = LOD/allUrlData.pageSize;
 			   
 		    }
@@ -54,68 +63,116 @@ var ClubManagement = React.createClass({
 	render: function (){
 		var currentThis = this;
 		
-		
-		return (
-			<div className="main user-mgt-page-filtered common-table expandable">
-				<div className="main-content">
-				<div className="page-title">
-					<h1>All Club Details</h1>
-					<div className="filter-block">
-						<a href="#" onClick={this._onFilter}></a>
-					</div>
-				</div>
-				<div className="content">
-				    {this.state.clubFilter &&
-							<div className="filter-form">
-								<table>
-									<tbody>
-										<tr>
-											<td style={{width:'100px'}}><label>Club Name</label></td>
-											<td><input type="text" name="filterByClubName" onChange={this._onchange}/></td>
-											
-										</tr>
-										
-										<tr>
-											<td colSpan="4">
-												<div className="button-block">
-													<button onClick={this._onFilterClick}>Filter</button>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-						</div>}
-					<table cellSpacing="0" cellPadding="25" className="club-details">
-					    <tr>
-						<th>Club Name</th>
-						<th>Creator Name</th>
-						<th>Date</th>
-						<th>Time</th>
-						<th></th>
-						</tr>
-						
-							{this.state.clubs.map(function(club){
-
-		
-								
-								    return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
-							
-							})}
-						
-					</table>
-					<div className="text-right">
-					    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
-					    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
-                        
-					</div>
-				</div>
-			</div>
-		</div>
-		);
+		if(this.state.notAvailable){
+			
+		    return (
+		    
+			    <div className="main user-mgt-page common-table">
+				    <div className="main-content">
+				        <div className="page-title">
+					        <h1>All Club Details</h1>
+				        </div>
+				        
+				        <div className="content home-page">
+				            <div><b>No clubs present</b></div>
+			            </div>
+		            </div>
+		        </div>
+		    )
+	    }else {
+		    return (
+			    <div className="main user-mgt-page-filtered common-table expandable">
+				    <div className="main-content">
+				        <div className="page-title">
+					        <h1>All Club Details</h1>
+					        <div className="filter-block">
+						        <a href="#" onClick={this._onFilter}></a>
+					        </div>
+				        </div>
+				    <div className="content">
+				        {this.state.clubFilter &&
+							    <div className="filter-form">
+								    <table>
+									    <tbody>
+										    <tr>
+											    <td style={{width:'100px'}}><label>Club Name</label></td>
+											    <td><input type="text" name="filterByClubName" onChange={this._onchange}/></td>
+											    
+										    </tr>
+										    
+										    <tr>
+											    <td colSpan="4">
+												    <div className="button-block">
+													    <button onClick={this._onFilterClick}>Search</button>
+												    </div>
+											    </td>
+										    </tr>
+									    </tbody>
+								    </table>
+						    </div>}
+					    {this.state.result &&
+					        <div>
+					            <table cellSpacing="0" cellPadding="25" className="club-details">
+					                <tr>
+						            <th>Club Name</th>
+						            <th>Creator Name</th>
+						            <th>Date</th>
+						            <th>Time</th>
+						            <th></th>
+						            </tr>
+						            
+							            {this.state.clubs.map(function(club){
+							        	    return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
+							            })}
+						            
+					            </table>
+					            <div className="text-right">
+					                <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					                <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                                    
+					            </div>
+					        </div>
+					    }
+					    {this.state.filterData &&
+						    <div>
+						        <table cellSpacing="0" cellPadding="25">
+							        <th><p>User Name</p></th>
+							        <th>Email</th>
+							        <th>Number</th>
+							        <th>Number of Clubs Joined</th>
+							        <tbody>
+								        {this.state.filterResult.map(function(club){
+									        
+			  						       return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
+			  					       })}
+			  				       </tbody>
+						        </table>
+                            </div>
+                        }
+					    {this.state.noResult &&
+							    <div className="filter-form">
+								    <table>
+									    <tbody>
+										    <tr>
+											    <td style={{width:'100px'}}><label>No result available</label></td>
+											    
+											    
+										    </tr>
+									    </tbody>
+								    </table>
+						    </div>}
+				    </div>
+			    </div>
+		    </div>
+		    )
+        }
 	},
 	_onFilter: function(){
 		this.setState({
-			clubFilter: !this.state.clubFilter
+			clubFilter: !this.state.clubFilter,
+			noResult : false,
+			result : true,
+			filterData : false
 		});
 	},
 
@@ -208,9 +265,18 @@ var ClubManagement = React.createClass({
 		
 		services.POST(config.url.getAllClub, requestData)
 		.then(function(data){
-			currentThis.setState({
-				clubs:data.response.result
-			});
+			if(data.response.result.length){
+			    currentThis.setState({
+				    filterResult:data.response.result,
+				    filterData : true,
+				    result : false
+			    });
+		    }else {
+		    	currentThis.setState({
+				    noResult : true,
+				    result :false
+			    });
+		    }
 		}) 		
 		.catch(function(error){
 			console.log(error)

@@ -19,11 +19,22 @@ var UserManagement = React.createClass({
 			noOfPages: null,
 			pageNo : 1,
 			disablePrevious : true,
-			disableNext : false
+			disableNext : false,
+		    notAvailable : false,
+			result : true,
+			noResult : false,
+			filterResult : [],
+			filterData : false,
+			temp : null
 		}
 	},
 	componentWillMount: function(){ 
-		var currentThis = this,
+		this.pagination();
+	},
+
+	pagination : function() {
+		console.log("paginationnnnnnnnn");
+        var currentThis = this,
 		pages = null,
 		LOD = null;
 		var requestData = {};
@@ -31,14 +42,23 @@ var UserManagement = React.createClass({
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
 			
-
+            
 			LOD = data.response.lengthOfDocument;
+			console.log("LODDDD",LOD);
 			
-			if(LOD<10||LOD==10){
+			if((LOD<10&&LOD>0)||LOD==10){
+				console.log("insideeeeeeeeee");
                 pages = 1;
                 currentThis.setState({disableNext:true,disablePrevious:true});
-			}else {
+			}else if(LOD==0){
+				
+			    currentThis.setState({notAvailable : true});
+		    }else {
+
 			    pages = LOD/allUrlData.pageSize;
+			    currentThis.setState({temp : Math.ceil(pages)});
+			    console.log("insideeeeeeeeee33", pages);
+			    currentThis.setState({disableNext:false,disablePrevious:true});
 		    }
 
 			currentThis.setState({
@@ -48,82 +68,131 @@ var UserManagement = React.createClass({
 			console.log(error)
 		})
 	},
+
 	render: function() {
 		var self = this;
 	
-		
-		return (
-			<div className="main user-mgt-page common-table">
-                <div className="main-content">
-					<div className="page-title">
-	                    <h1>All Users Details</h1>
-	                    <div className="filter-block">
-	                        <a href="#" onClick={this._onFilter}></a>
-	                    </div>
-	                </div>
-					<div className="content">
-							{	this.state.userFilter &&
-								<div className="filter-form">
-								<table>
-									<tbody>
-										<tr>
-											<td style={{width:'100px'}}><label>Name</label></td>
-											<td><input type="text" name="filterByName" onChange={this._onchange} className="filter-input"/></td>
-											<td style={{width:'100px'}}><label>Email</label></td>
-											<td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
-										</tr>
-										<tr>
-											<td style={{width:'100px'}}><label>Designation</label> </td>
-											<td className="select-parent">
-												<select name="filterByDesignation" onChange={this._onchange}>
-													<option value="">Select</option>
-													{	this.state.designations.map(function(designation){
-															return <option value={designation.name}>{designation.name}</option>
-														})
-													}
-												</select>
-											</td>
-										</tr>
-										<tr>
-											<td colSpan="4">
-												<div className="button-block">
-													<button onClick={this._onClick}>Filter</button>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-						</div>}
-						<table cellSpacing="0" cellPadding="25">
-							<th><p>User Name</p></th>
-							<th>Email</th>
-							<th>Number</th>
-							<th>Number of Clubs Joined</th>
-							<th>Awards</th>
-							<tbody>
-								{this.state.userList.map(function(user){
-									
-			  						return <UserList user={user} token={self.state.token} key={user.userID}/> 
-			  					})}
-			  				</tbody>
-						</table>
-						<div className="text-right">
-					        <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
-					        <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
-                        </div>
-					</div>
-				</div>
-				
-			</div>
+		if(this.state.notAvailable){
 			
-     
-		);
+		    return (
+		    
+			    <div className="main user-mgt-page common-table">
+				    <div className="main-content">
+				        <div className="page-title">
+					        <h1>All Users Details</h1>
+				        </div>
+				        
+				        <div className="content home-page">
+				            <div><b>No users present</b></div>
+			            </div>
+		            </div>
+		        </div>
+		    )
+	    } else {
+	    	
+		    return (
+			    <div className="main user-mgt-page common-table">
+                    <div className="main-content">
+					    <div className="page-title">
+	                        <h1>All Users Details</h1>
+	                        <div className="filter-block">
+	                            <a href="#" onClick={this._onFilter}></a>
+	                        </div>
+	                    </div>
+					    <div className="content">
+							    {this.state.userFilter &&
+								    <div className="filter-form">
+								    <table>
+									    <tbody>
+										    <tr>
+											    <td style={{width:'100px'}}><label>Name</label></td>
+											    <td><input type="text" name="filterByName" onChange={this._onchange} className="filter-input"/></td>
+											    <td style={{width:'100px'}}><label>Email</label></td>
+											    <td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
+										    </tr>
+										    <tr>
+											    <td colSpan="4">
+												    <div className="button-block">
+													    <button onClick={this._onClick}>Search</button>
+												    </div>
+											    </td>
+										    </tr>
+									    </tbody>
+								    </table>
+						    </div>}
+						    {this.state.result &&
+						    	<div>
+						            <table cellSpacing="0" cellPadding="25">
+							            <th><p>User Name</p></th>
+							            <th>Email</th>
+							            <th>Number</th>
+							            <th>Number of Clubs Joined</th>
+							            <tbody>
+								            {this.state.userList.map(function(user){
+									            
+			  						           return <UserList user={user} token={self.state.token} key={user.userID}/> 
+			  					           })}
+			  				           </tbody>
+						            </table>
+						            <div className="text-right">
+					                    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					                    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                                    </div>
+                                </div>
+                            }
+                            {this.state.filterData &&
+						    	<div>
+						            <table cellSpacing="0" cellPadding="25">
+							            <th><p>User Name</p></th>
+							            <th>Email</th>
+							            <th>Number</th>
+							            <th>Number of Clubs Joined</th>
+							            <tbody>
+								            {this.state.filterResult.map(function(user){
+									            
+			  						           return <UserList user={user} token={self.state.token} key={user.userID}/> 
+			  					           })}
+			  				           </tbody>
+						            </table>
+						            <div className="text-right">
+					                    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					                    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                                    </div>
+                                </div>
+                            }
+                            {this.state.noResult &&
+							    <div className="filter-form">
+								    <table>
+									    <tbody>
+										    <tr>
+											    <td style={{width:'100px'}}><label>No result available</label></td>
+											</tr>
+									    </tbody>
+								    </table>
+						        </div>
+						    }
+					    </div>
+				    </div>
+				    
+			    </div>
+			)
+        }
+    
 	},
+
 	_onFilter: function(){
+		var self = this;
+		self.pagination();
 		this.setState({
-			userFilter: !this.state.userFilter
+			userFilter: !this.state.userFilter,
+			noResult : false,
+			result : true,
+			filterData : false
 		});
+		/*this.pagination();*/
+		
 	},
+
 	_onchange: function(event){
 		
 		if(event.target.name == "filterByDesignation"){
@@ -151,9 +220,31 @@ var UserManagement = React.createClass({
 		requestData.designation = this.state.filterByDesignation;
 		services.POST(config.url.userListFilter, requestData)
 		.then(function(data){
-			currentThis.setState({
-				userList:data.response.result
-			});
+			console.log("--------------",data);
+			var LOD = data.response.result.length;
+			if((LOD<10&&LOD>0)||LOD==10){
+                pages = 1;
+                currentThis.setState({disableNext:true,disablePrevious:true});
+			}else if(LOD==0){
+				console.log("00000000000",LOD);
+			    currentThis.setState({noResult : true});
+		    }else {
+			    pages = LOD/allUrlData.pageSize;
+		    }
+			if(LOD){
+			    currentThis.setState({
+				    filterResult:data.response.result,
+				    filterData : true,
+				    result : false,
+				    noResult : false,
+				    noOfPages : Math.ceil(pages)
+			    });
+		    }else {
+		    	currentThis.setState({
+		    		noResult : true,
+		    		result :false
+		    	});
+		    }
 		}) 		
 		.catch(function(error){
 			console.log(error)
@@ -205,27 +296,24 @@ var UserManagement = React.createClass({
 			this.setState({disableNext : true})
 		}
 			
-		    this.setState({pageNo : increment}); 
-		    
+		this.setState({pageNo : increment}); 
 		
-		    
-		
-			var requestData = {
-		        token: this.state.token,
-			    pageSize:allUrlData.pageSize,
-			    pageNumber: this.state.pageNo+1
-			};
-			services.GET(config.url.getAllUser, requestData)
-			.then(function(data){
-				
-				currentThis.setState({
-				userList:data.response.result
-			});
-				
-			})
-			.catch(function(error){
-				console.log("====catch",error);	
-			});	
+		var requestData = {
+		    token: this.state.token,
+			pageSize:allUrlData.pageSize,
+			pageNumber: this.state.pageNo+1
+		};
+		services.GET(config.url.getAllUser, requestData)
+		.then(function(data){
+			
+			currentThis.setState({
+			userList:data.response.result
+		});
+			
+		})
+		.catch(function(error){
+			console.log("====catch",error);	
+		});	
 		
 		
 	}
