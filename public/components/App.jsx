@@ -13,31 +13,29 @@ var App = React.createClass({
   render() {
     return (
      <div className="wrapper login-page">
+        <div className="logoOuter">
+            <img src="images/wicked-ride-logo.png" alt="Wicked Ride"/>
+        </div>
         <div className="login-form">
             <div className="filter-form">
                 <form>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style={{width:"80px"}}><label>Email-ID</label></td>
-                                <td><input name="username" type="email" onChange={this._onChange}/></td>
-                            </tr>
-                            <tr>
-                                <td style={{width:"80px"}}><label>Password</label></td>
-                                <td> <input name="password" type="password" onChange={this._onChange} /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div className="button-block">
-                                        <button type="button" name="login" onClick={this._onClick}>Login</button>
-                                    </div>
-                                </td>
-                            </tr> 
-                            <div>
+                <div className="form-row">
+                                <label>Email-ID</label>
+                                <input name="username" type="email" onChange={this._onChange}/>
+                            <div className="errorMess">
                                 <span>{this.state.loginError}</span>
                             </div>
-                        </tbody>
-                    </table>
+                                </div>
+                                <div className="form-row">
+                                <label>Password</label>
+                                <input name="password" type="password" onChange={this._onChange} />
+                            <div className="errorMess">
+                                <span>{this.state.loginError}</span>
+                            </div>
+                                </div>
+                                    <div className="button-block">
+                                        <button type="button" className="siteButton" name="login" onClick={this._onClick}>Login</button>
+                                    </div>
                 </form>
             </div>
         </div>

@@ -25,7 +25,7 @@ var PersonalSetting = React.createClass({
 					<form>
 						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} defaultValue={this.state.userName}/></div>
 						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
-						<div className="button-block">
+						<div className="button-block f3">
 							<button type="button" onClick={this._onClick}>Submit</button>
 						</div>
 					</form>

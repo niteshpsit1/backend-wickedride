@@ -22,9 +22,11 @@ var PasswordSetting = React.createClass({
 						<div>{this.state.errorMessage}</div>}
 					{	this.state.successMessaage &&
 						<div>{this.state.successMessaage}</div>}
-					<div className="button-block">
-						<button type="button" onClick={this._onClick}>Change Password</button>
+					<div className="f4">
+						<div className="button-block">
+							<button type="button" onClick={this._onClick}>Change Password</button>
 
+						</div>
 					</div>
 				</form>
 			</div>

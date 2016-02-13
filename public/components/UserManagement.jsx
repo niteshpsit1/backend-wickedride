@@ -95,7 +95,7 @@ var UserManagement = React.createClass({
 								</table>
 						</div>}
 						<table cellSpacing="0" cellPadding="25">
-							<th><p>User Name</p></th>
+							<th>User Name</th>
 							<th>Email</th>
 							<th>Number</th>
 							<th>Number of Clubs Joined</th>
@@ -107,9 +107,9 @@ var UserManagement = React.createClass({
 			  					})}
 			  				</tbody>
 						</table>
-						<div className="text-right">
-					        <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
-					        <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+						<div className="text-right arrow-sign">
+					        <button type="button" className="btn prevBtn" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					        <button type="button" className="btn nextBtn" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
                         </div>
 					</div>
 				</div>

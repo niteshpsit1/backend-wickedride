@@ -201,7 +201,7 @@ var Notify = React.createClass({
 							    {this.state.message &&
 							    <span>Transferred rights successfully</span>}
 							    <li >
-								    <div className="button-block">
+								    <div className="button-block aaa">
 								        <div className="dropdown">
                                             <button className="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" onClick={this.membersList}>Change Admin
                                                 <span className="caret"></span>
@@ -213,8 +213,8 @@ var Notify = React.createClass({
 							                        })}
                                             </ul>
                                         </div>
-									    <button onClick={this.approveRequest}>Approve</button>
-									    <button onClick={this.deleteClub}>Reject</button>
+									    <button className="approve-btn" onClick={this.approveRequest}>Approve</button>
+									    <button className="reject-btn" onClick={this.deleteClub}>Reject</button>
 									    
 								    </div>
 							    </li>
