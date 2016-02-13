@@ -1,7 +1,7 @@
 var AllUrl = {
 	pageSize: 5
 }
-
+ 
 var ClubList = React.createClass({
 	getInitialState: function(){
 		return ({
@@ -54,11 +54,6 @@ var ClubList = React.createClass({
         }else {
         	this.setState({showRide:true, classRide : "ride active"});
         }
-	},
-
-	appendGallery: function(){
-
-        this.setState({showGallery:true, classGallery : "gallery active"});
 	},
 
 	handleHideUser: function() {

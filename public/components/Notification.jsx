@@ -10,7 +10,7 @@ var Notification = React.createClass({
 			noOfPages: null,
 			pageNo : 1,
 			disablePrevious : true,
-			disableNext : true,
+			disableNext : false,
 			notAvailable : false
 		}
 	},
@@ -25,6 +25,7 @@ var Notification = React.createClass({
 		};
 		services.POST(config.url.getDeleteRequests, requestData)
 		.then(function(data){
+			console.log("delete reqqqqqqqqqqqq",data);
 			LOD = data.response.lengthOfDocument;
 			if((LOD>0&&LOD<10)||LOD==10){
                 pages = 1;
@@ -33,6 +34,7 @@ var Notification = React.createClass({
 				
 			    self.setState({notAvailable : true});
 		    }else {
+		    	console.log("more pages");  
 			    pages = LOD/allUrlData.pageSize;
 		    }
 			

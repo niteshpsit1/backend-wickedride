@@ -148,6 +148,8 @@ var Notify = React.createClass({
 			console.log("successfully approved request",data.response);
 			
 			self.setState({transferred:true,showApproveMsg : true,msg : "approved"});
+			/*setTimeout(self.setState({showApproveMsg : false}),5000);*/
+
 			
 			
 			
@@ -208,7 +210,7 @@ var Notify = React.createClass({
 	render: function (){
 		var currentThis = this;
 		if(this.state.showApproveMsg) {
-
+       
 		return (
 			<div>
                 {<div className="messages-block">

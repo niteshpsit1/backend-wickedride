@@ -98,7 +98,7 @@ var MembersListing = React.createClass({
 			
 						<tbody>
 						{this.state.members.map(function(member){
-							
+							console.log("memmmmmmmmmmmmmmmmmm",member);
 								return <Member member={member} token={self.props.token} clubID={self.props.clubID}/>
 							})}
 						</tbody>
