@@ -33,7 +33,6 @@ var UserManagement = React.createClass({
 	},
 
 	pagination : function() {
-		console.log("paginationnnnnnnnn");
         var currentThis = this,
 		pages = null,
 		LOD = null;
@@ -41,13 +40,8 @@ var UserManagement = React.createClass({
 		requestData.token = this.state.token;
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
-			
-            
 			LOD = data.response.lengthOfDocument;
-			console.log("LODDDD",LOD);
-			
 			if((LOD<10&&LOD>0)||LOD==10){
-				console.log("insideeeeeeeeee");
                 pages = 1;
                 currentThis.setState({disableNext:true,disablePrevious:true});
 			}else if(LOD==0){
@@ -56,13 +50,9 @@ var UserManagement = React.createClass({
 		    }else {
 
 			    pages = LOD/allUrlData.pageSize;
-			    currentThis.setState({temp : Math.ceil(pages)});
-			    console.log("insideeeeeeeeee33", pages);
-			    currentThis.setState({disableNext:false,disablePrevious:true});
 		    }
-
-			currentThis.setState({
-				userList:data.response.result,noOfPages : Math.ceil(pages)});
+        currentThis.setState({
+			userList:data.response.result,noOfPages : Math.ceil(pages)});
 		}) 		
 		.catch(function(error){
 			console.log(error)
@@ -220,13 +210,11 @@ var UserManagement = React.createClass({
 		requestData.designation = this.state.filterByDesignation;
 		services.POST(config.url.userListFilter, requestData)
 		.then(function(data){
-			console.log("--------------",data);
 			var LOD = data.response.result.length;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
                 currentThis.setState({disableNext:true,disablePrevious:true});
 			}else if(LOD==0){
-				console.log("00000000000",LOD);
 			    currentThis.setState({noResult : true});
 		    }else {
 			    pages = LOD/allUrlData.pageSize;
@@ -263,7 +251,7 @@ var UserManagement = React.createClass({
 		
 		if(decrement==1){
 			this.setState({disablePrevious : true,disableNext:false})
-		}else {
+		}else if(decrement==2){
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
@@ -276,13 +264,26 @@ var UserManagement = React.createClass({
 			};
 			services.GET(config.url.getAllUser, requestData)
 			.then(function(data){
-				currentThis.setState({
-				userList:data.response.result
-			});
+				currentThis.setState({userList:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
+		}else {
+			decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		    var requestData = {
+				token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.GET(config.url.getAllUser, requestData)
+			.then(function(data){
+				currentThis.setState({userList:data.response.result});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});
 		}
 	},
 

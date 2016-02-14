@@ -45,15 +45,11 @@ var ClubManagement = React.createClass({
                 pages = 1;
                 self.setState({disablePrevious:true,disableNext:true});
 			}else if(LOD==0){
-				
-			    self.setState({notAvailable : true});
+				self.setState({notAvailable : true});
 		    }else {
 			    pages = LOD/allUrlData.pageSize;
-			   
-		    }
-
-			
-			self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
+			}
+		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -199,7 +195,7 @@ var ClubManagement = React.createClass({
 		
 		if(decrement==1){
 			this.setState({disablePrevious : true,disableNext:false})
-		}else {
+		}else if(decrement==2){
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
@@ -211,13 +207,27 @@ var ClubManagement = React.createClass({
 			};
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-				currentThis.setState({
-					clubs:data.response.result
-				});
+				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
+		}else {
+			decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		   
+			var requestData = {
+				token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.POST(config.url.getAllClub, requestData)
+			.then(function(data){
+				currentThis.setState({clubs:data.response.result});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});
 		}
 	},
 

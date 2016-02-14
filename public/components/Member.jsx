@@ -3,24 +3,26 @@ var Member = React.createClass({
 		return ({
 			member: this.props.member,
 			showModal: false,
-			showMember: true
+			showMember: true,
+			checked : null,
+			action: null,
+			message : null,
+			showAlert : false
 			
 		});
 	},
 
 	removeUser: function() {
-		/*e.preventDefault;*/
-		/*var Alert = ReactBootstrap.Alert;*/
-		var r = confirm("Are you sure want to delete member?");
-		if(r==true) {
+		this.setState({showAlert: true, action: "deleteUser", message: "Are you sure you want to delete this member?"});
+	},
+
+	removeUserApi: function() {
 		var self= this,
         result = {};
 		var requestData = {
 			token: this.props.token,
 			clubID:this.props.clubID,
 			userID: this.state.member.userID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		
 		services.POST(config.url.removeMember, requestData)
@@ -32,10 +34,6 @@ var Member = React.createClass({
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
-	} else{
-		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	}
-
 	},
 
 
@@ -47,16 +45,84 @@ var Member = React.createClass({
     handleHideModal: function(status){
         this.setState({showModal: false});
     },
+
+    changeRole: function(){
+        
+        var x= $("#"+this.state.member.userID).is(":checked");
+        
+        if(x) {
+        	var self= this,
+            result = [];
+		    var requestData = {
+			    token: this.props.token,
+			    userID: this.state.member.userID,
+			    clubID: this.props.clubID,
+			    role: "Admin"
+		    };
+		    services.POST(config.url.changeRole, requestData)
+		    .then(function(data){
+			    
+			    if(result.length) {
+				    self.setState({
+				    members:data.response.result,
+				    membersAvailable:true
+			    });
+			    }
+			    
+		    })
+	        .catch(function(error){
+			    console.log("====catch",error.response.message);
+			    	
+		    });
+        }else {
+        	var self= this,
+            result = [];
+		    var requestData = {
+			    token: this.props.token,
+			    userID: this.state.member.userID,
+			    clubID: this.props.clubID,
+			    role: "Member"
+		    };
+		    services.POST(config.url.changeRole, requestData)
+		    .then(function(data){
+			    if(result.length) {
+				    self.setState({
+				    members:data.response.result,
+				    membersAvailable:true
+			    });
+			    }
+			    
+		    })
+	        .catch(function(error){
+			    console.log("====catch",error.response.message);
+			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+                    self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
+			    }	
+		    });
+        }
+    },
+
+    handleHideAlertModal: function(value) {
+    	if(value=="deleteUser") {
+    		this.removeUserApi();
+    	}else if(value=="makeAdminAlert"){
+            this.setState({showAlert: false});
+            $("#"+this.state.member.userID).prop('checked', true);
+        }else if(value=="cancelled") {
+        	this.setState({showAlert: false});
+        }
+    },
 	
 	render: function () {
 	        var self= this;
+
 		    return (
 		    	<tbody>
 			    {self.state.showMember &&
 			        <tr>
 			            <td><p>{this.state.member.userName}</p></td>
 				        <td><p>{this.state.member.designation}</p></td>
-				        <td><p>{this.state.member.awards}</p></td>
+				        <td><p>{this.state.member.awards.length}</p></td>
 				        <td onClick={this.handleShowModal}>
 				            <a href="#">
 				                <span className="ride"></span>
@@ -64,10 +130,15 @@ var Member = React.createClass({
 				            </a>
 				        </td>
 				        <td>
-				            <a href="#" className="remove" onClick={this.removeUser.bind(this)}></a>
+				            Admin <input type="checkbox"  id={this.state.member.userID} onClick={this.changeRole}/>
+				            
+				        </td>
+				        <td>
+				            <a href="#" className="remove" onClick={this.removeUser}></a>
 				        </td> 
 				        {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}
 			        </tr>}
+			        {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
 			    </tbody>
 			    
 			    

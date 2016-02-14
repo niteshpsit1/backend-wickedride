@@ -53,20 +53,11 @@ var MembersListing = React.createClass({
 			});
 			}
 			
-
-
-		
-		
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
-        
-
-        
-
-
+       
 	},
 
 	close: function() {
@@ -94,12 +85,12 @@ var MembersListing = React.createClass({
 						<th>Designation</th>
 						<th>Awards</th>
 						<th>ClubJoined</th>
+						<th>Change Role</th>
 						<th></th>
-			
+			 
 						<tbody>
 						{this.state.members.map(function(member){
-							console.log("memmmmmmmmmmmmmmmmmm",member);
-								return <Member member={member} token={self.props.token} clubID={self.props.clubID}/>
+								return <Member member={member} token={self.props.token} clubID={self.props.clubID} key={member.userID} admin={self.props.admin}/>
 							})}
 						</tbody>
 					</table>

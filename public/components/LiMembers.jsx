@@ -9,13 +9,8 @@ var LiMembers = React.createClass({
 			
 		});
 	},
-    
-    componentWillMount: function() {
-       /* console.log("ooooooooooo");*/
-    },
 
 	changeAdminApi: function() {
-        console.log("changeAdminApi");
         var self= this,
         result = [];
 		var requestData = {
@@ -34,10 +29,8 @@ var LiMembers = React.createClass({
 			if(result) {
 				self.setState({transferred:true});
 				self.props.rightsMessage(true,self.props.name);
-				/*self.props.handleHideAlertModal();*/
+				
 			}
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -46,15 +39,11 @@ var LiMembers = React.createClass({
 	},
 
 	handleShowAlertModal: function() {
-		console.log("newadminnn iddddddd",this.props.newAdminID)
+		
 		this.props.handleShowAlertModal(this.state.action,this.props.newAdminID);
-		/*
-		*/
-
-    },
+	},
 	
 	render: function() {
-		    console.log("liiiiiiiiiiiiiii");
 	        var self= this;
 		    return (
 		    	<div>

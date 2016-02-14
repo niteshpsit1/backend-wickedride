@@ -16,7 +16,11 @@ var Notify = React.createClass({
 			showAlert : false,
 			action : "",
 			alertMessage : "",
-			newAdminID : ""
+			newAdminID : "",
+			changeAdminDisable : false,
+			changeAdminAble : true,
+			showAlert : false
+
 	
 		}
 	},
@@ -68,14 +72,14 @@ var Notify = React.createClass({
 		services.GET(config.url.getClubMembers, requestData)
 		.then(function(data){
 			result=data.response.result;
-			if(result.length) {
+			if(result.length==1 && result[0].designation=="Admin") {
+				self.setState({changeAdminDisable : true, changeAdminAble: false, showAlert: true, action : "noMember", alertMessage: "No any member available for changing admin."});
+			}else if(result.length) {
 				self.setState({
 				members:data.response.result,
 				
 			});
 			}
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -119,7 +123,6 @@ var Notify = React.createClass({
 	},
 
 	handleShowAlertModal: function(action,value) {
-		console.log("parameterrrrrr",action, value);
 		this.setState({newAdminID : value});
 		if(action=="changeAdmin") {
 		    this.setState({showAlert : true, action : "changeAdmin", alertMessage : "Are you sure you want to change the admin of the club??"});
@@ -138,9 +141,6 @@ var Notify = React.createClass({
 			token: this.props.token,
 			clubID: this.props.tag,
 			response : "accepted"
-
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.POST(config.url.handleClubDeleteRequest, requestData)
 		.then(function(data){
@@ -148,11 +148,6 @@ var Notify = React.createClass({
 			console.log("successfully approved request",data.response);
 			
 			self.setState({transferred:true,showApproveMsg : true,msg : "approved"});
-			/*setTimeout(self.setState({showApproveMsg : false}),5000);*/
-
-			
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -160,7 +155,7 @@ var Notify = React.createClass({
 	},
     
     changeAdminApi: function() {
-        /*console.log("changeAdminApi",this.props.token,);*/
+       
         var self= this,
         result = [];
 		var requestData = {
@@ -168,11 +163,7 @@ var Notify = React.createClass({
 			oldAdminID : this.state.oldAdmin,
 			newAdminID : this.state.newAdminID,
 			clubID: this.props.tag
-
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
-		console.log("changeAdminApi",requestData);
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
@@ -180,10 +171,7 @@ var Notify = React.createClass({
 			if(result) {
 				self.setState({transferred:true});
 				self.props.rightsMessage(true,self.props.name);
-				/*self.props.handleHideAlertModal();*/
 			}
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -262,19 +250,24 @@ var Notify = React.createClass({
 							    <span>Transferred rights successfully</span>}
 							    <li >
 								    <div className="button-block">
-								        <div className="dropdown">
-                                            <button className="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" onClick={this.membersList}>Change Admin
-                                                <span className="caret"></span>
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                                {this.state.members.map(function(member){
-							                            if(member.designation=="Admin") {
-							                            	return false
-							                            }   
-								                        return <LiMembers key={member.userID} name={member.userName} newAdminID={member.userID}  oldAdminID={currentThis.state.oldAdmin} token={currentThis.props.token} clubID={currentThis.props.tag} rightsMessage={currentThis.rightsMessage} handleShowAlertModal={currentThis.handleShowAlertModal} action={currentThis.state.action} message={currentThis.state.alertMessage}/>
-							                        })}
-                                            </ul>
-                                        </div>
+								        {this.state.changeAdminAble &&
+								            <div className="dropdown">
+                                                <button className="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" onClick={this.membersList}>Change Admin
+                                                    <span className="caret"></span>
+                                                </button>
+                                                <ul className="dropdown-menu">
+                                                    {this.state.members.map(function(member){
+							                                if(member.designation=="Admin") {
+							                            	    return false
+							                                }   
+								                            return <LiMembers key={member.userID} name={member.userName} newAdminID={member.userID}  oldAdminID={currentThis.state.oldAdmin} token={currentThis.props.token} clubID={currentThis.props.tag} rightsMessage={currentThis.rightsMessage} handleShowAlertModal={currentThis.handleShowAlertModal} action={currentThis.state.action} message={currentThis.state.alertMessage}/>
+							                            })}
+                                                </ul>
+                                            </div>
+                                        }
+                                        {this.state.changeAdminDisable &&
+                                        <button name="changeAdmin" onClick={this.membersList}>Change Admin</button>
+                                        }
 									    <button onClick={this.handleShowAlertModal} name="approved">Approve</button>
 									    <button onClick={this.handleShowAlertModal} name="rejected">Reject</button>
 									    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.alertMessage}/> : null}

@@ -19,12 +19,12 @@ var config = {
 		removeMember:baseUrl+'/rest/service/removeClubMember',
 		getDeleteRequests:baseUrl+'/rest/service/deleteRequests',
 		makeNewAdmin:baseUrl+'/rest/service/makeNewAdmin',
-		handleClubDeleteRequest:baseUrl+'/rest/service/handleClubDeleteRequest'
+		handleClubDeleteRequest:baseUrl+'/rest/service/handleClubDeleteRequest',
+		changeRole:baseUrl+'/rest/service/changeRole'
 
 	},
 	pagination:{
 		pageSize:20
 	}
 }
-
 

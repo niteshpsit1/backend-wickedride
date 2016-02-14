@@ -17,8 +17,12 @@ var AlertModal = React.createClass({
         this.props.handleHideAlertModal(this.state.action);
 	},
 
+	cancel : function() {
+
+        this.props.handleHideAlertModal("cancelled");
+	},
+
 	render: function () {
-		console.log("modalllllllll",this.props.action,this.props.message);
 		return (
 
 			<div id="myModal" className="modal fade" role="dialog">
@@ -36,7 +40,7 @@ var AlertModal = React.createClass({
 			        <div className="modal-body">
 			            <h3>{this.props.message}</h3>
 			            <button type="button" className="btn btn-success" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
-					    <button type="button" className="btn btn-success" data-dismiss="modal">cancel</button>
+					    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">cancel</button>
 			        </div>
 			    </div>
 			</div>

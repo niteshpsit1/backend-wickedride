@@ -25,7 +25,6 @@ var Notification = React.createClass({
 		};
 		services.POST(config.url.getDeleteRequests, requestData)
 		.then(function(data){
-			console.log("delete reqqqqqqqqqqqq",data);
 			LOD = data.response.lengthOfDocument;
 			if((LOD>0&&LOD<10)||LOD==10){
                 pages = 1;
@@ -34,11 +33,10 @@ var Notification = React.createClass({
 				
 			    self.setState({notAvailable : true});
 		    }else {
-		    	console.log("more pages");  
 			    pages = LOD/allUrlData.pageSize;
 		    }
 			
-			self.setState({requests : data.response.result});
+			self.setState({requests : data.response.result,noOfPages : Math.ceil(pages)});
 		})
 		.catch(function(error){
 			console.log("====catch",error);	
@@ -99,19 +97,31 @@ var Notification = React.createClass({
 		}
 		
 		var decrement = this.state.pageNo;
-		
 		var minus = null;
 		
 		if(decrement==1){
-			this.setState({disablePrevious : true})
-		}else {
+			this.setState({disablePrevious : true, disableNext:false})
+		}else if(decrement==2){
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
 		    
+			var requestData = {
+				token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.GET(config.url.getDeleteRequests, requestData)
+			.then(function(data){
+				currentThis.setState({requests : data.response.result, disablePrevious : true, disableNext: false});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}else {
+			decrement=decrement-1;
+		    this.setState({pageNo : decrement});
 		    
-		    
-		
 			var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
@@ -123,7 +133,7 @@ var Notification = React.createClass({
 			})
 			.catch(function(error){
 				console.log("====catch",error);	
-			});	
+			});
 		}
 	},
 
@@ -133,9 +143,10 @@ var Notification = React.createClass({
 		this.setState({disablePrevious: false});
 		
         increment = increment+1;
-		if(increment==Math.ceil(this.state.noOfPages)){
+
+		if(increment==this.state.noOfPages){
 			this.setState({disableNext : true})
-		}else {
+		}
 			
 		    this.setState({pageNo : increment});
 
@@ -153,7 +164,7 @@ var Notification = React.createClass({
 			.catch(function(error){
 				console.log("====catch",error);	
 			});	
-		}
+		
 		
 	}
 	});

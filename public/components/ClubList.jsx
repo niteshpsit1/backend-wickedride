@@ -19,7 +19,6 @@ var ClubList = React.createClass({
 			classUser : "users",
 			classRide : "ride",
 			classGallery : "gallery",
-			disableRide : false,
 			date : {},
 			time : {}
 		});
@@ -42,7 +41,8 @@ var ClubList = React.createClass({
 
 	appendUser: function(){
 		if(this.state.classRide=="ride active") {
-            this.setState({showUser:false, classUser : "users"});
+            this.handleHideRide();
+            this.setState({showUser:true, classUser : "users active"});
         }else {
         	this.setState({showUser:true, classUser : "users active"});
         }
@@ -50,7 +50,8 @@ var ClubList = React.createClass({
 
 	appendRide: function(){
 		if(this.state.classUser=="users active") {
-            this.setState({showRide:false, classRide : "ride"});
+			this.handleHideUser();
+            this.setState({showRide:true, classRide : "ride active"});
         }else {
         	this.setState({showRide:true, classRide : "ride active"});
         }
@@ -72,22 +73,19 @@ var ClubList = React.createClass({
 		var currentThis = this;
 		var time = Date.parse(this.props.club.time);
 		
-		
-		
 		return (
 			<tbody cellSpacing="0" cellPadding="25">
 			    <tr>
 			        <td><p>{this.props.club.clubName}</p></td>
 				    <td><p>{this.props.club.creatorName}</p></td>
 				    <td><p>{this.state.date}</p></td>
-				    <td><p>{this.state.time}</p></td>
 				    <td><p><a href="#" onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
-				        <p><a href="#" onClick={this.appendRide} className={this.state.classRide} disabled={this.state.disableRide}></a></p>
+				        <p><a href="#" onClick={this.appendRide} className={this.state.classRide}></a>{this.props.club.rideCount}</p>
 				    </td>
                 </tr>
                 <tr>
 				    
-				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId}/>:null}
+				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId} admin={this.props.club.creatorId}/>:null}
 				        {this.state.showRide ? <RidesListing handleHideRide={this.handleHideRide} token={this.props.token} clubID={this.props.club.clubId}/>:null}
 				        {this.state.showGallery ? <MembersListing handleHideGallery={this.handleHideGallery}/>:null}
 				   
