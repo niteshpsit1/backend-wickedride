@@ -52,13 +52,14 @@ var Notify = React.createClass({
 			console.log("successfully deleted club",data.response);
 			
 				self.setState({showApproveMsg:true,msg:"rejected"});
-			
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
+
+		setTimeout(function(){ console.log("inside timeout");
+			self.setState({showApproveMsg : false, show : false}); 
+		}, 5000);
 	},
 
 	membersList: function() {
@@ -99,10 +100,7 @@ var Notify = React.createClass({
 			clubID: this.props.tag,
 			date : "",
 			time : ""
-
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
-		};
+        };
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
@@ -113,8 +111,6 @@ var Notify = React.createClass({
 				
 			});
 			}
-			
-			
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -152,6 +148,9 @@ var Notify = React.createClass({
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
+		setTimeout(function(){ console.log("inside timeout");
+			self.setState({showApproveMsg : false, show : false}); 
+		}, 5000);
 	},
     
     changeAdminApi: function() {
@@ -181,6 +180,9 @@ var Notify = React.createClass({
 
 	rightsMessage:function(msg,name) {
         this.setState({adminMsg:msg,newAdminName:name});
+        setTimeout(function(){ console.log("inside timeout");
+			self.setState({adminMsg : false, show : false}); 
+		}, 5000);
 	},
 
 	handleHideAlertModal: function(value){
@@ -205,7 +207,7 @@ var Notify = React.createClass({
                     <div className="messages">
 						<h4 className="approve-msg">
 						    <span>
-						        <a href="">{this.props.request.name}</a>
+						        <b>{this.props.request.name}</b>
 						    </span><span>requested by {this.props.request.requestedBy.fullname} is {this.state.msg}.</span>
 
 						</h4>
@@ -222,7 +224,7 @@ var Notify = React.createClass({
                     <div className="messages">
 						<h4 className="approve-msg">
 						    <span>
-						        <a href="">Admin of club {this.props.request.name}</a>
+						        <b>Admin of club {this.props.request.name}</b>
 						    </span>&nbsp;&nbsp;<span>requested by {this.props.request.requestedBy.fullname} changed to {this.state.newAdminName}.</span>
 
 						</h4>
@@ -242,7 +244,10 @@ var Notify = React.createClass({
 						    <img src={this.props.request.image}/>
 					    </div>
 					    <div className="messages">
-						    <h4><span><a href="">{this.props.request.name}</a> </span>requested by {this.props.request.requestedBy.fullname}</h4>
+						    <h4><span>
+						        <b>{this.props.request.name}</b>&nbsp;
+						        </span>requested by {this.props.request.requestedBy.fullname}
+						    </h4>
 						    <ul className="notifications-details clearfix">
 							    <li className="time">{this.state.time}</li>
 							    <li className="date">{this.state.date}</li>

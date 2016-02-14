@@ -130,8 +130,9 @@ var Member = React.createClass({
 				            </a>
 				        </td>
 				        <td>
-				            Admin <input type="checkbox"  id={this.state.member.userID} onClick={this.changeRole}/>
-				            
+				            <a href="#">
+				                Admin <input type="checkbox"  id={this.state.member.userID} onClick={this.changeRole}/>
+				            </a>
 				        </td>
 				        <td>
 				            <a href="#" className="remove" onClick={this.removeUser}></a>

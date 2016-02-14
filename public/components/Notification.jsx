@@ -41,6 +41,7 @@ var Notification = React.createClass({
 		.catch(function(error){
 			console.log("====catch",error);	
 		});	
+		
 	},
 
 	render: function (){
