@@ -24,7 +24,9 @@ var ClubManagement = React.createClass({
 			noResult : false,
 			filterResult : [],
 			filterData : false,
-			showButton : true
+			showButton : true,
+			action : "emptyFilterInput",
+			message : "Fill up the fields first."
 			
 
 		} 
@@ -58,6 +60,12 @@ var ClubManagement = React.createClass({
 			console.log("====catch",error);	
 		});	
 	},
+    
+    handleHideAlertModal: function(value){
+		
+        this.setState({showAlert: false});
+        
+    },
 
 	render: function (){
 		var currentThis = this;
@@ -91,6 +99,7 @@ var ClubManagement = React.createClass({
 				    <div className="content">
 				        {this.state.clubFilter &&
 							    <div className="filter-form customForm">
+							    <form onSubmit={this._onFilterClick}>
 								    <table>
 									    <tbody>
 										    <tr>
@@ -102,12 +111,15 @@ var ClubManagement = React.createClass({
 										    <tr>
 											    <td colSpan="2">
 												    <div className="button-block text-left">
-													    <button onClick={this._onFilterClick}>Search</button>
+													    <button onSubmit={this._onFilterClick}>Search</button>
 												    </div>
 											    </td>
 										    </tr>
 									    </tbody>
 								    </table>
+								</form>
+								{this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
+
 						    </div>}
 					    {this.state.result &&
 					        <div>
@@ -116,7 +128,7 @@ var ClubManagement = React.createClass({
 						            <th>Club Name</th>
 						            <th>Creator Name</th>
 						            <th>Date</th>
-						            <th>Time</th>
+						            <th></th>
 						            </tr>
 						            
 							            {this.state.clubs.map(function(club){
@@ -135,10 +147,13 @@ var ClubManagement = React.createClass({
 					    {this.state.filterData &&
 						    <div>
 						        <table cellSpacing="0" cellPadding="25">
-							        <th><p>User Name</p></th>
-							        <th>Email</th>
-							        <th>Number</th>
-							        <th>Number of Clubs Joined</th>
+						            <tr>
+							            <th>Club Name</th>
+						                <th>Creator Name</th>
+						                <th>Date</th>
+						                <th></th>
+						                <th></th>
+						            </tr>
 							        <tbody>
 								        {this.state.filterResult.map(function(club){
 									        
@@ -268,31 +283,37 @@ var ClubManagement = React.createClass({
 		
 	},
 
-	_onFilterClick: function(){
-
-		var currentThis = this;
-		var requestData = {
-			token : this.state.token,
-			clubName : this.state.filterByClubName
-		};
-		
-		services.POST(config.url.getAllClub, requestData)
-		.then(function(data){
-			if(data.response.result.length){
-			    currentThis.setState({
-				    filterResult:data.response.result,
-				    filterData : true,
-				    result : false
-			    });
-		    }else {
-		    	currentThis.setState({
-				    noResult : true,
-				    result :false
-			    });
-		    }
-		}) 		
-		.catch(function(error){
-			console.log(error)
-		})
+	_onFilterClick: function(event){
+        event.preventDefault();
+		var input1 = $("#filterByName").val();
+		var input2 = $("#filterByEmail").val();
+		if((input1==null||input1=="")&&(input2==null||input2=="")) {
+            this.setState({showAlert: true});
+		}else {
+		    var currentThis = this;
+		    var requestData = {
+			    token : this.state.token,
+			    clubName : this.state.filterByClubName
+		    };
+		    
+		    services.POST(config.url.getAllClub, requestData)
+		    .then(function(data){
+			    if(data.response.result.length){
+			        currentThis.setState({
+				        filterResult:data.response.result,
+				        filterData : true,
+				        result : false
+			        });
+		        }else {
+		    	    currentThis.setState({
+				        noResult : true,
+				        result :false
+			        });
+		        }
+		    }) 		
+		    .catch(function(error){
+			    console.log(error)
+		    })
+	    }
 	}
 });

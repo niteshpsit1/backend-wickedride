@@ -7,7 +7,8 @@ var Member = React.createClass({
 			checked : null,
 			action: null,
 			message : null,
-			showAlert : false
+			showAlert : false,
+			role : this.props.member.role
 			
 		});
 	},
@@ -115,7 +116,11 @@ var Member = React.createClass({
 	
 	render: function () {
 	        var self= this;
-
+	        var admin = null;
+            if(this.state.role=="Admin") {
+            	/*$("#"+this.state.member.userID).prop('checked', true);*/
+                admin = true;
+            }
 		    return (
 		    	<tbody>
 			    {self.state.showMember &&
@@ -123,7 +128,6 @@ var Member = React.createClass({
 			            <td>
 				                <span className="ride singleUser"></span><p>{this.state.member.userName}</p></td>
 				        <td><p>{this.state.member.designation}</p></td>
-				        <td><p>{this.state.member.awards.length}</p></td>
 				        <td onClick={this.handleShowModal}>
 				                <span className="ride doubleUser"></span>
 				                <p>{this.state.member.clubJoined.length}</p>

@@ -7,7 +7,6 @@ var RideMembersModal = React.createClass({
    notAvailable : false
   };
  },
-
  componentWillMount: function() {
   
   var self= this,

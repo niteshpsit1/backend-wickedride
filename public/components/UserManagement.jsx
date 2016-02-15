@@ -25,7 +25,10 @@ var UserManagement = React.createClass({
 			noResult : false,
 			filterResult : [],
 			filterData : false,
-			showButton : true
+			showButton : true,
+			showAlert: false,
+			action : "emptyFilterInput",
+			message : "Fill up the fields first."
 		}
 	},
 	componentWillMount: function(){ 
@@ -60,6 +63,12 @@ var UserManagement = React.createClass({
 		})
 	},
 
+	handleHideAlertModal: function(value){
+		
+        this.setState({showAlert: false});
+        
+    },
+
 	render: function() {
 		var self = this;
 	
@@ -93,26 +102,27 @@ var UserManagement = React.createClass({
 	                    </div>
 					    <div className="content">
 							    {this.state.userFilter &&
-								    <div className="filter-form customForm">
-								    <table>
-									    <tbody>
-										    <tr>
-											    <td><label>Name</label></td>
-											    <td><input type="text" name="filterByName" onChange={this._onchange} className="filter-input"/></td>
-											   </tr>
-											   <tr>
-											    <td><label>Email</label></td>
-											    <td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
-										    </tr>
-										    <tr>
-											    <td colSpan="4">
-												    <div className="button-block">
-													    <button onClick={this._onClick}>Search</button>
-												    </div>
-											    </td>
-										    </tr>
-									    </tbody>
-								    </table>
+			    <div className="filter-form customForm">
+								    <form onSubmit={this._onClick}>
+								        <table>
+									        <tbody>
+										        <tr>
+											        <td><label>Name</label></td>
+											        <td><input type="text" name="filterByName" id="filterByName" onChange={this._onchange} className="filter-input"/></td>
+											        <td><label>Email</label></td>
+											        <td> <input type="email" name="filterByEmail" id="filterByEmail" onChange={this._onchange}/></td>
+										        </tr>
+										        <tr>
+											        <td colSpan="4">
+												        <div className="button-block">
+													        <button onSubmit={this._onClick}>Search</button>
+												        </div>
+											        </td>
+										        </tr>
+									        </tbody>
+								        </table>
+								    </form>
+								    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
 						    </div>}
 						    {this.state.result &&
 						    	<div>
@@ -206,7 +216,13 @@ var UserManagement = React.createClass({
 			});
 		}
 	}, 
-	_onClick: function(){
+	_onClick: function(event){
+		event.preventDefault();
+		var input1 = $("#filterByName").val();
+		var input2 = $("#filterByEmail").val();
+		if((input1==null||input1=="")&&(input2==null||input2=="")) {
+            this.setState({showAlert: true});
+		}else {
 		var currentThis = this;
 		var requestData = {};
 		requestData.token = this.state.token;
@@ -242,6 +258,7 @@ var UserManagement = React.createClass({
 		.catch(function(error){
 			console.log(error)
 		})
+	}
 	},
 
 	_onPaginationPrevious: function(event){
