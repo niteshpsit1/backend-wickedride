@@ -7,43 +7,55 @@ var App = React.createClass({
       username:"",
       password:"",
       loginError:"",
+      invalidEmail:"",
       adminName:localStorage.getItem("wikedrideSuperAdminName") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminName")).adminName : ""
     }
   },
   render() {
     return (
      <div className="wrapper login-page">
+        <div className="logoOuter">
+            <img src="images/wicked-ride-logo.png" alt="Wicked Ride"/>
+        </div>
         <div className="login-form">
             <div className="filter-form">
                 <form>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td style={{width:"80px"}}><label>Email-ID</label></td>
-                                <td><input name="username" type="email" onChange={this._onChange}/></td>
-                            </tr>
-                            <tr>
-                                <td style={{width:"80px"}}><label>Password</label></td>
-                                <td> <input name="password" type="password" onChange={this._onChange} /></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div className="button-block">
-                                        <button type="button" name="login" onClick={this._onClick}>Login</button>
-                                    </div>
-                                </td>
-                            </tr> 
-                            <div>
+                <div className="form-row">
+                                <label>Email-ID</label>
+                                <input name="username" type="email" onChange={this._onChange}/>
+                            <div className="errorMess">
                                 <span>{this.state.loginError}</span>
                             </div>
-                        </tbody>
-                    </table>
+                                </div>
+                                <div className="form-row">
+                                <label>Password</label>
+                                <input name="password" type="password" onChange={this._onChange} />
+                            <div className="errorMess">
+                                <span>{this.state.loginError}</span>
+                            </div>
+                                </div>
+                                    <div className="button-block">
+                                        <button type="button" className="siteButton" name="login" onClick={this._onClick}>Login</button>
+                                    </div>
                 </form>
             </div>
         </div>
     </div>
     )
   },
+  _onChange: function(event){
+        var currentThis = this
+        if(event.target.name == "username"){
+            currentThis.setState({
+                username: (event.target.value).trim()
+            });
+        }
+        else if(event.target.name == "password"){
+            currentThis.setState({
+                password: (event.target.value).trim()
+            });
+        }
+    },
   _onChange: function(event){
         var currentThis = this
         if(event.target.name == "username"){
@@ -80,27 +92,32 @@ var App = React.createClass({
                 .catch(function(error){
                     console.log("======error",error);
                     currentThis.setState({
-                        loginError: error.response.message
+                        loginError: error.response.message,
+                        invalidEmail:""
                     });
                 });  
             }
-            else if(this.state.username == "" || this.state.password == ""){
-                currentThis.setState({
-                    loginError: "username and password can not be blank"
-                });
-            }
             else if(!filter.test(this.state.username)){
                 currentThis.setState({
-                    loginError: "insert valid username"
+                    invalidEmail: "insert valid Email",
+                    loginError:""
+                });
+            }
+            else if(this.state.password == ""){
+                currentThis.setState({
+                    loginError: "password can not be blank",
+                    invalidEmail:""
                 });
             } 
             else{
                 currentThis.setState({
-                    loginError: "something goes wrong"
+                    loginError: "something goes wrong",
+                    invalidEmail:""
                 });
             }
         }
         else if($(event.target).attr("name") == "logout"){
+
             localStorage.removeItem("wikedrideSuperAdminIsLogin");
             localStorage.removeItem("wikedrideSuperAdminName");
             currentThis.setState({
@@ -108,16 +125,6 @@ var App = React.createClass({
                 isLogin:false,
                 userCredentials:{}
             });
-        }
-        else {
-        this.setState({
-          homeState: $(event.target).attr("name") == 'homeState' ? true : false,
-          userManagementState: $(event.target).attr("name") == 'userManagementState' ? true : false,
-          clubManagementState: $(event.target).attr("name") == 'clubManagementState' ? true : false,
-          settingState: $(event.target).attr("name") == 'settingState' ? true : false,
-          termAndConditions: $(event.target).attr("name") == 'termAndConditions' ? true : false,
-          aboutUs: $(event.target).attr("name") == 'aboutUs' ? true : false
-        })
         }
     }
 })

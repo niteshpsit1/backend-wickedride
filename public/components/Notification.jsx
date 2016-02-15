@@ -59,7 +59,7 @@ var Notification = React.createClass({
 				    </div>
 				    
 				    <div className="content home-page">
-				        <div><b>No Notifications present</b></div>
+				        <div className="noData"><b>No Notifications present</b></div>
 			        </div>
 		        </div>
 		    </div>
@@ -82,9 +82,9 @@ var Notification = React.createClass({
 					    
 			        </div>
 			        {this.state.showButton &&
-			        <div className="text-right">
-					    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
-					    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+			        <div className="text-right arrow-sign">
+					    <button type="button" className="btn prevBtn" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					    <button type="button" className="btn nextBtn" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
                         
 					</div>}
 		        </div>

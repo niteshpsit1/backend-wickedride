@@ -273,8 +273,8 @@ var Notify = React.createClass({
                                         {this.state.changeAdminDisable &&
                                         <button name="changeAdmin" onClick={this.membersList}>Change Admin</button>
                                         }
-									    <button onClick={this.handleShowAlertModal} name="approved">Approve</button>
-									    <button onClick={this.handleShowAlertModal} name="rejected">Reject</button>
+									    <button className="approve-btn" onClick={this.handleShowAlertModal} name="approved">Approve</button>
+									    <button className="reject-btn" onClick={this.handleShowAlertModal} name="rejected">Reject</button>
 									    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.alertMessage}/> : null}
 									    
 								    </div>

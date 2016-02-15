@@ -2,7 +2,8 @@ var PersonalSetting = React.createClass({
 	getInitialState: function(){
 		return {
 			userName:this.props.userCredentials.username,
-			editProfile:false
+			editProfile:false,
+			invalidName:""
 		}
 	},
 	render: function(){
@@ -23,9 +24,9 @@ var PersonalSetting = React.createClass({
 				}
 				{	this.state.editProfile &&
 					<form>
-						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} defaultValue={this.state.userName}/></div>
+						<div className="f1"><label>Name</label><input type="text" name="userName" className="form-control" onChange={this._onChange} defaultValue={this.state.userName}/><div className="errorMess"><span>{this.state.invalidName}</span></div></div>
 						<div className="f2"><label>Email</label><p>{this.props.userCredentials.emailId}</p></div>
-						<div className="button-block">
+						<div className="button-block f3">
 							<button type="button" onClick={this._onClick}>Submit</button>
 						</div>
 					</form>
@@ -48,9 +49,9 @@ var PersonalSetting = React.createClass({
 			services.POST(config.url.updateProfile,requestData)
 			.then(function(data){
 				if(data.response.flag){
-					currentThis.props.personalSetting(currentThis.state.userName);
 					currentThis.setState({
 						editProfile: !currentThis.state.editProfile,
+						invalidName:""
 					});
 					localStorage.setItem('wikedrideSuperAdminName', JSON.stringify({
                         adminName:currentThis.state.userName
@@ -58,11 +59,16 @@ var PersonalSetting = React.createClass({
 				}
 			})
 			.catch(function(error){
-				console.log("==============",error);
+				console.log("================",error);
+				currentThis.setState({
+					invalidName: "Last Name can't be blank",
+				});
 			});
 		}
 		else{
-			alert("fields can not be  blank");
+			currentThis.setState({
+				invalidName: "Name can't be blank",
+			});
 		}	
 	},
 	_onChange: function(){

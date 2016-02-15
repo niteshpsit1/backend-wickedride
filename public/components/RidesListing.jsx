@@ -171,7 +171,7 @@ var RidesListing = React.createClass({
 				<td colSpan="5" className="no-Club">
 				    <div className="page-title">
 				    <span className="ride-listing"></span>
-					    <h4>No rides are available</h4>
+					    <h4 className="no-rides">No rides are available</h4>
 					    <div className="filter-block" onClick={this.close}>
 						    <a href="#"></a>
 					    </div>
