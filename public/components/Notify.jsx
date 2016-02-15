@@ -271,7 +271,7 @@ var Notify = React.createClass({
                                             </div>
                                         }
                                         {this.state.changeAdminDisable &&
-                                        <button name="changeAdmin" onClick={this.membersList}>Change Admin</button>
+                                        <button name="changeAdmin" onClick={this.membersList} className="button-block">Change Admin</button>
                                         }
 									    <button className="approve-btn" onClick={this.handleShowAlertModal} name="approved">Approve</button>
 									    <button className="reject-btn" onClick={this.handleShowAlertModal} name="rejected">Reject</button>
