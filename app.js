@@ -13,12 +13,14 @@ app.use(express.static('public'));
 app.get("/", function(req, res){
 	sess = req.session;
 	if(!sess.user){
+		console.log("insideeeeeeeeee00 app.jsx");
 	    res.render('login');
 	}else{
 		res.redirect("/home");
 	}
 });
 app.get("/home", function(req, res){
+	console.log("insideeeeeeeee /home  app.jsx");
     sess = req.session;
 	if(sess.user){
 	    res.render('index');
@@ -28,16 +30,20 @@ app.get("/home", function(req, res){
 });
 
 app.get('/adminlogin',function(req, res){
+	console.log("insideeeeeeeeee /adminlogin app.jsx");
 	sess=req.session;
 	sess.user='admin';
 	res.redirect("/");
 });
 app.get('/adminlogout',function(req, res){
+	console.log("insideeeeeeeeee1 app.jsx");
 	req.session.destroy(function(err)
 	{
 		if(err){
+			console.log("insideeeeeeeeee2 app.jsx");
 		    res.redirect("/home");
 		}else{
+			console.log("insideeeeeeeeee3");
 			res.redirect("/");
 		}
 	});

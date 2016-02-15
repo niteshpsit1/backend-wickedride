@@ -122,7 +122,6 @@ var Member = React.createClass({
 			        <tr>
 			            <td><p>{this.state.member.userName}</p></td>
 				        <td><p>{this.state.member.designation}</p></td>
-				        <td><p>{this.state.member.awards.length}</p></td>
 				        <td onClick={this.handleShowModal}>
 				            <a href="#">
 				                <span className="ride"></span>

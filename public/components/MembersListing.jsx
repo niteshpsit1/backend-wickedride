@@ -83,7 +83,6 @@ var MembersListing = React.createClass({
 					<table cellSpacing="0"  cellPadding="25">
 						<th>User Name</th>
 						<th>Designation</th>
-						<th>Awards</th>
 						<th>ClubJoined</th>
 						<th>Change Role</th>
 						<th></th>
