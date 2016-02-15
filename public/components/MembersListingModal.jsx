@@ -17,7 +17,7 @@ var MembersListingModal = React.createClass({
 		};
 		services.GET(config.url.getClubMemberNameList, requestData)
 		.then(function(data){
-			
+			console.log("MembersListingModal",data);
 			result=data.response.result;
 			if(result.length) {
 				self.setState({
@@ -43,7 +43,7 @@ var MembersListingModal = React.createClass({
 
 	render: function () {
 		
-		
+		console.length("modalllllllllllll");
 
 		return (
 
