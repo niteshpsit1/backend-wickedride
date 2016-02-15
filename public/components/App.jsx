@@ -20,23 +20,23 @@ var App = React.createClass({
         <div className="login-form">
             <div className="filter-form">
                 <form>
-                <div className="form-row">
-                                <label>Email-ID</label>
-                                <input name="username" type="email" onChange={this._onChange}/>
+                    <div className="form-row">
+                        <label>Email-ID</label>
+                        <input name="username" type="email" onChange={this._onChange}/>
                             <div className="errorMess">
-                                <span>{this.state.loginError}</span>
+                                <span>{this.state.invalidEmail}</span>
                             </div>
-                                </div>
-                                <div className="form-row">
-                                <label>Password</label>
-                                <input name="password" type="password" onChange={this._onChange} />
-                            <div className="errorMess">
-                                <span>{this.state.loginError}</span>
-                            </div>
-                                </div>
-                                    <div className="button-block">
-                                        <button type="button" className="siteButton" name="login" onClick={this._onClick}>Login</button>
-                                    </div>
+                    </div>
+                    <div className="form-row">
+                        <label>Password</label>
+                        <input name="password" type="password" onChange={this._onChange} />
+                        <div className="errorMess">
+                            <span>{this.state.loginError}</span>
+                        </div>
+                    </div>
+                    <div className="button-block">
+                        <button type="button" className="siteButton" name="login" onClick={this._onClick}>Login</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -56,7 +56,7 @@ var App = React.createClass({
             });
         }
     },
-  _onChange: function(event){
+  /*_onChange: function(event){
         var currentThis = this
         if(event.target.name == "username"){
             currentThis.setState({
@@ -68,12 +68,12 @@ var App = React.createClass({
                 password: (event.target.value).trim()
             });
         }
-    },
+    },*/
   _onClick: function(event){
         var currentThis = this;
-        
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
       if(event.target.name == "login"){
-            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
             var requestData = {};
             requestData.username = this.state.username;
             requestData.password = this.state.password;
@@ -99,19 +99,19 @@ var App = React.createClass({
             }
             else if(!filter.test(this.state.username)){
                 currentThis.setState({
-                    invalidEmail: "insert valid Email",
+                    invalidEmail: "Insert valid Email",
                     loginError:""
                 });
             }
             else if(this.state.password == ""){
                 currentThis.setState({
-                    loginError: "password can not be blank",
+                    loginError: "Password can not be blank",
                     invalidEmail:""
                 });
             } 
             else{
                 currentThis.setState({
-                    loginError: "something goes wrong",
+                    loginError: "Something goes wrong",
                     invalidEmail:""
                 });
             }
