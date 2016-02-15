@@ -3,7 +3,8 @@ var RideMembersModal = React.createClass({
 	getInitialState : function(){
 		return {
 			members : [],
-			membersAvailable: false
+			membersAvailable: false,
+			notAvailable : false
 		};
 	},
 
@@ -14,19 +15,15 @@ var RideMembersModal = React.createClass({
 		var requestData = {
 			token: this.props.token,
 			rideID: this.props.rideID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.GET(config.url.getClubRideMembers, requestData)
 		.then(function(data){
-			
 			result=data.response.result;
 			if(result.length) {
-				self.setState({
-				members:data.response.result,
-				membersAvailable:true
-			});
-			}
+				self.setState({members:data.response.result,membersAvailable:true});
+			}else {
+				self.setState({notAvailable: true});
+            }
 		})
 	    .catch(function(error){
 			console.log("====catch",error);	
@@ -44,7 +41,7 @@ var RideMembersModal = React.createClass({
 	render: function () {
 		var self = this;
 		return (
-
+            
 			<div id="myModal" className="modal fade" role="dialog">
 			    <div className="modal-dialog">
 			        
@@ -56,26 +53,33 @@ var RideMembersModal = React.createClass({
 				            </div>
 			            </div>
 			        
-
+                    { this.state.membersAvailable &&
 			        <div className="modal-body">
 				        
-					        <table cellSpacing="0"  className="club-details">
-						        <th>Member Name</th>
-						        <th>Designation</th>
-						        <th>Number of clubs</th>
-						        <tbody>
-						        {this.state.members.map(function(member){
-						        	
-								        return( <tr key={member.memberID}>
-				                                    <td><p>{member.memberName}</p></td>
-				                                    <td><p>{member.designation}</p></td>
-				                                    <td><p>{member.noOfClubJoined}</p></td>
-			                                    </tr>)
-							        })}
-						        </tbody>
-					        </table>
+					    <table cellSpacing="0"  className="club-details">
+						    <th>Member Name</th>
+						    <th>Designation</th>
+						    <th>Number of clubs</th>
+						    <tbody>
+						    {this.state.members.map(function(member){
+						        
+								    return( <tr key={member.memberID}>
+				                                <td><p>{member.memberName}</p></td>
+				                                <td><p>{member.designation}</p></td>
+				                                <td><p>{member.noOfClubJoined}</p></td>
+			                                </tr>)
+							    })}
+						    </tbody>
+					    </table>
 				        
-			        </div>
+			        </div>}
+			        { this.state.notAvailable && 
+			        	<div className="modal-body">
+				            <div>
+				                <h3>No Member present.</h3>
+				            </div>
+				        
+			        </div>}
 			    </div>
 			</div>
 			
@@ -83,5 +87,3 @@ var RideMembersModal = React.createClass({
     }
 
 });
-
-

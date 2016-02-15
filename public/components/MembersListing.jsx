@@ -1,39 +1,15 @@
-
 var MembersListing = React.createClass({
 	getInitialState: function(){
 		return ({
-			/*members:[
-                {
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                }
-            ]*/
+	
             members : [],
             membersAvailable: false
-
-			
+	
 		});
 	},
+
 	componentWillMount: function(){
 		
-        
         var self= this,
         result = [];
 		var requestData = {
@@ -83,7 +59,6 @@ var MembersListing = React.createClass({
 					<table cellSpacing="0"  cellPadding="25">
 						<th>User Name</th>
 						<th>Designation</th>
-						<th>Awards</th>
 						<th>ClubJoined</th>
 						<th>Change Role</th>
 						<th></th>
@@ -113,5 +88,3 @@ var MembersListing = React.createClass({
 	}
 	
 });
-
-
