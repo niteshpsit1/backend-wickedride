@@ -285,9 +285,9 @@ var ClubManagement = React.createClass({
 
 	_onFilterClick: function(event){
         event.preventDefault();
-		var input1 = $("#filterByName").val();
-		var input2 = $("#filterByEmail").val();
-		if((input1==null||input1=="")&&(input2==null||input2=="")) {
+		var input1 = $("#filterByClubName").val();
+		
+		if(input1==null||input1=="") {
             this.setState({showAlert: true});
 		}else {
 		    var currentThis = this;

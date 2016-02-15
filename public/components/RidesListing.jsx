@@ -98,9 +98,7 @@ var RidesListing = React.createClass({
 	handleHideAlertModal: function(value){
 		
         this.setState({showAlert: false});
-        /*if(value==="emptyFields") {
-            this.changeAdminApi();
-        }*/
+        
     },
 
 	render: function () {
@@ -170,9 +168,9 @@ var RidesListing = React.createClass({
 		else {
 			return(
 				<td colSpan="5" className="no-Club">
-				    <div className="page-title">
+				    <div className="page-title multiOption">
 				    <span className="ride-listing"></span>
-					    <h4 className="no-rides">No rides are available</h4>
+					    <h4 className="">No rides are available</h4>
 					    <div className="filter-block" onClick={this.close}>
 						    <a href="#"></a>
 					    </div>

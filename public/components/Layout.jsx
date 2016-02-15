@@ -1,7 +1,3 @@
-/*var userCredentials = {
-	username: "smith.gaur.100@gmail.com",
-	password: "hrhk@super"
-};*/
 var Layout =  React.createClass({
     
 	getInitialState: function (){
@@ -16,7 +12,6 @@ var Layout =  React.createClass({
             settingClass: "",
             termClass: "",
             aboutClass: ""
-
 
 		}
 	},

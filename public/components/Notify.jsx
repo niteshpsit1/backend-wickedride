@@ -42,9 +42,6 @@ var Notify = React.createClass({
 			token: this.props.token,
 			clubID: this.props.tag,
 			response : "rejected"
-
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.POST(config.url.handleClubDeleteRequest, requestData)
 		.then(function(data){
@@ -57,9 +54,9 @@ var Notify = React.createClass({
 			console.log("====catch",error);	
 		});
 
-		/*setTimeout(function(){ console.log("inside timeout");
+		setTimeout(function(){ console.log("inside timeout");
 			self.setState({showApproveMsg : false, show : false}); 
-		}, 5000);*/
+		}, 8000);
 	},
 
 	membersList: function() {
@@ -148,9 +145,9 @@ var Notify = React.createClass({
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
-		/*setTimeout(function(){ console.log("inside timeout");
+		setTimeout(function(){ console.log("inside timeout");
 			self.setState({showApproveMsg : false, show : false}); 
-		}, 5000);*/
+		}, 5000);
 	},
     
     changeAdminApi: function() {
@@ -180,9 +177,9 @@ var Notify = React.createClass({
 
 	rightsMessage:function(msg,name) {
         this.setState({adminMsg:msg,newAdminName:name});
-        /*setTimeout(function(){ console.log("inside timeout");
+        setTimeout(function(){ console.log("inside timeout");
 			self.setState({adminMsg : false, show : false}); 
-		}, 5000);*/
+		}, 5000);
 	},
 
 	handleHideAlertModal: function(value){

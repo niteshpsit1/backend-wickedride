@@ -54,7 +54,7 @@ var MembersListingModal = React.createClass({
 			                
 			                <div className="page-title">
 			                
-				                <h1>Clubs Listing</h1>
+				                <h1>Clubs</h1>
 				                <div className="filter-block" data-dismiss="modal">
 					                <a href="#"></a>
 				                 </div>

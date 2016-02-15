@@ -117,8 +117,7 @@ var Member = React.createClass({
 	render: function () {
 	        var self= this;
 	        var admin = null;
-            if(this.state.role=="Admin") {
-            	/*$("#"+this.state.member.userID).prop('checked', true);*/
+            if(this.state.role=="Admin") { 
                 admin = true;
             }
 		    return (
@@ -133,7 +132,7 @@ var Member = React.createClass({
 				                <p>{this.state.member.clubJoined.length}</p>
 				        </td>
 				        <td className="customCheckboxOuter">
-				                Admin <input type="checkbox" className="customCheckbox" id={this.state.member.userID} onClick={this.changeRole}/><label for="thing"></label>
+				                Admin <input type="checkbox" className="customCheckbox" id={this.state.member.userID} onClick={this.changeRole} defaultChecked={admin}/><label htmlFor="thing"></label>
 				           
 				        </td>
 				        <td>

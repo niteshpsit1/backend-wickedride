@@ -20,11 +20,13 @@ var PasswordSetting = React.createClass({
 				<form>
 					<div className="f1"><label>Old Password</label><input type="password" name="oldPassword" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.oldPasswordError}</span></div></div>
 					<div className="f2"><label>New Password</label><input type="password" name="password" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.passwordError}</span></div></div>
-					<div className="f3"><label>Confirm Password</label><input type="password" name="confirmPassword" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.confirmPasswordError}</span></div></div>
-					{	this.state.errorMessage &&
+					<div className="f3"><label>Confirm Password</label><input type="password" name="confirmPassword" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.confirmPasswordError}</span></div>
+{	this.state.errorMessage &&
 						<div className="errorMess"><span>{this.state.errorMessage}</span></div>}
 					{	this.state.successMessaage &&
 						<div className="errorMess"><span>{this.state.successMessaage}</span></div>}
+					</div>
+					
 					<div className="f4">
 						<div className="button-block">
 							<button type="button" onClick={this._onClick}>Change Password</button>

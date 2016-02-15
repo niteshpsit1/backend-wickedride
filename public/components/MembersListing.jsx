@@ -78,7 +78,7 @@ var MembersListing = React.createClass({
 		    <td colSpan="5" className="no-Club">
 				<div className="page-title">
 				<span className="users"></span>
-					<h4>No club members available</h4>
+					<h4>No club member available.</h4>
 					<div className="filter-block" onClick={this.close}>
 						<a href="#"></a>
 					</div>
