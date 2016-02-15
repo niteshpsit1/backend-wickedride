@@ -11,7 +11,8 @@ var Notification = React.createClass({
 			pageNo : 1,
 			disablePrevious : true,
 			disableNext : false,
-			notAvailable : false
+			notAvailable : false,
+			showButton : true
 		}
 	},
 	componentWillMount: function () {
@@ -28,7 +29,7 @@ var Notification = React.createClass({
 			LOD = data.response.lengthOfDocument;
 			if((LOD>0&&LOD<10)||LOD==10){
                 pages = 1;
-                self.setState({disablePrevious : true,disableNext : true});
+                self.setState({disablePrevious : true,disableNext : true, showButton: false});
 			}else if(LOD==0){
 				
 			    self.setState({notAvailable : true});
@@ -41,7 +42,7 @@ var Notification = React.createClass({
 		.catch(function(error){
 			console.log("====catch",error);	
 		});	
-		
+
 	},
 
 	render: function (){
@@ -80,11 +81,12 @@ var Notification = React.createClass({
 					    })}
 					    
 			        </div>
+			        {this.state.showButton &&
 			        <div className="text-right">
 					    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
 					    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
                         
-					</div>
+					</div>}
 		        </div>
 		    </div>
 		)

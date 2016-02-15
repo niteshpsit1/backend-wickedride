@@ -23,7 +23,10 @@ var ClubManagement = React.createClass({
 			result : true,
 			noResult : false,
 			filterResult : [],
-			filterData : false
+			filterData : false,
+			showButton : true
+			
+
 		} 
 	},
 	
@@ -43,7 +46,7 @@ var ClubManagement = React.createClass({
 
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
-                self.setState({disablePrevious:true,disableNext:true});
+                self.setState({disablePrevious:true,disableNext:true, showButton: false});
 			}else if(LOD==0){
 				self.setState({notAvailable : true});
 		    }else {
@@ -122,11 +125,12 @@ var ClubManagement = React.createClass({
 							            })}
 						            
 					            </table>
+					            {this.state.showButton &&
 					            <div className="text-right">
 					                <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
 					                <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
                                     
-					            </div>
+					            </div>}
 					        </div>
 					    }
 					    {this.state.filterData &&

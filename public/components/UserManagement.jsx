@@ -25,7 +25,7 @@ var UserManagement = React.createClass({
 			noResult : false,
 			filterResult : [],
 			filterData : false,
-			temp : null
+			showButton : true
 		}
 	},
 	componentWillMount: function(){ 
@@ -43,7 +43,7 @@ var UserManagement = React.createClass({
 			LOD = data.response.lengthOfDocument;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
-                currentThis.setState({disableNext:true,disablePrevious:true});
+                currentThis.setState({disableNext:true,disablePrevious:true,showButton: false});
 			}else if(LOD==0){
 				
 			    currentThis.setState({notAvailable : true});
@@ -144,10 +144,11 @@ var UserManagement = React.createClass({
 			  					           })}
 			  				           </tbody>
 						            </table>
+						            {this.state.showButton &&
 						            <div className="text-right">
 					                    <button type="button" className="btn btn-success" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
 					                    <button type="button" className="btn btn-success" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
-                                    </div>
+                                    </div>}
                                 </div>
                             }
                             {this.state.noResult &&
