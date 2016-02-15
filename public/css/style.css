@@ -603,7 +603,7 @@ a.forgot-pwd, a.change-pwd {
 }
 .text-right{
 	text-align: right !important;
-    padding: 20px 0px;
+    padding: 20px;
 }
 .text-center{
 	text-align: center !important;
@@ -641,7 +641,7 @@ body{
 	position: relative;
 }
 body, button{
-	font-family: 'Roboto', sans-serif; 
+	font-family: 'Roboto', sans-serif !important; 
 	font-size: 15px; 
 	font-weight: 400;
 	color: #4e5050;
@@ -840,6 +840,13 @@ a.log-out {
 	display: table-cell;
 	vertical-align: middle;
 }
+
+.modal-header .page-title h1 { line-height: 1; padding: 0; font-size: 20px;}
+
+.modal-header .page-title h1.withIcon{
+	padding: 0 35px;
+}
+
 .page-title h1 {
 	font-size: 22px;
 	line-height: 32px;
@@ -877,7 +884,6 @@ a.log-out {
 .messages-block{
 	position: relative;
 	height: auto;
-	margin-top: 15px;
 	border: none;
 	padding: 20px 0px 0 20px;
 }
@@ -886,7 +892,7 @@ a.log-out {
 .content {
     padding-bottom: 30px;
     background: #fff;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .user-pic{
 	width: 60px; 
@@ -899,6 +905,12 @@ a.log-out {
 
 .messages-block .messages{
 	border-bottom: 1px solid #e5e5e5;
+}
+
+.messages-block .messages.messSection{
+	border-bottom: 1px solid #e5e5e5;
+	width: 100%;
+	display: block;
 }
 
 ul.notifications-details {
@@ -939,6 +951,10 @@ ul.notifications-details li .button-block button{
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 5px;
+}
+
+ul.notifications-details li .button-block button.changeAdminClass{
+	min-width: 140px;
 }
 
 ul.notifications-details li .button-block .dropdown{
@@ -1070,6 +1086,16 @@ ol p {
 	float: left;
 	width: 50%;
 	padding: 0 15px 0 0px;
+	position: relative;
+}
+
+
+.setting-content form .errorMess{
+    position: absolute;
+    /* top: 0; */
+    font-size: 12px;
+    left: 0;
+    bottom: -2px;
 }
 
 .setting-content label{
@@ -1115,6 +1141,28 @@ ol p {
 	border-left: 1px solid #979898;
 	width: 65px;
 }
+
+.modal-header .filter-block {
+	border-left:none;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	background: #eb952e;
+  -webkit-border-radius: 50%; 
+  -moz-border-radius: 50%; 
+    border-radius: 50%; 
+    color: #fff;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
+
+.modal-header .filter-block a{
+	margin: 0;
+	display: inline-block !important;
+	color: #fff;
+}
+
 .common-table .filter-block a::after {
     background-position: -270px -3px;
     content: "";
@@ -1170,7 +1218,7 @@ ol p {
     margin: 0;
 }
 .common-table td .ride{
-	background-position: -63px 1px;
+	background-position: -30px 1px;
 	width: 30px;
 	height: 30px;
 	display: inline-block;
@@ -1291,7 +1339,6 @@ td.pop-up_img-box td {
     cursor: pointer;
 }
 .common-table table td:first-child p{
-	cursor: pointer;
 }
 .hide{
 	transform:scale(0,0); -mstransform:scale(0,0); -webkit-transform:scale(0,0); -moz-transform:scale(0,0);
@@ -1388,7 +1435,7 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
 /*Club-details page css starts*/
 
 .club-details tr tr td {
-    background: #3abcb2;
+    background: #3b362f;
     color: #fff;
     border: 1px dashed rgba(218, 218, 218, 0.8);
     border-left: none;
@@ -1431,12 +1478,61 @@ div.filter-block a{
 .members-listing tr td .page-title h1::before {
     background-position: -387px -29px;
 }
-td th{
-	background-color: #f4f4f4;
+td .inner-table th{
+	background-color: #d8d8d8;
 }
+
+.club-details tr tr td input[type="checkbox"]{
+	margin: 0 0 0 5px;
+}
+
+
+input.customCheckbox[type=checkbox] {
+	position: absolute;
+cursor: pointer;
+	opacity: 0;
+	
+    height: 24px;
+    width: 18px;
+}
+ 
+input.customCheckbox[type=checkbox] + label
+{
+background-image: url('../images/bg_imgs/icons-sprite.png');
+height: 20px;
+width: 20px;
+display:inline-block;
+padding: 0 0 0 0px;
+background-position: -672px -62px;
+background-repeat: no-repeat;
+vertical-align: middle;
+margin: 0 0 0 2px;
+cursor: pointer;
+}
+input.customCheckbox[type=checkbox]:checked + label
+{
+height: 20px;
+width: 20px;
+display:inline-block;
+padding: 0 0 0 0px;
+background-position: -672px -35px;
+background-repeat: no-repeat;
+cursor: pointer;
+margin: 0 0 0 2px;
+}
+
 .club-details td td .ride{
 	background-position: -414px -1px;
 }
+
+.club-details td td .ride.doubleUser{
+	background-position: -386px -28px;
+}
+
+.club-details td td .ride.singleUser{
+	background-position: -476px -28px;
+}
+
 .club-listing .page-title h1::before, .all-club-details .page-title h1::before{
     background-position: -65px 0px;
 }
@@ -1509,27 +1605,29 @@ td th{
 }*/
 
 .modal-body td, .modal-body th {border: 1px solid #e7e7e7;}
-.modal-body table.club-details tr th{background:#edf7f9;border: 1px solid #edf7f9;}
+.modal-body table.club-details tr th{background: #d8d8d8;border: 1px solid #d8d8d8;}
 .modal-body table.club-details tr td{color:#4e5050;background:#fff!important;border: 1px solid #e7e7e7!important;}
-.modal-body{padding:0px!important;}
+.modal-body{}
 .modal-body table tr td .page-title{background: #fff;}
-.common-table tr td .modal-dialog .page-title{background:#fff;color:#4e5050!important;border-bottom:4px solid #cfcfcf;}
-.club-details td .modal-dialog .page-title .users{background-position: -30px 0px;width: 30px;}
-.common-table tr td .modal-dialog .filter-block a:after{background-position:-327px -3px;}
+.common-table tr td .modal-dialog .page-title{background:#fff;color:#4e5050!important;}
+.club-details td .modal-dialog .page-title .users{background-position: -30px 0px;width: 30px; margin: 0;}
+.common-table tr td .modal-dialog .filter-block a:after{background-position:-662px -3px; right: 4px;}
 .common-table tr td .modal-dialog .filter-block{border-color:#979898;}
-.modal-Description tr th{background-color: #e00777;color: #fff;border:0;}
+.modal-Description tr th{background-color: #6d6d6d;color: #fff;border:0;}
 .club-details table.modal-Description tr td{background-color: #fff;color:#929393;border: 0;}
+table.modal-Description th p span{ margin: 0 !important;}
+table.modal-Description th p{ margin: 0 !important;}
 .common-table td .modal-dialog .ride{position: absolute;margin-top: 10px;}
 .modal-Description th p .time, .modal-Description th p .date{height: 22px;width: 25px;display: inline-block;margin-right: 8px;vertical-align: bottom;}
 .modal-Description th p .time{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -445px -30px;}
 .modal-Description th p .date{background-image: url('../images/bg_imgs/icons-sprite.png');background-position: -474px -4px;}
 .detail-modal{height: 200px;overflow: auto;}
 .modal-body table.club-details td.detail-modal-td{padding: 0;}
-.modal-dialog .page-title {background: #fff;color: #4e5050!important;border-bottom: 4px solid #cfcfcf;}
+.modal-dialog .page-title {background: #fff;color: #4e5050!important; text-align: left;}
 .modal-body table.club-details td.user-image{padding: 18px;width: 156px;}
 td.user-image img{width: 120px;height: auto;} 
 .club-details .detail-modal tr td:first-child {padding-left: 40px!important;}
-.modal-dialog .filter-block a:after{background-position: -327px -3px;}
+.modal-dialog .filter-block a:after{background-position: -662px -3px; right: 4px;}
 .button-block { text-align: right;}
 .dropdown-menu{
 	min-width: 100%!important;
@@ -1555,8 +1653,10 @@ td.user-image img{width: 120px;height: auto;}
 .rideNo-center{margin-top: 5px}
 #termAndConditionMessage{padding-left: 20px}
 #aboutUsMessage{padding-left: 20px}
-.modal-content{border-radius: 0px!important}
-#myModal .modal-body{height: 300px!important;overflow: auto!important;}
+.modal-content{ text-align: left;}
+.modal-content h3{ margin: 0 0 10px; font-size: 16px;}
+.modal-content .btnBlock{ margin: 20px 0 0;}
+#myModal .modal-body{}
 span.ride-listing {
     background-image: url('../images/bg_imgs/icons-sprite.png');
     background-position: -412px 13px;
@@ -1567,7 +1667,7 @@ span.ride-listing {
 	/*float: right;*/
     margin-top: 10px!important;
     background-image: url('../images/bg_imgs/icons-sprite.png')!important;
-    background-position: -270px -3px!important;
+    background-position: -270px -55px!important;
 }
 .page-title .ride a{background-image: none!important}
 .input-group-addon{
@@ -1628,6 +1728,25 @@ span.ride-listing {
     border-radius: 4px; 
 }
 
+.main-content .btnBlock button {
+	background: none;
+	display: inline-block;
+	min-width: 100px;
+	padding: 5px 10px;
+	color: #fff;
+	font-size: 14px;
+    font-family: 'robotomedium';
+    height: 40px;
+    color: #6d6d6d;
+    border: 1px solid #6d6d6d;
+  -webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+    border-radius: 4px;
+        display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px; 
+}
+
 .main-content .button-block button.approve-btn{
 	text-indent: -9999px;
 	background: none;
@@ -1660,6 +1779,7 @@ span.ride-listing {
 .main-content .button-block button:hover {
 	background: #ec952e;
 	border-color: #ec952e;
+	color: #fff;
 }
 .input-group-addon{
 	display: inline-block!important;
@@ -1688,12 +1808,28 @@ ul.dropdown-menu > li {
     margin-left: 7px;
 }
 .messages h4.approve-msg {
-    padding-left: 11%;
+    padding: 0px 0 20px;
     text-align: center;
-    padding-top: 35px;
     max-width: 100%;
     color: #56A756;
+    margin: 0;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
 }
+
+.messages-block *{
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+}
+
+.messages h4.approve-msg b{
+	color: #eb952e;
+}
+
 .messages h4.approve-msg a{
 	color: #56A756;
 }
@@ -1713,8 +1849,10 @@ ul.dropdown-menu > li {
 .user-mgt-page-filtered td>.page-title span.ride-listing {
     background-image: url('../images/bg_imgs/icons-sprite.png');
     background-position: -412px 1px;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+        position: absolute;
+        margin-top: 10px;
 }
 .user-mgt-page-filtered td>.page-title > *{
 	display: inline-block;
@@ -1727,6 +1865,12 @@ ul.dropdown-menu > li {
 	width: calc(100% - 65px);
 	margin: 0
 }
+
+.user-mgt-page-filtered td>.page-title.multiOption > h4{
+	width: calc(100% - 120px);
+	margin: 0
+}
+
 .user-mgt-page-filtered td>.page-title > h4.no-rides{
 	width: calc(100% - 95px);
 	margin: 0;
@@ -1770,4 +1914,39 @@ ul.dropdown-menu > li {
 	background-position: -633px -25px;
 	background-color: #eb952e;
 	border-color: #eb952e;
+}
+
+.no-Club .page-title{
+	transition: none;
+	-moz-transition: none;
+	-webkit-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+}
+
+.customForm{
+	padding: 20px 20px 20px 0;
+}
+
+.text-left{
+}
+
+.customForm table{
+	width: 480px;
+}
+
+.club-details .customForm table tr td{
+	position: relative;
+}
+
+.club-details .customForm table tr td img{
+	    position: absolute;
+    right: 30px;
+    top: 25px;
+    cursor: pointer;
+}
+
+.modal-header .page-title .ride.rideIcon{
+	background-position: -413px -53px !important;
+	margin: 0 !important;
 }

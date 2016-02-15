@@ -85,6 +85,7 @@ var UserManagement = React.createClass({
 			    <div className="main user-mgt-page common-table">
                     <div className="main-content">
 					    <div className="page-title">
+                   <span className="ride"></span>
 	                        <h1>All Users Details</h1>
 	                        <div className="filter-block">
 	                            <a href="#" onClick={this._onFilter}></a>
@@ -92,13 +93,15 @@ var UserManagement = React.createClass({
 	                    </div>
 					    <div className="content">
 							    {this.state.userFilter &&
-								    <div className="filter-form">
+								    <div className="filter-form customForm">
 								    <table>
 									    <tbody>
 										    <tr>
-											    <td style={{width:'100px'}}><label>Name</label></td>
+											    <td><label>Name</label></td>
 											    <td><input type="text" name="filterByName" onChange={this._onchange} className="filter-input"/></td>
-											    <td style={{width:'100px'}}><label>Email</label></td>
+											   </tr>
+											   <tr>
+											    <td><label>Email</label></td>
 											    <td> <input type="email" name="filterByEmail" onChange={this._onchange}/></td>
 										    </tr>
 										    <tr>

@@ -5,76 +5,26 @@
     <title>Super Admin</title>
     <!-- html -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.js"></script>-->
     <!-- html -->
 </head>
 <body>
 
-    <div id="content" ></div>
-
+    <div id="content"></div>
     <script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/rsvp/3.0.6/rsvp.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/1.0.3/ReactRouter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
     <script src="https://npmcdn.com/history/umd/History.min.js"></script>
     <script src="config/development.js"></script>
     <script src="globalFunctions/services.js"></script>
     <script type="text/jsx" src="components/App.jsx"></script>
-    <script type="text/jsx" src="components/PasswordSetting.jsx"></script>
-    <script type="text/jsx" src="components/PersonalSetting.jsx"></script>
-    <script type="text/jsx" src="components/ClubRidesList.jsx"></script>
-    <script type="text/jsx" src="components/ClubMembers.jsx"></script>
-    <script type="text/jsx" src="components/ClubList.jsx"></script>
-    <script type="text/jsx" src="components/AboutUs.jsx"></script>
-    <script type="text/jsx" src="components/TermAndConditions.jsx"></script>
-    <script type="text/jsx" src="components/MessagesFromGroupAdmin.jsx"></script>
-    <script type="text/jsx" src="components/ClubManagement.jsx"></script>
-    <script type="text/jsx" src="components/SelectOption.jsx"></script>
-    <script type="text/jsx" src="components/UserList.jsx"></script>
-    <script type="text/jsx" src="components/UserManagement.jsx"></script>
-    <script type="text/jsx" src="components/MemberDetailModal.jsx"></script>>
-    <script type="text/jsx" src="components/SettingComponent.jsx"></script>
-    <script type="text/jsx" src="components/AllClubsInfo.jsx"></script>
-    <script type="text/jsx" src="components/Layout.jsx"></script>
-    <script type="text/jsx" src="components/MembersListing.jsx"></script>
-    <script type="text/jsx" src="components/Member.jsx"></script>
-    <script type="text/jsx" src="components/MembersListingModal.jsx"></script>
-    <script type="text/jsx" src="components/RidesListing.jsx"></script>
-    <script type="text/jsx" src="components/Ride.jsx"></script>
-    <script type="text/jsx" src="components/RideMembersModal.jsx"></script>
-    <script type="text/jsx" src="components/RideDescriptionModal.jsx"></script>
-    <script type="text/jsx" src="components/Notification.jsx"></script>
-    <script type="text/jsx" src="components/Notify.jsx"></script>
-    <script type="text/jsx" src="components/LiMembers.jsx"></script>
-    <script type="text/jsx" src="components/AlertModal.jsx"></script>
-    
-    <script type="text/jsx">
-        var Router = window.ReactRouter.Router;
-        var Route = window.ReactRouter.Route;
-        var Redirect = window.ReactRouter.Redirect;
-        var Window = window;
-        /*var RouteHandler = window.ReactRouter.RouteHandler;*/
-        var History = new window.History.createHistory();
-        React.render((
-            <Router history={History}>
-                <Route path="/home" component={Layout} >
-                    <Route path="/home/notification" component={Notification}/>
-                    <Route path="/home/clubs" component={ClubManagement}/>
-                    <Route path="/home/users" component={UserManagement}/>
-                    <Route path="/home/setting" component={SettingComponent}/>
-                    <Route path="/home/aboutus" component={AboutUs}/>
-                    <Route path="/home/termAndConditions" component={TermAndConditions}/>
-                </Route>
-                <Redirect from="*" to="/home" />
-            </Router>
-        ), document.getElementById('content'));
+     <script type="text/jsx">
+        React.render(<App />, document.getElementById('content'));
     </script>
 </body>
 </html>

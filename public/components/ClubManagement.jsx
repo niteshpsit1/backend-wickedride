@@ -90,18 +90,18 @@ var ClubManagement = React.createClass({
 				        </div>
 				    <div className="content">
 				        {this.state.clubFilter &&
-							    <div className="filter-form">
+							    <div className="filter-form customForm">
 								    <table>
 									    <tbody>
 										    <tr>
-											    <td style={{width:'100px'}}><label>Club Name</label></td>
+											    <td><label>Club Name</label></td>
 											    <td><input type="text" name="filterByClubName" onChange={this._onchange}/></td>
 											    
 										    </tr>
 										    
 										    <tr>
-											    <td colSpan="4">
-												    <div className="button-block">
+											    <td colSpan="2">
+												    <div className="button-block text-left">
 													    <button onClick={this._onFilterClick}>Search</button>
 												    </div>
 											    </td>
@@ -117,7 +117,6 @@ var ClubManagement = React.createClass({
 						            <th>Creator Name</th>
 						            <th>Date</th>
 						            <th>Time</th>
-						            <th></th>
 						            </tr>
 						            
 							            {this.state.clubs.map(function(club){

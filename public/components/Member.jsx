@@ -120,19 +120,17 @@ var Member = React.createClass({
 		    	<tbody>
 			    {self.state.showMember &&
 			        <tr>
-			            <td><p>{this.state.member.userName}</p></td>
+			            <td>
+				                <span className="ride singleUser"></span><p>{this.state.member.userName}</p></td>
 				        <td><p>{this.state.member.designation}</p></td>
 				        <td><p>{this.state.member.awards.length}</p></td>
 				        <td onClick={this.handleShowModal}>
-				            <a href="#">
-				                <span className="ride"></span>
+				                <span className="ride doubleUser"></span>
 				                <p>{this.state.member.clubJoined.length}</p>
-				            </a>
 				        </td>
-				        <td>
-				            <a href="#">
-				                Admin <input type="checkbox"  id={this.state.member.userID} onClick={this.changeRole}/>
-				            </a>
+				        <td className="customCheckboxOuter">
+				                Admin <input type="checkbox" className="customCheckbox" id={this.state.member.userID} onClick={this.changeRole}/><label for="thing"></label>
+				           
 				        </td>
 				        <td>
 				            <a href="#" className="remove" onClick={this.removeUser}></a>

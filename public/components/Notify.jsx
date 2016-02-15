@@ -57,9 +57,9 @@ var Notify = React.createClass({
 			console.log("====catch",error);	
 		});
 
-		setTimeout(function(){ console.log("inside timeout");
+		/*setTimeout(function(){ console.log("inside timeout");
 			self.setState({showApproveMsg : false, show : false}); 
-		}, 5000);
+		}, 5000);*/
 	},
 
 	membersList: function() {
@@ -148,9 +148,9 @@ var Notify = React.createClass({
 	    .catch(function(error){
 			console.log("====catch",error);	
 		});
-		setTimeout(function(){ console.log("inside timeout");
+		/*setTimeout(function(){ console.log("inside timeout");
 			self.setState({showApproveMsg : false, show : false}); 
-		}, 5000);
+		}, 5000);*/
 	},
     
     changeAdminApi: function() {
@@ -180,9 +180,9 @@ var Notify = React.createClass({
 
 	rightsMessage:function(msg,name) {
         this.setState({adminMsg:msg,newAdminName:name});
-        setTimeout(function(){ console.log("inside timeout");
+        /*setTimeout(function(){ console.log("inside timeout");
 			self.setState({adminMsg : false, show : false}); 
-		}, 5000);
+		}, 5000);*/
 	},
 
 	handleHideAlertModal: function(value){
@@ -204,7 +204,7 @@ var Notify = React.createClass({
 		return (
 			<div>
                 {<div className="messages-block">
-                    <div className="messages">
+                    <div className="messages messSection">
 						<h4 className="approve-msg">
 						    <span>
 						        <b>{this.props.request.name}</b>
@@ -221,7 +221,7 @@ var Notify = React.createClass({
         return (
 			<div>
                 {<div className="messages-block">
-                    <div className="messages">
+                    <div className="messages messSection">
 						<h4 className="approve-msg">
 						    <span>
 						        <b>Admin of club {this.props.request.name}</b>
@@ -271,7 +271,7 @@ var Notify = React.createClass({
                                             </div>
                                         }
                                         {this.state.changeAdminDisable &&
-                                        <button name="changeAdmin" onClick={this.membersList}>Change Admin</button>
+                                        <button name="changeAdmin" className="changeAdminClass" onClick={this.membersList}>Change Admin</button>
                                         }
 									    <button className="approve-btn" onClick={this.handleShowAlertModal} name="approved">Approve</button>
 									    <button className="reject-btn" onClick={this.handleShowAlertModal} name="rejected">Reject</button>

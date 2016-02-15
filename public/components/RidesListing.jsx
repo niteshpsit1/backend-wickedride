@@ -108,7 +108,7 @@ var RidesListing = React.createClass({
 		if(this.state.ridesAvailable==true) {
 		return (
 			<td colSpan="5" className="no-Club">
-				<div className="page-title">
+				<div className="page-title multiOption">
 				<span className="ride-listing"></span>
 					<h4>Ride Listing</h4>
 					<div className="ride" onClick={this.rideFilter}>
@@ -118,24 +118,26 @@ var RidesListing = React.createClass({
 						<a href="#"></a>
 					</div>
 				</div>
-                <div className="content">
 				    {this.state.filter &&
-				    <div className="filter-form">
+
+				    <div className="filter-form customForm">
 					    <table>
 						    <tbody>
 							    <tr>
-								    <td style={{width:'100px'}}><label>Start Date</label></td>
+								    <td><label>Start Date</label></td>
 								    <td>
 								        <input type="text" name="filterByStartDate" onChange={this._onchange} id="datetimepicker1" className="rideFilter-input"/>
                                     </td>
-								    <td style={{width:'100px'}}><label>End Date</label></td>
+                                    </tr>
+                                    <tr>
+								    <td><label>End Date</label></td>
 								    <td>
 								        <input type="text" name="filterByEndDate" onChange={this._onchange} id="datetimepicker2" className="rideFilter-input"/>
                                     </td>
 							    </tr>
 							    
 							    <tr>
-								    <td colSpan="4">
+								    <td colSpan="2">
 									    <div className="button-block" onClick={this._onFilterClick}>
 									        <button>Search</button>
 									    </div>
@@ -146,7 +148,6 @@ var RidesListing = React.createClass({
 					    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
 
 			        </div>}
-			    </div>
 
 				<div className="inner-table">
 					<table cellSpacing="0"  cellPadding="25">

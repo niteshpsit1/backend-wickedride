@@ -53,12 +53,12 @@ var MemberDetailModal = React.createClass({
 
 			<div id="myModal" className="modal fade" role="dialog">
 			    <div className="modal-dialog">
-			        <div>
-			            <div>
+			        <div className="modal-content">
+			            <div className="modal-header">
 			                
 			                <div className="page-title">
 			                <span className="ride"></span>
-				                <h1>Clubs Listing</h1>
+				                <h1>Clubs</h1>
 				                <div className="filter-block" data-dismiss="modal">
 					                <a href="#"></a>
 				                 </div>

@@ -35,7 +35,7 @@ var Ride = React.createClass({
                 
 		return (
 			<tr>
-				<td onClick={this.handleShowRideMembersModal}><p>{this.state.ride.rideName}</p></td>
+				<td onClick={this.handleShowRideMembersModal}><span className="ride"></span><p>{this.state.ride.rideName}</p></td>
 				<td onClick={this.handleShowRideDescriptionModal}><p>{this.state.ride.description}</p></td>
 				<td><p>{date}</p></td>
 				<td><p>{time}</p></td>

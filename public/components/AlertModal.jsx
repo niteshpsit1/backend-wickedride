@@ -27,21 +27,26 @@ var AlertModal = React.createClass({
 
 			<div id="myModal" className="modal fade" role="dialog">
 			    <div className="modal-dialog">
-			        
+			    	<div className="modal-content">
+			        <div className="modal-header">
 			        <div className="page-title">
 			            
-			            
+			            <h1>Alert</h1>
 						
 				        <div className="filter-block" data-dismiss="modal">
 				            <a href="#"></a>
 				        </div>
 				    </div>
+				    </div>
 				   
 			        <div className="modal-body">
 			            <h3>{this.props.message}</h3>
-			            <button type="button" className="btn btn-success" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
-					    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">cancel</button>
-			        </div>
+				            <div className="btnBlock">
+					            <button type="button" className="btn btn-success" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
+							    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">cancel</button>
+					        </div>
+			        	</div>
+			    </div>
 			    </div>
 			</div>
 		
