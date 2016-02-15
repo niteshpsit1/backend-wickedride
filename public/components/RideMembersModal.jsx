@@ -15,15 +15,11 @@ var RideMembersModal = React.createClass({
 		var requestData = {
 			token: this.props.token,
 			rideID: this.props.rideID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.GET(config.url.getClubRideMembers, requestData)
 		.then(function(data){
-			console.log("RideMembersModal",data);
 			result=data.response.result;
 			if(result.length) {
-				console.log("inside modall");
 				self.setState({members:data.response.result,membersAvailable:true});
 			}else {
 				self.setState({notAvailable: true});

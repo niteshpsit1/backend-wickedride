@@ -2,38 +2,15 @@
 var MembersListing = React.createClass({
 	getInitialState: function(){
 		return ({
-			/*members:[
-                {
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                },{
-	                userName : "club1",
-	                designation : "deepak",
-	                awards : "global",
-	                clubJoined : "various"
-                }
-            ]*/
+	
             members : [],
             membersAvailable: false
-
-			
+	
 		});
 	},
+
 	componentWillMount: function(){
 		
-        
         var self= this,
         result = [];
 		var requestData = {
