@@ -18,7 +18,6 @@ var ClubManagement = React.createClass({
 			pageNo : 1,
 			disablePrevious : true,
 			disableNext : false,
-			filterByClubName : null,
 			notAvailable : false,
 			result : true,
 			noResult : false,
@@ -78,7 +77,7 @@ var ClubManagement = React.createClass({
 			    <div className="main user-mgt-page common-table">
 				    <div className="main-content">
 				        <div className="page-title">
-					        <h1>All Club Details</h1>
+					        <h1>Clubs</h1>
 				        </div>
 				        
 				        <div className="content home-page">
@@ -92,7 +91,7 @@ var ClubManagement = React.createClass({
 			    <div className="main user-mgt-page-filtered common-table expandable">
 				    <div className="main-content">
 				        <div className="page-title">
-					        <h1>All Club Details</h1>
+					        <h1>Clubs</h1>
 					        <div className={this.state.filterClass}>
 						        <a href="#" onClick={this._onFilter}></a>
 					        </div>
@@ -105,7 +104,7 @@ var ClubManagement = React.createClass({
 									    <tbody>
 										    <tr>
 											    <td><label>Club Name</label></td>
-											    <td><input type="text" name="filterByClubName" onChange={this._onchange}/></td>
+											    <td><input type="text" name="filterByClubName" id="filterByClubName" onChange={this._onchange}/></td>
 											    
 										    </tr>
 										    
@@ -147,7 +146,7 @@ var ClubManagement = React.createClass({
 					    }
 					    {this.state.filterData &&
 						    <div>
-						        <table cellSpacing="0" cellPadding="25">
+						        <table cellSpacing="0" cellPadding="25" className="club-details">
 						            <tr>
 							            <th>Club Name</th>
 						                <th>Creator Name</th>
@@ -169,7 +168,7 @@ var ClubManagement = React.createClass({
 								    <table>
 									    <tbody>
 										    <tr>
-											    <td style={{width:'100px'}}><label>No result available</label></td>
+											    <td style={{width:'100px'}}><label>No result found</label></td>
 											    
 											    
 										    </tr>
@@ -294,7 +293,7 @@ var ClubManagement = React.createClass({
 	_onFilterClick: function(event){
         event.preventDefault();
 		var input1 = $("#filterByClubName").val();
-		
+		console.log("input111111",input1);
 		if(input1==null||input1=="") {
             this.setState({showAlert: true});
 		}else {

@@ -1453,6 +1453,11 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
     border-top: none;
     text-align: left;
 }
+
+.club-details tr tr td.centerElement{
+	text-align: center;
+}
+
 .club-details tr td .inner-table p:before{
 	content: none;
 }
@@ -1849,6 +1854,20 @@ ul.dropdown-menu > li {
 .user-mgt-page td p.ride, .user-mgt-page td p.rideNo-center{
 	float: none;
 }
+
+.common-table td p.spanSpace span{
+	margin: 0 2px;
+}
+
+.common-table td.clubJointd p{
+    margin: 0 5px;
+}
+
+.common-table td.clubJointd .ride{
+	text-align: center;
+	margin: 0;
+}
+
 .user-mgt-page .content > table th:nth-child(4),
 .user-mgt-page .content > table >tbody>tr>td:nth-child(4){
 	text-align: center !important;

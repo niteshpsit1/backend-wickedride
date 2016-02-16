@@ -103,18 +103,20 @@ var UserManagement = React.createClass({
 	                    </div>
 					    <div className="content">
 							    {this.state.userFilter &&
-			    <div className="filter-form customForm">
+			                    <div className="filter-form customForm">
 								    <form onSubmit={this._onClick}>
 								        <table>
 									        <tbody>
 										        <tr>
 											        <td><label>Name</label></td>
 											        <td><input type="text" name="filterByName" id="filterByName" onChange={this._onchange} className="filter-input"/></td>
+											    </tr>
+											    <tr>
 											        <td><label>Email</label></td>
 											        <td> <input type="email" name="filterByEmail" id="filterByEmail" onChange={this._onchange}/></td>
 										        </tr>
 										        <tr>
-											        <td colSpan="4">
+											        <td colSpan="3">
 												        <div className="button-block">
 													        <button onSubmit={this._onClick}>Search</button>
 												        </div>
@@ -171,7 +173,7 @@ var UserManagement = React.createClass({
 								    <table>
 									    <tbody>
 										    <tr>
-											    <td style={{width:'100px'}}><label>No result available</label></td>
+											    <td style={{width:'100px'}}><label>No result found</label></td>
 											</tr>
 									    </tbody>
 								    </table>
@@ -187,7 +189,7 @@ var UserManagement = React.createClass({
 	},
 
 	_onFilter: function(){
-		
+
         if(this.state.userFilter==false) {
         	console.log("filterrrrrrrrrr",this.state.userFilter);
         	this.setState({filterClass : "filter-block active"});

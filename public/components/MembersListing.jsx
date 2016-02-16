@@ -15,8 +15,6 @@ var MembersListing = React.createClass({
 		var requestData = {
 			token: this.props.token,
 			clubID: this.props.clubID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.GET(config.url.getClubMembers, requestData)
 		.then(function(data){
@@ -50,7 +48,7 @@ var MembersListing = React.createClass({
 			
 				<div className="page-title">
 				    <span className="users"></span>
-					<h4>All Club Details</h4>
+					<h4>Club Members</h4>
 					<div className="filter-block" onClick={this.close}>
 						<a href="#"></a>
 					</div>
@@ -59,7 +57,7 @@ var MembersListing = React.createClass({
 					<table cellSpacing="0"  cellPadding="25">
 						<th>User Name</th>
 						<th>Designation</th>
-						<th>ClubJoined</th>
+						<th>Number of Clubs Joined</th>
 						<th>Change Role</th>
 						<th></th>
 			 

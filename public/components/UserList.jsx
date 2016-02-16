@@ -25,9 +25,9 @@ var UserList =	React.createClass({
 				<td><p>{this.props.user.userName}</p></td>
 				<td><p>{this.props.user.email}</p></td>
 				<td><p>{this.props.user.number}</p></td>
-				<td onClick={this.handleShowModal}>
+				<td onClick={this.handleShowModal} className="clubJointd">
 				    <p><a href="#" className="ride p-center"></a></p>
-				    <p className="rideNo-center">{this.props.user.noOfClubJoined}clubs</p>
+				    <p className="rideNo-center spanSpace">{this.props.user.noOfClubJoined} clubs</p>
 				</td>
 				{this.state.showModal ? <MemberDetailModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.props.user.userID} user={this.props.user}/> : null}
 			</tr>

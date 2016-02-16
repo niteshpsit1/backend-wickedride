@@ -59,7 +59,7 @@ var Notification = React.createClass({
 				    </div>
 				    
 				    <div className="content home-page">
-				        <div className="noData"><b>No Notifications present</b></div>
+				        <div className="noData"><b>No Notifications present.</b></div>
 			        </div>
 		        </div>
 		    </div>

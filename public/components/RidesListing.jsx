@@ -151,7 +151,7 @@ var RidesListing = React.createClass({
 					<table cellSpacing="0"  cellPadding="25">
 					    <tr>
 						    <th>Ride Name</th>
-						    <th>Descrption</th>
+						    <th>Description</th>
 						    <th>Start Date</th>
 						    <th>Start Time</th>
 						    <th>Members</th>
