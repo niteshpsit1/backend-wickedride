@@ -26,7 +26,8 @@ var ClubManagement = React.createClass({
 			filterData : false,
 			showButton : true,
 			action : "emptyFilterInput",
-			message : "Fill up the fields first."
+			message : "Fill up the fields first.",
+			filterClass : "filter-block"
 			
 
 		} 
@@ -92,7 +93,7 @@ var ClubManagement = React.createClass({
 				    <div className="main-content">
 				        <div className="page-title">
 					        <h1>All Club Details</h1>
-					        <div className="filter-block">
+					        <div className={this.state.filterClass}>
 						        <a href="#" onClick={this._onFilter}></a>
 					        </div>
 				        </div>
@@ -182,6 +183,13 @@ var ClubManagement = React.createClass({
         }
 	},
 	_onFilter: function(){
+		if(this.state.clubFilter==false) {
+        	console.log("filterrrrrrrrrr",this.state.clubFilter);
+        	this.setState({filterClass : "filter-block active"});
+        }else if(this.state.clubFilter==true) {
+        	this.setState({filterClass : "filter-block"});
+        }
+
 		this.setState({
 			clubFilter: !this.state.clubFilter,
 			noResult : false,

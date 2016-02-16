@@ -2,8 +2,9 @@ var MemberDetailModal = React.createClass({
 
 	getInitialState : function(){
 		return {
-			detail : []
-		};
+			detail : [],
+			image : {}
+		}	
 	},
 
 	componentWillMount: function(){
@@ -14,17 +15,16 @@ var MemberDetailModal = React.createClass({
 		var requestData = {
 			token: this.props.token,
 			userID: this.props.userID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.GET(config.url.getMemberDetail, requestData)
 		.then(function(data){
-			image = data.response.result[0];
+			image = data.response.result[0].userImage;
 			result=data.response.result[0].club;
 			
 			if(result.length) {
 				self.setState({
-				detail:result
+				detail:result,
+				image : image
 				
 			});
 			}
@@ -76,7 +76,7 @@ var MemberDetailModal = React.createClass({
 						        <tbody>
 						             
 								    <tr>
-								        <td className="user-image"><img src="https://s3-ap-northeast-1.amazonaws.com/bikersclub/ride_new/EDDD8374-2B4F-4137-B941-9BEDD2CB5B63.jpg"/></td>
+								        <td className="user-image"><img src={this.state.image} /></td>
 								        <td colSpan="2" className="detail-modal-td">
 								            <div className="detail-modal">
 								                <table>

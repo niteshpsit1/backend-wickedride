@@ -28,7 +28,8 @@ var UserManagement = React.createClass({
 			showButton : true,
 			showAlert: false,
 			action : "emptyFilterInput",
-			message : "Fill up the fields first."
+			message : "Fill up the fields first.",
+			filterClass : "filter-block"
 		}
 	},
 	componentWillMount: function(){ 
@@ -96,7 +97,7 @@ var UserManagement = React.createClass({
 					    <div className="page-title">
                    <span className="ride"></span>
 	                        <h1>All Users Details</h1>
-	                        <div className="filter-block">
+	                        <div className={this.state.filterClass}>
 	                            <a href="#" onClick={this._onFilter}></a>
 	                        </div>
 	                    </div>
@@ -186,6 +187,13 @@ var UserManagement = React.createClass({
 	},
 
 	_onFilter: function(){
+		
+        if(this.state.userFilter==false) {
+        	console.log("filterrrrrrrrrr",this.state.userFilter);
+        	this.setState({filterClass : "filter-block active"});
+        }else if(this.state.userFilter==true) {
+        	this.setState({filterClass : "filter-block"});
+        }
 		var self = this;
 		self.pagination();
 		this.setState({
