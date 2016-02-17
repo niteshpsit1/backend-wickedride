@@ -1,28 +1,48 @@
+var allUrlData = {
+	pageSize: 10
+}
+
 var MembersListingModal = React.createClass({
 
 	getInitialState : function(){
 		return {
-			clubs : []
+			clubs : [],
+			noOfPages: null,
+			pageNo : 1,
+			disablePrevious : true,
+			disableNext : false
 		};
 	},
 
 	componentWillMount: function(){
         var self= this,
+        pages = null,
+		LOD = null,
         result = [];
 		var requestData = {
 			token: this.props.token,
 			userID: this.props.userID
-			//pageSize:config.pagination.pageSize,
-			//createdOn: this.state.clubs.length ? this.state.clubs[allUrlData.pageSize-1].createdOn : null
 		};
 		services.GET(config.url.getClubMemberNameList, requestData)
 		.then(function(data){
-			
+			console.log("dataaaaa",data);
+			LOD = data.response.lengthOfDocument;
+			if((LOD<10&&LOD>0)||LOD==10){
+                pages = 1;
+                self.setState({disableNext:true,disablePrevious:true,showButton: false
+                });
+			}else if(LOD==0){
+                self.setState({notAvailable : true});
+			}else {
+
+			    pages = LOD/allUrlData.pageSize;
+		    }
+
 			result=data.response.result;
 			if(result.length) {
 				self.setState({
 				clubs:data.response.result,
-				/*clubsAvailable:true*/
+				noOfPages : Math.ceil(pages)
 			});
 			}
 			
@@ -39,7 +59,88 @@ var MembersListingModal = React.createClass({
 		$(React.findDOMNode(this)).on('hidden.bs.modal', this.props.handleHideModal);
 	},
 
-	
+	_onPaginationPrevious: function(event){
+		var currentThis = this;
+		if(this.state.pageNo==this.state.noOfPages-1) {
+			this.setState({disableNext : false})
+		}
+		
+		var decrement = this.state.pageNo;
+		
+		var minus = null;
+		
+		if(decrement==1){
+			this.setState({disablePrevious : true,disableNext:false})
+		}else if(decrement==2){
+		   
+		    decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		    
+		    
+			var requestData = {
+				token: this.props.token,
+				userID: this.props.userID,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.GET(config.url.getClubMemberNameList, requestData)
+			.then(function(data){
+				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});	
+		}else {
+			decrement=decrement-1;
+		    this.setState({pageNo : decrement});
+		    var requestData = {
+				token: this.props.token,
+				userID: this.props.userID,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1
+			};
+			services.GET(config.url.getClubMemberNameList, requestData)
+			.then(function(data){
+				currentThis.setState({clubs:data.response.result});
+			})
+			.catch(function(error){
+				console.log("====catch",error);	
+			});
+		}
+	},
+
+	_onPaginationNext: function(event){
+		var currentThis = this;
+		var increment = this.state.pageNo;
+		this.setState({disablePrevious: false});
+		
+        increment = increment+1;
+		if(increment==this.state.noOfPages){
+			this.setState({disableNext : true})
+		}
+			
+		this.setState({pageNo : increment}); 
+		
+		var requestData = {
+		    token: this.props.token,
+		    userID: this.props.userID,
+			pageSize:allUrlData.pageSize,
+			pageNumber: this.state.pageNo+1
+		};
+		services.GET(config.url.getClubMemberNameList, requestData)
+		.then(function(data){
+			
+			currentThis.setState({
+			clubs:data.response.result
+		});
+			
+		})
+		.catch(function(error){
+			console.log("====catch",error);	
+		});	
+		
+		
+	},
 
 	render: function () {
 		
@@ -67,15 +168,19 @@ var MembersListingModal = React.createClass({
 						        <th>Joined As</th>
 						        <tbody>
 						            {this.state.clubs.map(function(club){
-								            return( 
-								                <tr>
-				                                    <td><p>{club.clubName}</p></td>
-				                                    <td><p>{club.joinedAs}</p></td>
-				                                </tr>
-				                            )
+								        return( 
+								            <tr>
+				                                <td><p>{club.clubName}</p></td>
+				                                <td><p>{club.joinedAs}</p></td>
+				                            </tr>
+				                        )
 							        })}
 						        </tbody>
 					        </table>
+					        <div className="text-right arrow-sign">
+					            <button type="button" className="btn prevBtn" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					            <button type="button" className="btn nextBtn" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                            </div>
 					    </div>
 			        </div>
 			    </div>

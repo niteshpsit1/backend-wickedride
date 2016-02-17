@@ -106,7 +106,7 @@ var Member = React.createClass({
     handleHideAlertModal: function(value) {
     	if(value=="deleteUser") {
     		this.removeUserApi();
-    	}else if(value=="makeAdminAlert"){
+    	}else if(value=="cancelled"){
             this.setState({showAlert: false});
             $("#"+this.state.member.userID).prop('checked', true);
         }else if(value=="cancelled") {
@@ -125,17 +125,17 @@ var Member = React.createClass({
 			    {self.state.showMember &&
 			        <tr>
 			            <td>
-				                <span className="ride singleUser"></span><p>{this.state.member.userName}</p></td>
-				        <td><p>{this.state.member.designation}</p></td>
-				        <td onClick={this.handleShowModal}>
-				                <span className="ride doubleUser"></span>
-				                <p>{this.state.member.clubJoined.length}</p>
+				            <span className="ride singleUser"></span><p>{this.state.member.userName}</p></td>
+				            <td><p>{this.state.member.designation}</p></td>
+				            <td onClick={this.handleShowModal}>
+				                <span className="ride doubleUser pointerCss"></span>
+				                <p className="pointerCss">{this.state.member.clubJoined.length}</p>
 				        </td>
 				        <td className="customCheckboxOuter">
 				                Admin <input type="checkbox" className="customCheckbox" id={this.state.member.userID} onClick={this.changeRole} defaultChecked={admin}/><label htmlFor="thing"></label>
 				           
 				        </td>
-				        <td>
+				        <td className="centerElement">
 				            <a href="#" className="remove" onClick={this.removeUser}></a>
 				        </td> 
 				        {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}

@@ -32,11 +32,22 @@ var Ride = React.createClass({
         var hours = dd.getHours();
         var minutes = dd.getMinutes();
         var time = hours + ':' + minutes;
+        var dot = false;
+        var noDot = true;
+        if(this.state.ride.description.length > 10) {
+        	dot = true;
+        	noDot = false;
+        }
                 
 		return (
 			<tr>
 				<td onClick={this.handleShowRideMembersModal}><span className="ride pointerCss"></span><p className="pointerCss">{this.state.ride.rideName}</p></td>
-				<td onClick={this.handleShowRideDescriptionModal}><p className="pointerCss">{this.state.ride.description}</p></td>
+				{ dot && <td onClick={this.handleShowRideDescriptionModal}>
+				    <p className="pointerCss spanSpace">{this.state.ride.description}...</p>
+				</td>}
+				{ noDot && <td onClick={this.handleShowRideDescriptionModal}>
+				    <p className="pointerCss">{this.state.ride.description}</p>
+				</td>}
 				<td><p>{date}</p></td>
 				<td><p>{time}</p></td>
 				<td><p>{this.state.ride.member.length}</p></td>

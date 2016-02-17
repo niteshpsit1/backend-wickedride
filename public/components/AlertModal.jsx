@@ -1,9 +1,17 @@
 var AlertModal = React.createClass({
 	getInitialState : function() {
         return{
-        	action : this.props.action
+        	action : this.props.action,
+        	bothButtons : true,
+        	okButton : false
         }
 	},
+    
+    componentWillMount: function() {
+        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert") {
+        	this.setState({okButton : true, bothButtons : false});
+        }
+    },
 
 	componentDidMount: function() {
 
@@ -41,10 +49,17 @@ var AlertModal = React.createClass({
 				   
 			        <div className="modal-body">
 			            <h3>{this.props.message}</h3>
+			            {this.state.bothButtons &&
 				            <div className="btnBlock">
 					            <button type="button" className="btn btn-success" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
 							    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">cancel</button>
 					        </div>
+					    }
+			            {this.state.okButton &&
+				            <div className="btnBlock">
+							    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">ok</button>
+					        </div>
+					    }
 			        	</div>
 			    </div>
 			    </div>

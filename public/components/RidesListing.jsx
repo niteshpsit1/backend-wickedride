@@ -110,10 +110,10 @@ var RidesListing = React.createClass({
 				<span className="ride-listing"></span>
 					<h4>Ride Listing</h4>
 					<div className="ride" onClick={this.rideFilter}>
-						<a href="#"></a>
+						<a href="javascript:void(0)"></a>
 					</div>
 					<div className="filter-block" onClick={this.close}>
-						<a href="#"></a>
+						<a href="javascript:void(0)"></a>
 					</div>
 				</div>
 				   {this.state.filter &&
@@ -151,7 +151,7 @@ var RidesListing = React.createClass({
 					<table cellSpacing="0"  cellPadding="25">
 					    <tr>
 						    <th>Ride Name</th>
-						    <th>Descrption</th>
+						    <th>Description</th>
 						    <th>Start Date</th>
 						    <th>Start Time</th>
 						    <th>Members</th>
