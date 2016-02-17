@@ -61,12 +61,12 @@
         React.render((
             <Router history={History}>
                 <Route path="/home" component={Layout} >
-                    <Route path="/home/notification" component={Notification}/>
-                    <Route path="/home/clubs" component={ClubManagement}/>
-                    <Route path="/home/users" component={UserManagement}/>
-                    <Route path="/home/setting" component={SettingComponent}/>
-                    <Route path="/home/aboutus" component={AboutUs}/>
-                    <Route path="/home/termAndConditions" component={TermAndConditions}/>
+                    <Route path="/home/notification" component={Notification} value="1"/>
+                    <Route path="/home/clubs" component={ClubManagement}  value="2"/>
+                    <Route path="/home/users" component={UserManagement}  value="3"/>
+                    <Route path="/home/setting" component={SettingComponent}  value="4"/>
+                    <Route path="/home/aboutus" component={AboutUs}  value="1"/>
+                    <Route path="/home/termAndConditions" component={TermAndConditions}  value="5"/>
                 </Route>
                 <Redirect from="*" to="/home" />
             </Router>

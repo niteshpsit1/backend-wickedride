@@ -5,7 +5,14 @@ var SettingComponent = React.createClass({
 			userCredentials:localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).userCredentials : {}
 		}
 	},
+
+	fromParent: function(adminName) {
+		console.log("this.propssssss",adminName,this.props);
+        this.props.doSomething(adminName);
+	},
+
 	render: function(){
+		console.log("propsssss setting",this.props);    
 		return (
 			<div className="main settings-page">
 				<div className="main-content">
@@ -14,7 +21,7 @@ var SettingComponent = React.createClass({
 					</div>
 					<div className="content setting-content">
 						<PasswordSetting token={this.state.token} userCredentials={this.state.userCredentials}/>
-						<PersonalSetting token={this.state.token} userCredentials={this.state.userCredentials}/>
+						<PersonalSetting token={this.state.token} userCredentials={this.state.userCredentials}  fromParent={this.fromParent}/>
 					</div>
 				</div>
 			</div>

@@ -15,8 +15,19 @@ var Layout =  React.createClass({
 
 		}
 	},
+
+    doSomething: function(value) {
+        console.log('doSomething called by child with value:', value);
+        this.setState({adminName: value});
+    },
+
     render: function() {
+        var self = this;
+        var childrenWithProps = React.Children.map(this.props.children, function(child) {
+            return React.cloneElement(child, { doSomething: self.doSomething });
         
+        });
+
         return (
             <div>
                 <header>
@@ -34,15 +45,15 @@ var Layout =  React.createClass({
                 <div className="wrapper">
                     <aside className="sidebar">
                         <ul className="navigation clearfix">
-                            <li className={this.state.homeClass}><a onClick={this._onClick} href="#"><div name="homeState">Home</div></a></li>
-                            <li className={this.state.userClass}><a onClick={this._onClick} href="#"><div name="userManagementState">User Management</div></a></li>
-                            <li className={this.state.clubClass}><a onClick={this._onClick} href="#"><div name="clubManagementState">Club Management</div></a></li>
-                            <li className={this.state.aboutClass}><a onClick={this._onClick} href="#"><div name="aboutUs">About Us</div></a></li>
-                            <li className={this.state.termClass}><a onClick={this._onClick} href="#"><div name="termAndConditions">Term & Conditions</div></a></li>
-                            <li className={this.state.settingClass}><a onClick={this._onClick} href="#"><div name="settingState">Settings</div></a></li>
+                            <li className={this.state.homeClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="homeState">Home</div></a></li>
+                            <li className={this.state.userClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="userManagementState">User Management</div></a></li>
+                            <li className={this.state.clubClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="clubManagementState">Club Management</div></a></li>
+                            <li className={this.state.aboutClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="aboutUs">About Us</div></a></li>
+                            <li className={this.state.termClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="termAndConditions">Term & Conditions</div></a></li>
+                            <li className={this.state.settingClass}><a onClick={this._onClick} href="javascript:void(0)"><div name="settingState">Settings</div></a></li>
                         </ul>
                     </aside>
-                    {this.props.children}
+                    {childrenWithProps}
                     
                 </div>
             </div>    

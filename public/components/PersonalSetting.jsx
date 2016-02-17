@@ -6,13 +6,19 @@ var PersonalSetting = React.createClass({
 			invalidName:""
 		}
 	},
+
+	fromParent: function(adminName) {
+		console.log("this.propssssss",this.props);
+        this.props.fromParent(adminName);
+	},
+
 	render: function(){
 		return (
 			<div className="PI-block">
 				<div className="page-title">
 					<h1>Personal Information</h1>
 					<div className="filter-block edit">
-						<a href="#" onClick={this._onEdit}>Edit</a>
+						<a href="javascript:void(0)" onClick={this._onEdit}>Edit</a>
 					</div>
 				</div>
 			
@@ -42,6 +48,12 @@ var PersonalSetting = React.createClass({
 	},
 	_onClick: function(){
 		var currentThis = this;
+
+		var adminName = $("#adminName").val();
+		console.log(this.state.userName);
+		this.fromParent(currentThis.state.userName);
+
+		
 		if( this.state.userName != "" ){
 			var requestData = {};
 			requestData.token = this.props.token;
