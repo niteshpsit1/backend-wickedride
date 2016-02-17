@@ -84,7 +84,7 @@ var UserManagement = React.createClass({
 				        </div>
 				        
 				        <div className="content home-page">
-				            <div><b>No users present</b></div>
+				            <div className="noData"><b>No users present</b></div>
 			            </div>
 		            </div>
 		        </div>
@@ -173,7 +173,7 @@ var UserManagement = React.createClass({
 								    <table>
 									    <tbody>
 										    <tr>
-											    <td style={{width:'100px'}}><label>No result found</label></td>
+											    <td style={{width:'100px'}} className="noData"><label>No result found</label></td>
 											</tr>
 									    </tbody>
 								    </table>
