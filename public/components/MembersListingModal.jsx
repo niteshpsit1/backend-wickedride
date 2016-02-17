@@ -25,7 +25,6 @@ var MembersListingModal = React.createClass({
 		};
 		services.GET(config.url.getClubMemberNameList, requestData)
 		.then(function(data){
-			console.log("dataaaaa",data);
 			LOD = data.response.lengthOfDocument;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
@@ -49,7 +48,6 @@ var MembersListingModal = React.createClass({
 			
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
     },
     
@@ -88,7 +86,6 @@ var MembersListingModal = React.createClass({
 				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});	
 		}else {
 			decrement=decrement-1;
@@ -104,7 +101,6 @@ var MembersListingModal = React.createClass({
 				currentThis.setState({clubs:data.response.result});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});
 		}
 	},
@@ -136,7 +132,6 @@ var MembersListingModal = React.createClass({
 			
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
 		});	
 		
 		

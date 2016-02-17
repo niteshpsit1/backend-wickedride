@@ -32,7 +32,6 @@ var MemberDetailModal = React.createClass({
 			
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
     },
     

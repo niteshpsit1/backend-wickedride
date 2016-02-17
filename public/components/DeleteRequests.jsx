@@ -23,7 +23,7 @@ var DeleteRequests = React.createClass({
 			}, 0);
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
+			
 		});	
 	},
 	render: function(){

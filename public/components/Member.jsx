@@ -33,7 +33,6 @@ var Member = React.createClass({
 				self.setState({showMember:false});
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
 	},
 
@@ -72,7 +71,6 @@ var Member = React.createClass({
 			    
 		    })
 	        .catch(function(error){
-			    console.log("====catch",error.response.message);
 			    	
 		    });
         }else {
@@ -95,7 +93,6 @@ var Member = React.createClass({
 			    
 		    })
 	        .catch(function(error){
-			    console.log("====catch",error.response.message);
 			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
                     self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
 			    }	

@@ -24,7 +24,6 @@ var TermAndConditions = React.createClass({
 			}, 0);
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
 		});	
 	},
 	render: function(){
@@ -90,7 +89,6 @@ var TermAndConditions = React.createClass({
 				}
 			})
 			.catch(function(error){
-				console.log(error);
 			})
 		}
 	}

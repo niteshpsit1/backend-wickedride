@@ -8,7 +8,6 @@ var PersonalSetting = React.createClass({
 	},
 
 	fromParent: function(adminName) {
-		console.log("this.propssssss",this.props);
         this.props.fromParent(adminName);
 	},
 
@@ -48,12 +47,9 @@ var PersonalSetting = React.createClass({
 	},
 	_onClick: function(){
 		var currentThis = this;
-
-		var adminName = $("#adminName").val();
-		console.log(this.state.userName);
+		
 		this.fromParent(currentThis.state.userName);
 
-		
 		if( this.state.userName != "" ){
 			var requestData = {};
 			requestData.token = this.props.token;
@@ -71,7 +67,7 @@ var PersonalSetting = React.createClass({
 				}
 			})
 			.catch(function(error){
-				console.log("================",error);
+				
 				currentThis.setState({
 					invalidName: "Last Name can't be blank",
 				});

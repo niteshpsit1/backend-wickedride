@@ -17,7 +17,6 @@ var Layout =  React.createClass({
 	},
 
     doSomething: function(value) {
-        console.log('doSomething called by child with value:', value);
         this.setState({adminName: value});
     },
 

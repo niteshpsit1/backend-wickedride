@@ -44,17 +44,13 @@ var Notify = React.createClass({
 			response : "rejected"
 		};
 		services.POST(config.url.handleClubDeleteRequest, requestData)
-		.then(function(data){
-			
-			console.log("successfully deleted club",data.response);
-			
+		.then(function(data){			
 				self.setState({showApproveMsg:true,msg:"rejected"});
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
 
-		setTimeout(function(){ console.log("inside timeout");
+		setTimeout(function(){
 			self.setState({showApproveMsg : false, show : false}); 
 		}, 8000);
 	},
@@ -80,7 +76,7 @@ var Notify = React.createClass({
 			}
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
+			
 		});
         
 
@@ -101,7 +97,6 @@ var Notify = React.createClass({
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
-			console.log("successfully transferred rights",data.response);
 			if(result.length) {
 				self.setState({
 				show:false
@@ -110,7 +105,6 @@ var Notify = React.createClass({
 			}
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
         
 	},
@@ -137,15 +131,12 @@ var Notify = React.createClass({
 		};
 		services.POST(config.url.handleClubDeleteRequest, requestData)
 		.then(function(data){
-			
-			console.log("successfully approved request",data.response);
-			
+						
 			self.setState({transferred:true,showApproveMsg : true,msg : "approved"});
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
-		setTimeout(function(){ console.log("inside timeout");
+		setTimeout(function() {
 			self.setState({showApproveMsg : false, show : false}); 
 		}, 5000);
 	},
@@ -163,21 +154,19 @@ var Notify = React.createClass({
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
 			
-			console.log("Rights transferred successfully",data.response);
 			if(result) {
 				self.setState({transferred:true});
 				self.props.rightsMessage(true,self.props.name);
 			}
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
         
 	},
 
 	rightsMessage:function(msg,name) {
         this.setState({adminMsg:msg,newAdminName:name});
-        setTimeout(function(){ console.log("inside timeout");
+        setTimeout(function() { 
 			self.setState({adminMsg : false, show : false}); 
 		}, 5000);
 	},

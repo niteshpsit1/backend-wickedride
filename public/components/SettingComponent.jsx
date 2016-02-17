@@ -7,12 +7,10 @@ var SettingComponent = React.createClass({
 	},
 
 	fromParent: function(adminName) {
-		console.log("this.propssssss",adminName,this.props);
-        this.props.doSomething(adminName);
+	        this.props.doSomething(adminName);
 	},
 
 	render: function(){
-		console.log("propsssss setting",this.props);    
 		return (
 			<div className="main settings-page">
 				<div className="main-content">

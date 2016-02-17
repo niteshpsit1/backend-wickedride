@@ -120,7 +120,6 @@ var ClubList = React.createClass({
 					});
 				})
 				.catch(function(error){
-					console.log("error",error)
 				});
 			}
 			else{
@@ -145,7 +144,6 @@ var ClubList = React.createClass({
 					})
 				})
 				.catch(function(error){
-					console.log("error",error)
 				});
 			}
 			else{

@@ -38,7 +38,6 @@ var RidesListing = React.createClass({
 			}
         })
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
     },
 
@@ -215,7 +214,6 @@ var RidesListing = React.createClass({
 			    }
 			})
 	        .catch(function(error){
-			    console.log("====catch",error);	
 		    });
 	    }
 	}
