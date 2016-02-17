@@ -90,7 +90,6 @@ var App = React.createClass({
                     window.location.href = "/adminlogin";
                 })
                 .catch(function(error){
-                    console.log("======error",error);
                     currentThis.setState({
                         loginError: error.response.message,
                         invalidEmail:""

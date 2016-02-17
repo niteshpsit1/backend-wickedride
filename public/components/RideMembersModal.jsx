@@ -25,7 +25,6 @@ var RideMembersModal = React.createClass({
             }
   })
      .catch(function(error){
-   console.log("====catch",error); 
   });
         
 

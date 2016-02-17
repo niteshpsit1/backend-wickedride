@@ -40,7 +40,7 @@ var Notification = React.createClass({
 			self.setState({requests : data.response.result,noOfPages : Math.ceil(pages)});
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
+			
 		});	
 
 	},
@@ -119,7 +119,7 @@ var Notification = React.createClass({
 				currentThis.setState({requests : data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
+			
 			});	
 		}else {
 			decrement=decrement-1;
@@ -135,7 +135,6 @@ var Notification = React.createClass({
 				currentThis.setState({requests : data.response.result});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});
 		}
 	},
@@ -165,7 +164,6 @@ var Notification = React.createClass({
 				
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});	
 		
 		

@@ -8,7 +8,7 @@ var AlertModal = React.createClass({
 	},
     
     componentWillMount: function() {
-        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert") {
+        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert"||this.props.action=="noFilterResult") {
         	this.setState({okButton : true, bothButtons : false});
         }
     },

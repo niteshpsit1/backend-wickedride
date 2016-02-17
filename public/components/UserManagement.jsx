@@ -60,7 +60,6 @@ var UserManagement = React.createClass({
 			userList:data.response.result,noOfPages : Math.ceil(pages)});
 		}) 		
 		.catch(function(error){
-			console.log(error)
 		})
 	},
 
@@ -170,13 +169,11 @@ var UserManagement = React.createClass({
                             }
                             {this.state.noResult &&
 							    <div className="filter-form">
-								    <table>
-									    <tbody>
-										    <tr>
-											    <td style={{width:'100px'}} className="noData"><label>No result found</label></td>
-											</tr>
-									    </tbody>
-								    </table>
+							        <label>
+								        <div className="noData">
+										    <p>No result found</p>
+									    </div>
+									</label>
 						        </div>
 						    }
 					    </div>
@@ -191,7 +188,6 @@ var UserManagement = React.createClass({
 	_onFilter: function(){
 
         if(this.state.userFilter==false) {
-        	console.log("filterrrrrrrrrr",this.state.userFilter);
         	this.setState({filterClass : "filter-block active"});
         }else if(this.state.userFilter==true) {
         	this.setState({filterClass : "filter-block"});
@@ -246,7 +242,7 @@ var UserManagement = React.createClass({
                 pages = 1;
                 currentThis.setState({disableNext:true,disablePrevious:true});
 			}else if(LOD==0){
-			    currentThis.setState({noResult : true});
+			    currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
 		    }else {
 			    pages = LOD/allUrlData.pageSize;
 		    }
@@ -255,18 +251,15 @@ var UserManagement = React.createClass({
 				    filterResult:data.response.result,
 				    filterData : true,
 				    result : false,
-				    noResult : false,
 				    noOfPages : Math.ceil(pages)
 			    });
 		    }else {
 		    	currentThis.setState({
-		    		noResult : true,
-		    		result :false
+		    		result :true
 		    	});
 		    }
 		}) 		
 		.catch(function(error){
-			console.log(error)
 		})
 	}
 	},
@@ -299,7 +292,6 @@ var UserManagement = React.createClass({
 				currentThis.setState({userList:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});	
 		}else {
 			decrement=decrement-1;
@@ -314,7 +306,6 @@ var UserManagement = React.createClass({
 				currentThis.setState({userList:data.response.result});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
 			});
 		}
 	},
@@ -345,7 +336,6 @@ var UserManagement = React.createClass({
 			
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
 		});	
 		
 		

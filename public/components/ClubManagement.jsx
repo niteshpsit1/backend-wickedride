@@ -57,7 +57,7 @@ var ClubManagement = React.createClass({
 		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
 		})
 		.catch(function(error){
-			console.log("====catch",error);	
+				
 		});	
 	},
     
@@ -164,17 +164,14 @@ var ClubManagement = React.createClass({
                             </div>
                         }
 					    {this.state.noResult &&
-							    <div className="filter-form">
-								    <table>
-									    <tbody>
-										    <tr>
-											    <td style={{width:'100px'}}><label>No result found</label></td>
-											    
-											    
-										    </tr>
-									    </tbody>
-								    </table>
-						    </div>}
+						<div className="filter-form">
+							
+							<label>
+								<div className="noData">
+									<p>No result found</p>
+								</div>
+							</label>
+						</div>}
 				    </div>
 			    </div>
 		    </div>
@@ -183,7 +180,6 @@ var ClubManagement = React.createClass({
 	},
 	_onFilter: function(){
 		if(this.state.clubFilter==false) {
-        	console.log("filterrrrrrrrrr",this.state.clubFilter);
         	this.setState({filterClass : "filter-block active"});
         }else if(this.state.clubFilter==true) {
         	this.setState({filterClass : "filter-block"});
@@ -235,7 +231,7 @@ var ClubManagement = React.createClass({
 				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
+				
 			});	
 		}else {
 			decrement=decrement-1;
@@ -251,7 +247,7 @@ var ClubManagement = React.createClass({
 				currentThis.setState({clubs:data.response.result});
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
+					
 			});
 		}
 	},
@@ -284,7 +280,7 @@ var ClubManagement = React.createClass({
 				
 			})
 			.catch(function(error){
-				console.log("====catch",error);	
+					
 			});	
 		
 		
@@ -293,7 +289,7 @@ var ClubManagement = React.createClass({
 	_onFilterClick: function(event){
         event.preventDefault();
 		var input1 = $("#filterByClubName").val();
-		console.log("input111111",input1);
+		
 		if(input1==null||input1=="") {
             this.setState({showAlert: true});
 		}else {
@@ -305,21 +301,30 @@ var ClubManagement = React.createClass({
 		    
 		    services.POST(config.url.getAllClub, requestData)
 		    .then(function(data){
+		    	var LOD = data.response.result.length;
+			    if((LOD<10&&LOD>0)||LOD==10){
+                    pages = 1;
+                    currentThis.setState({disableNext:true,disablePrevious:true});
+			    }else if(LOD==0){
+			        currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
+		        }else {
+			        pages = LOD/allUrlData.pageSize;
+		        }
 			    if(data.response.result.length){
 			        currentThis.setState({
 				        filterResult:data.response.result,
 				        filterData : true,
-				        result : false
+				        result : false,
+				        noOfPages : Math.ceil(pages)
 			        });
 		        }else {
 		    	    currentThis.setState({
-				        noResult : true,
-				        result :false
+				        result :true
 			        });
 		        }
 		    }) 		
 		    .catch(function(error){
-			    console.log(error)
+			    
 		    })
 	    }
 	}

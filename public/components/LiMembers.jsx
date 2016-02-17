@@ -24,8 +24,6 @@ var LiMembers = React.createClass({
 		};
 		services.POST(config.url.makeNewAdmin, requestData)
 		.then(function(data){
-			
-			console.log("Rights transferred successfully",data.response);
 			if(result) {
 				self.setState({transferred:true});
 				self.props.rightsMessage(true,self.props.name);
@@ -33,7 +31,6 @@ var LiMembers = React.createClass({
 			}
 		})
 	    .catch(function(error){
-			console.log("====catch",error);	
 		});
         
 	},
