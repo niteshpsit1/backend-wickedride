@@ -116,7 +116,7 @@ var RidesListing = React.createClass({
 						<a href="#"></a>
 					</div>
 				</div>
-				    {this.state.filter &&
+				   {this.state.filter &&
 
 				    <div className="filter-form customForm">
 					    <table>
