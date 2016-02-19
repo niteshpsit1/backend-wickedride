@@ -2027,5 +2027,10 @@ ul.dropdown-menu > li {
 	
     background: #ec952e;
     border-color: #ec952e;
+    color: #fff;
 
+}
+
+.modal-dialog{
+	top: 100px;
 }
