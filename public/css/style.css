@@ -1791,10 +1791,12 @@ span.ride-listing {
     -ms-transition: none;
 }
 
+.main-content .btnBlock button:hover,
 .main-content .button-block button:hover {
 	background: #ec952e;
 	border-color: #ec952e;
 	color: #fff;
+	box-shadow: none;
 }
 .input-group-addon{
 	display: inline-block!important;
@@ -1982,4 +1984,48 @@ ul.dropdown-menu > li {
 
 .pointerCss{
 	cursor: pointer;
+}
+
+.main-content .button-block.text-left button{
+    margin-left: 10px;
+}
+
+.orangeBtn{
+	text-align: right;
+	margin: 10px 10px 0;
+}
+
+.orangeBtn button{
+    background: #ec952e;
+    border-color: #ec952e;
+}
+.orangeBtn button:hover{
+    background: #ec952e;
+    border-color: #ec952e;
+}
+
+.modal .btnBlock button {
+    background: none;
+    display: inline-block;
+    min-width: 100px;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'robotomedium';
+    height: 40px;
+    color: #6d6d6d;
+    border: 1px solid #6d6d6d;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.modal .btnBlock button:hover {
+	
+    background: #ec952e;
+    border-color: #ec952e;
+
 }

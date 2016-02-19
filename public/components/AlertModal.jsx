@@ -8,7 +8,7 @@ var AlertModal = React.createClass({
 	},
     
     componentWillMount: function() {
-        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert"||this.props.action=="noFilterResult") {
+        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert"||this.props.action=="noFilterResult"||this.props.action=="onlyOne") {
         	this.setState({okButton : true, bothButtons : false});
         }
     },
@@ -26,8 +26,11 @@ var AlertModal = React.createClass({
 	},
 
 	cancel : function() {
-
-        this.props.handleHideAlertModal("cancelled");
+        if(this.props.action=="memberDelete") {
+        	this.props.handleHideAlertModal("memberDelete");
+        }else{
+            this.props.handleHideAlertModal("cancelled");
+        }
 	},
 
 	render: function () {
@@ -41,7 +44,7 @@ var AlertModal = React.createClass({
 			            
 			            <h1>Alert</h1>
 						
-				        <div className="filter-block" data-dismiss="modal">
+				        <div className="filter-block" data-dismiss="modal" onClick={this.cancel}>
 				            <a href="#"></a>
 				        </div>
 				    </div>
@@ -51,13 +54,13 @@ var AlertModal = React.createClass({
 			            <h3>{this.props.message}</h3>
 			            {this.state.bothButtons &&
 				            <div className="btnBlock">
-					            <button type="button" className="btn btn-success" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
-							    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">cancel</button>
+					            <button type="button" className="btn" onClick={this.confirm} data-dismiss="modal">confirm</button>&nbsp; 
+							    <button type="button" className="btn" onClick={this.cancel} data-dismiss="modal">cancel</button>
 					        </div>
 					    }
 			            {this.state.okButton &&
 				            <div className="btnBlock">
-							    <button type="button" className="btn btn-success" onClick={this.cancel} data-dismiss="modal">ok</button>
+							    <button type="button" className="btn" onClick={this.cancel} data-dismiss="modal">ok</button>
 					        </div>
 					    }
 			        	</div>

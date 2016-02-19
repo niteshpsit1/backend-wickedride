@@ -51,7 +51,9 @@ var AboutUs = React.createClass({
 								<p className="abt-text">
 									<div>
 									<textarea rows="10"  cols="15" name="aboutUsMessage"  value={this.state.aboutUsMessage}></textarea>
-									<button type="button" name="change" className="btn btn-danger"  onClick={this._onClick}>Save</button>
+									<div className="orangeBtn">
+									    <button type="button" name="change" className="btn"  onClick={this._onClick}>Save</button>
+									</div>
 									</div>
 								</p>
 							</div>
