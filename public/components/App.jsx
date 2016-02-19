@@ -96,6 +96,18 @@ var App = React.createClass({
                     });
                 });  
             }
+            else if(this.state.username == "" && this.state.password == ""){
+                currentThis.setState({
+                    invalidEmail: "Email can not be blank",
+                    loginError:"Password can not be blank"
+                });
+            }
+            else if(!filter.test(this.state.username) && this.state.password == ""){
+                currentThis.setState({
+                    invalidEmail: "Insert valid Email",
+                    loginError:"Password can not be blank"
+                });
+            }
             else if(!filter.test(this.state.username)){
                 currentThis.setState({
                     invalidEmail: "Insert valid Email",
