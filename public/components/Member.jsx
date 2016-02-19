@@ -37,7 +37,6 @@ var Member = React.createClass({
 			
 		        length = length-1;  
 				self.setState({showMember:false});
-				self.props.memberLength(length);
 		})
 	    .catch(function(error){
 	    	if(error.response.message=="This member is the only admin of this club, make another admin first.") {
@@ -125,7 +124,7 @@ var Member = React.createClass({
             this.setState({showAlert: false});
             $("#"+this.state.member.userID).prop('checked', true);
         }else if(value=="memberDelete") {
-        	this.props.removeMember("wait");
+        	this.removeUserApi();
         	this.setState({showAlert: false});
         }
     },
