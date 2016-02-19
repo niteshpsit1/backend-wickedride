@@ -49,7 +49,7 @@ var TermAndConditions = React.createClass({
 						<div className="content">
 							<div className="tc-block">
 								<p className="abt-text">
-									<textarea rows="10" cols="15" name="termAndConditionMessage"  value={this.state.termAndConditionMessage}></textarea>
+									<textarea rows="10" cols="15" name="termAndConditionMessage"  defaultValue={this.state.termAndConditionMessage}></textarea>
 									<div className="orangeBtn">
 									    <button type="button" name="change" className="btn" onClick={this._onClick}>Save</button>
 									</div>

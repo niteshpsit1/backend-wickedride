@@ -57,7 +57,6 @@ var PasswordSetting = React.createClass({
 	_onClick: function(){
 		var currentThis = this;
 		if(this.state.oldPassword == "" && this.state.password == "" && this.state.confirmPassword == ""){
-			console.log("1111");
 			currentThis.setState({
 				oldPasswordError:"Old Password can't be blank",
 				passwordError:"Password can't be blank",

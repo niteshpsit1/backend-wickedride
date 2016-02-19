@@ -14,7 +14,12 @@ var Member = React.createClass({
 	},
 
 	removeUser: function() {
-		this.setState({showAlert: true, action: "deleteUser", message: "Are you sure you want to delete this member?"});
+		if(this.state.role == "Member") {
+			this.setState({showAlert: true, action: "memberDelete", message: "Are you sure you want to delete this member?"});
+		}else if(this.state.role == "Admin"){
+			this.setState({showAlert: true, action: "deleteUser", message: "Are you sure you want to delete this member?"});
+
+	    }
 	},
 
 	removeUserApi: function() {
@@ -35,6 +40,13 @@ var Member = React.createClass({
 				self.props.memberLength(length);
 		})
 	    .catch(function(error){
+	    	if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+	    		self.setState({
+                    showAlert: true,
+                    message: "This member is the only admin of this club, make another admin first.",
+                    action: "makeAdminAlert"
+                });
+			}
 		});
 	},
 
@@ -73,7 +85,9 @@ var Member = React.createClass({
 			    
 		    })
 	        .catch(function(error){
-			    	
+			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+                    self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
+			    }
 		    });
         }else {
         	var self= this,
@@ -95,6 +109,7 @@ var Member = React.createClass({
 			    
 		    })
 	        .catch(function(error){
+
 			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
                     self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
 			    }	
@@ -104,11 +119,13 @@ var Member = React.createClass({
 
     handleHideAlertModal: function(value) {
     	if(value=="deleteUser") {
+    		this.setState({showAlert: false});
     		this.removeUserApi();
     	}else if(value=="cancelled"){
             this.setState({showAlert: false});
             $("#"+this.state.member.userID).prop('checked', true);
-        }else if(value=="cancelled") {
+        }else if(value=="memberDelete") {
+        	this.props.removeMember("wait");
         	this.setState({showAlert: false});
         }
     },
@@ -135,7 +152,7 @@ var Member = React.createClass({
 				           
 				        </td>
 				        <td className="centerElement">
-				            <a href="#" className="remove" onClick={this.removeUser}></a>
+				            <a href="javascript:void(0)" className="remove" onClick={this.removeUser}></a>
 				        </td> 
 				        {this.state.showModal ? <MembersListingModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.state.member.userID}/> : null}
 			        </tr>}
