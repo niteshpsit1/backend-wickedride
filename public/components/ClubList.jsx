@@ -20,7 +20,8 @@ var ClubList = React.createClass({
 			classRide : "ride",
 			classGallery : "gallery",
 			date : {},
-			time : {}
+			time : {},
+			memberCount : this.props.club.memberCount
 		});
 	},
 	componentWillMount: function(){
@@ -69,6 +70,11 @@ var ClubList = React.createClass({
         this.setState({showGallery:false, classGallery : "gallery"});
 	},
 
+	memberLength: function(length) {
+		var self = this;
+        self.setState({memberCount : length});
+	},
+
 	render: function () {
 		var currentThis = this;
 		var time = Date.parse(this.props.club.time);
@@ -79,13 +85,13 @@ var ClubList = React.createClass({
 			        <td><p>{this.props.club.clubName}</p></td>
 				    <td><p>{this.props.club.creatorName}</p></td>
 				    <td><p>{this.state.date}</p></td>
-				    <td><p><a href="javascript:void(0)" onClick={this.appendUser} className={this.state.classUser}></a>{this.props.club.memberCount}</p>
+				    <td><p><a href="javascript:void(0)" onClick={this.appendUser} className={this.state.classUser}></a>{this.state.memberCount}</p>
 				        <p><a href="javascript:void(0)" onClick={this.appendRide} className={this.state.classRide}></a>{this.props.club.rideCount}</p>
 				    </td>
                 </tr>
                 <tr>
 				    
-				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId} admin={this.props.club.creatorId}/>:null}
+				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId} admin={this.props.club.creatorId} memberLength={this.memberLength}/>:null}
 				        {this.state.showRide ? <RidesListing handleHideRide={this.handleHideRide} token={this.props.token} clubID={this.props.club.clubId}/>:null}
 				        {this.state.showGallery ? <MembersListing handleHideGallery={this.handleHideGallery}/>:null}
 				   

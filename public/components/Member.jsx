@@ -19,7 +19,8 @@ var Member = React.createClass({
 
 	removeUserApi: function() {
 		var self= this,
-        result = {};
+        result = {},
+        length = this.props.length;
 		var requestData = {
 			token: this.props.token,
 			clubID:this.props.clubID,
@@ -29,8 +30,9 @@ var Member = React.createClass({
 		services.POST(config.url.removeMember, requestData)
 		.then(function(data){
 			
-		
+		        length = length-1;  
 				self.setState({showMember:false});
+				self.props.memberLength(length);
 		})
 	    .catch(function(error){
 		});

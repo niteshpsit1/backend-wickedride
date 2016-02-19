@@ -3,7 +3,8 @@ var MembersListing = React.createClass({
 		return ({
 	
             members : [],
-            membersAvailable: false
+            membersAvailable: false,
+            length : null
 	
 		});
 	},
@@ -11,7 +12,8 @@ var MembersListing = React.createClass({
 	componentWillMount: function(){
 		
         var self= this,
-        result = [];
+        result = [],
+        length = null;
 		var requestData = {
 			token: this.props.token,
 			clubID: this.props.clubID
@@ -20,10 +22,12 @@ var MembersListing = React.createClass({
 		.then(function(data){
 			
 			result=data.response.result;
+			length = result.length;
 			if(result.length) {
 				self.setState({
 				members:data.response.result,
-				membersAvailable:true
+				membersAvailable:true,
+				length : result.length
 			});
 			}
 			
@@ -38,6 +42,11 @@ var MembersListing = React.createClass({
 		this.props.handleHideUser(false);
        
 	},
+
+	memberLength: function(length) {
+        this.props.memberLength(length);
+	},
+
 	
 	render: function () {
 		var self=this;
@@ -62,7 +71,7 @@ var MembersListing = React.createClass({
 			 
 						<tbody>
 						{this.state.members.map(function(member){
-								return <Member member={member} token={self.props.token} clubID={self.props.clubID} key={member.userID} admin={self.props.admin}/>
+								return <Member member={member} token={self.props.token} clubID={self.props.clubID} key={member.userID} admin={self.props.admin} memberLength={self.memberLength} length={self.state.length}/>
 							})}
 						</tbody>
 					</table>
