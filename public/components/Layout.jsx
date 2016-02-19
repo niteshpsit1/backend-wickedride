@@ -11,13 +11,28 @@ var Layout =  React.createClass({
             clubClass: "",
             settingClass: "",
             termClass: "",
-            aboutClass: ""
+            aboutClass: "",
+            showAlert: false,
+            action: "logout",
+            message: "Are you sure you want to logout?"
 
 		}
 	},
 
     doSomething: function(value) {
         this.setState({adminName: value});
+    },
+
+    showAlertModal: function() {
+        this.setState({showAlert: true});
+    },
+
+    handleHideAlertModal: function(value){
+        
+        this.setState({showAlert: false});
+        if(value==="logout") {
+            this.logoutOnclick();
+        }
     },
 
     render: function() {
@@ -38,7 +53,9 @@ var Layout =  React.createClass({
                     <div className="admin-details">
                         <p>Admin Name  : <span>{this.state.adminName || this.state.userCredentials.username}</span></p>
                         <p className="account-img"><img src="/images/bg_imgs/user-icon1.jpg"/></p>
-                        <a onClick={this._onClick} name="logout" href="#" className="log-out"></a>         
+                        <a onClick={this.showAlertModal} name="logout" href="#" className="log-out"></a>
+                        {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
+       
                     </div>
                 </header>
                 <div className="wrapper">
@@ -110,14 +127,19 @@ var Layout =  React.createClass({
         else if ($(event.target).attr("name") == 'aboutUs') {
              History.pushState(null,"/home/aboutus");
         }
+    },
 
-        if($(event.target).attr("name") == "logout"){
+    logoutOnclick : function() {
+       
+            this.setState({showAlert: true});
             localStorage.removeItem("wikedrideSuperAdminIsLogin");
             localStorage.removeItem("wikedrideSuperAdminName");
-            currentThis.setState({
+            this.setState({
                 userCredentials:{}
             });
             window.location.href = "/adminlogout";
-        }
-    }
+         
+    },
+
+        
 });

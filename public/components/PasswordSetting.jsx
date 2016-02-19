@@ -21,7 +21,7 @@ var PasswordSetting = React.createClass({
 					<div className="f1"><label>Old Password</label><input type="password" name="oldPassword" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.oldPasswordError}</span></div></div>
 					<div className="f2"><label>New Password</label><input type="password" name="password" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.passwordError}</span></div></div>
 					<div className="f3"><label>Confirm Password</label><input type="password" name="confirmPassword" className="form-control" onChange={this._onChange}/><div className="errorMess"><span>{this.state.confirmPasswordError}</span></div>
-{	this.state.errorMessage &&
+                    {	this.state.errorMessage &&
 						<div className="errorMess"><span>{this.state.errorMessage}</span></div>}
 					{	this.state.successMessaage &&
 						<div className="errorMess"><span>{this.state.successMessaage}</span></div>}
@@ -56,7 +56,36 @@ var PasswordSetting = React.createClass({
 	},
 	_onClick: function(){
 		var currentThis = this;
-		if(this.state.oldPassword == ""){
+		if(this.state.oldPassword == "" && this.state.password == "" && this.state.confirmPassword == ""){
+			console.log("1111");
+			currentThis.setState({
+				oldPasswordError:"Old Password can't be blank",
+				passwordError:"Password can't be blank",
+				confirmPasswordError:"Confirm Password  can't be blank",
+				errorMessage:""
+			});
+		}else if(this.state.oldPassword == "" && this.state.password == ""){
+			currentThis.setState({
+				oldPasswordError:"Old Password can't be blank",
+				passwordError:"Password can't be blank",
+				confirmPasswordError:"",
+				errorMessage:""
+			});
+		}else if(this.state.confirmPassword == "" && this.state.password == ""){
+			currentThis.setState({
+				oldPasswordError:"",
+				passwordError:"Password can't be blank",
+				confirmPasswordError:"",
+				errorMessage:"Confirm Password  can't be blank"
+			});
+		}else if(this.state.confirmPassword == "" && this.state.oldPassword == ""){
+			currentThis.setState({
+				oldPasswordError:"Old Password can't be blank",
+				passwordError:"",
+				confirmPasswordError:"Confirm Password  can't be blank",
+				errorMessage:""
+			});
+		}else if(this.state.oldPassword == ""){
 			currentThis.setState({
 				oldPasswordError:"Old Password can't be blank",
 				passwordError:"",

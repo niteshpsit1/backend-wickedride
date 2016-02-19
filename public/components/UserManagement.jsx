@@ -117,6 +117,9 @@ var UserManagement = React.createClass({
 										        <tr>
 											        <td colSpan="3">
 												        <div className="button-block">
+													        <button onSubmit={this._onClick}>Reset</button>
+												        </div>
+												        <div className="button-block">
 													        <button onSubmit={this._onClick}>Search</button>
 												        </div>
 											        </td>
