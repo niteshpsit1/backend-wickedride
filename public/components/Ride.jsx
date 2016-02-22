@@ -3,9 +3,18 @@ var Ride = React.createClass({
 		return ({
 			ride: this.props.ride,
 			showRideMembersModal: false,
-			showRideDescriptionModal: false
+			showRideDescriptionModal: false,
+			description : null
 			
 		});
+	},
+
+	componentWillMount: function() {
+        var des = null;
+        des = this.state.ride.description.substring(0, 100);
+        this.setState({description :des});
+        console.log("desc",des.length);
+
 	},
 
 	handleShowRideMembersModal: function(){
@@ -34,7 +43,7 @@ var Ride = React.createClass({
         var time = hours + ':' + minutes;
         var dot = false;
         var noDot = true;
-        if(this.state.ride.description.length > 10) {
+        if(this.state.ride.description.length > 100) {
         	dot = true;
         	noDot = false;
         }
@@ -42,11 +51,11 @@ var Ride = React.createClass({
 		return (
 			<tr>
 				<td><span className="ride"></span><p>{this.state.ride.rideName}</p></td>
-				{ dot && <td onClick={this.handleShowRideDescriptionModal}>
-				    <p className="pointerCss spanSpace">{this.state.ride.description}...</p>
+				{ dot && <td onClick={this.handleShowRideDescriptionModal} className="ride-description">
+				    <p className="pointerCss spanSpace">{this.state.description}...</p>
 				</td>}
-				{ noDot && <td onClick={this.handleShowRideDescriptionModal}>
-				    <p className="pointerCss">{this.state.ride.description}</p>
+				{ noDot && <td onClick={this.handleShowRideDescriptionModal} className="ride-description">
+				    <p className="pointerCss">{this.state.description}</p>
 				</td>}
 				<td><p>{date}</p></td>
 				<td><p>{time}</p></td>

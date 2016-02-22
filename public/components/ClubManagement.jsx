@@ -104,7 +104,9 @@ var ClubManagement = React.createClass({
 									    <tbody>
 										    <tr>
 											    <td><label>Club Name</label></td>
+											    <td className="errorMess"><span>{this.state.oldPasswordError}</span></td>
 											    <td><input type="text" name="filterByClubName" id="filterByClubName" onChange={this._onchange}/></td>
+											    <td className="errorMess"><span>{this.state.oldPasswordError}</span></td>
 											    
 										    </tr>
 										    

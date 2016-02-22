@@ -8,7 +8,7 @@ var PasswordSetting = React.createClass({
 			successMessaage:"",
 			passwordError:"",
 			oldPasswordError:"",
-			confirmPasswordError:""
+			confirmPasswordError:"" 
 		}
 	},
 	render: function(){
