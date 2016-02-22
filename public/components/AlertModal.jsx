@@ -45,7 +45,7 @@ var AlertModal = React.createClass({
 			            <h1>Alert</h1>
 						
 				        <div className="filter-block" data-dismiss="modal" onClick={this.cancel}>
-				            <a href="#"></a>
+				            <a href="javascript:void(0)"></a>
 				        </div>
 				    </div>
 				    </div>

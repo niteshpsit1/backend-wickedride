@@ -59,7 +59,7 @@ var MemberDetailModal = React.createClass({
 			                <span className="ride"></span>
 				                <h1>Clubs</h1>
 				                <div className="filter-block" data-dismiss="modal">
-					                <a href="#"></a>
+					                <a href="javascript:void(0)"></a>
 				                 </div>
 			                </div>
 

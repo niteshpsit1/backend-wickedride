@@ -48,7 +48,7 @@ var RideMembersModal = React.createClass({
                    <span className="ride rideIcon"></span>
                 <h1 className="withIcon">Ride Members Listing</h1>
                 <div className="filter-block"  data-dismiss="modal">
-                 <a href="#"></a>
+                 <a href="javascript:void(0)"></a>
                 </div>
                </div>
            </div>

@@ -58,7 +58,7 @@ var MembersListing = React.createClass({
 				    <span className="users"></span>
 					<h4>Club Members</h4>
 					<div className="filter-block" onClick={this.close}>
-						<a href="#"></a>
+						<a href="javascript:void(0)"></a>
 					</div>
 				</div>
 				<div className="inner-table">
@@ -86,7 +86,7 @@ var MembersListing = React.createClass({
 				<span className="users"></span>
 					<h4>No club member available.</h4>
 					<div className="filter-block" onClick={this.close}>
-						<a href="#"></a>
+						<a href="javascript:void(0)"></a>
 					</div>
 				</div>
 			</td>)

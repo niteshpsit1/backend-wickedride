@@ -93,7 +93,7 @@ var ClubManagement = React.createClass({
 				        <div className="page-title">
 					        <h1>Clubs</h1>
 					        <div className={this.state.filterClass}>
-						        <a href="#" onClick={this._onFilter}></a>
+						        <a href="javascript:void(0)" onClick={this._onFilter}></a>
 					        </div>
 				        </div>
 				    <div className="content">
@@ -109,8 +109,9 @@ var ClubManagement = React.createClass({
 										    </tr>
 										    
 										    <tr>
-											    <td colSpan="2">
+											    <td colSpan="3">
 												    <div className="button-block text-left">
+													    <button type="reset">Reset</button>
 													    <button onSubmit={this._onFilterClick}>Search</button>
 												    </div>
 											    </td>

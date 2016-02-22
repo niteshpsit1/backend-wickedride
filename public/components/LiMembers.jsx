@@ -44,7 +44,7 @@ var LiMembers = React.createClass({
 	        var self= this;
 		    return (
 		    	<div>
-		    	    <li onClick={this.handleShowAlertModal}><a href="#">{this.props.name}</a></li>
+		    	    <li onClick={this.handleShowAlertModal}><a href="javascript:void(0)">{this.props.name}</a></li>
 		    	    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.props.action} message={this.props.message}/> : null}
 		    	</div>
 			)

@@ -97,7 +97,7 @@ var UserManagement = React.createClass({
                    <span className="ride"></span>
 	                        <h1>All Users Details</h1>
 	                        <div className={this.state.filterClass}>
-	                            <a href="#" onClick={this._onFilter}></a>
+	                            <a href="javascript:void(0)" onClick={this._onFilter}></a>
 	                        </div>
 	                    </div>
 					    <div className="content">
@@ -113,11 +113,11 @@ var UserManagement = React.createClass({
 											    <tr>
 											        <td><label>Email</label></td>
 											        <td> <input type="email" name="filterByEmail" id="filterByEmail" onChange={this._onchange}/></td>
-										        </tr>
+										        </tr> 
 										        <tr>
 											        <td colSpan="3">
 												        <div className="button-block text-left">
-													        <button onSubmit={this._onClick}>Reset</button>
+													        <button type="reset">Reset</button>
 													        <button onSubmit={this._onClick}>Search</button>
 												        </div>
 											        </td>

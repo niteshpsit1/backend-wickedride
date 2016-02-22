@@ -28,7 +28,7 @@ var RideDescriptionModal = React.createClass({
 			            <span className="ride rideIcon"></span>
 						<h1 className="withIcon">{this.props.rideName}</h1>
 				        <div className="filter-block" data-dismiss="modal">
-				            <a href="#"></a >
+				            <a href="javascript:void(0)"></a >
 				        </div>
 				    </div>
 				   </div>
