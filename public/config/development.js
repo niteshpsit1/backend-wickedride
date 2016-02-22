@@ -22,9 +22,6 @@ var config = {
 		handleClubDeleteRequest:baseUrl+'/rest/service/handleClubDeleteRequest',
 		changeRole:baseUrl+'/rest/service/changeRole'
 
-	},
-	pagination:{
-		pageSize:20
 	}
 }
 

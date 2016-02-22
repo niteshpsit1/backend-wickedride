@@ -1,5 +1,5 @@
 var allUrlData = {
-	pageSize: 10
+	pageSize: 5
 }
 
 var MembersListingModal = React.createClass({
@@ -21,12 +21,13 @@ var MembersListingModal = React.createClass({
         result = [];
 		var requestData = {
 			token: this.props.token,
-			userID: this.props.userID
+			userID: this.props.userID,
+			pageSize:5
 		};
 		services.GET(config.url.getClubMemberNameList, requestData)
 		.then(function(data){
 			LOD = data.response.lengthOfDocument;
-			if((LOD<10&&LOD>0)||LOD==10){
+			if((LOD<5&&LOD>0)||LOD==5){
                 pages = 1;
                 self.setState({disableNext:true,disablePrevious:true,showButton: false
                 });
@@ -78,7 +79,7 @@ var MembersListingModal = React.createClass({
 			var requestData = {
 				token: this.props.token,
 				userID: this.props.userID,
-			    pageSize:allUrlData.pageSize,
+			    pageSize:5,
 			    pageNumber: this.state.pageNo-1
 			};
 			services.GET(config.url.getClubMemberNameList, requestData)
@@ -93,7 +94,7 @@ var MembersListingModal = React.createClass({
 		    var requestData = {
 				token: this.props.token,
 				userID: this.props.userID,
-			    pageSize:allUrlData.pageSize,
+			    pageSize:5,
 			    pageNumber: this.state.pageNo-1
 			};
 			services.GET(config.url.getClubMemberNameList, requestData)
@@ -120,7 +121,7 @@ var MembersListingModal = React.createClass({
 		var requestData = {
 		    token: this.props.token,
 		    userID: this.props.userID,
-			pageSize:allUrlData.pageSize,
+			pageSize:5,
 			pageNumber: this.state.pageNo+1
 		};
 		services.GET(config.url.getClubMemberNameList, requestData)
@@ -152,7 +153,7 @@ var MembersListingModal = React.createClass({
 			                
 				                <h1>Clubs</h1>
 				                <div className="filter-block" data-dismiss="modal">
-					                <a href="#"></a>
+					                <a href="javascript:void(0)"></a>
 				                 </div>
 			                </div>
 
@@ -162,9 +163,9 @@ var MembersListingModal = React.createClass({
 						        <th>Club Name</th>
 						        <th>Joined As</th>
 						        <tbody>
-						            {this.state.clubs.map(function(club){
+						            {this.state.clubs.map(function(club,i){
 								        return( 
-								            <tr>
+								            <tr key={i}>
 				                                <td><p>{club.clubName}</p></td>
 				                                <td><p>{club.joinedAs}</p></td>
 				                            </tr>
