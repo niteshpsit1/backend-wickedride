@@ -94,17 +94,17 @@ var AboutUs = React.createClass({
 					{	this.state.edit	&&
 						
 						<div className="content">
-						<form>
+						
 							<table>
 							    <tbody>
 								    <tr>
 									    <td><label>Email</label></td>
-									    <td><input type="email" name="email" id="email" onBlur={this._onchange} defaultValue=""/>&nbsp;&nbsp;
+									    <td><input type="email" name="email" id="email" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.emailError && 
 									   <div className="errorMess">{this.state.emailErrorMessage}</div>}
 									   </td>
 									    <td><label>Phone no.</label></td>
-									    <td><input type="text" name="phone" id="phone" onBlur={this._onchange} defaultValue=""/>&nbsp;&nbsp;
+									    <td><input type="text" name="phone" id="phone" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.phoneError && 
 									   <div className="errorMess">{this.state.phoneErrorMessage}</div>}
 									   </td>
@@ -115,14 +115,14 @@ var AboutUs = React.createClass({
 							<div className="abt-text-block">
 								<p className="abt-text">
 									<div>
-									<textarea rows="10"  cols="15" name="aboutUsMessage"  value={this.state.aboutUsMessage}></textarea>
+									<textarea rows="10"  cols="15" name="aboutUsMessage"  defaultValue={this.state.aboutUsMessage}></textarea>
 									<div className="orangeBtn">
 									    <button type="button" name="change" className="btn"  onClick={this._onClick}>Save</button>
 									</div>
 									</div>
 								</p>
 							</div>
-							</form>
+							
 						</div>}
 				</div>
 			</div>
