@@ -45,16 +45,14 @@ var AboutUs = React.createClass({
 		var ph = /^[0-9\+]{1,}[0-9\-]{3,15}$/;
 		if(event.target.name == "email"){
 			email = event.target.value;
-			if(email==null || email == "") {
+			/*if(email==null || email == "") {
 				this.setState({blankOne : true});
-				setTimeout(function(){
-						self.setState({blankOne : false}); 
-					}, 3000);
-			}else if(!re.test(email)){
-				this.setState({emailError : true});
-					setTimeout(function(){
-						self.setState({emailError : false}); 
-					}, 3000);
+				
+			}else */if(!re.test(email)){
+				this.setState({emailError : true, emailErrorMessage:"Invalid email"});
+					
+			}else if(re.test(email)) {
+				this.setState({emailError : false});
 			}
 
 			this.setState({
@@ -67,10 +65,10 @@ var AboutUs = React.createClass({
 			phone = event.target.value;
 
 			if(!ph.test(phone)){
-				this.setState({phoneError : true});
-					setTimeout(function(){
-						self.setState({phoneError : false}); 
-					}, 5000);
+				this.setState({phoneError : true, phoneErrorMessage : "Invalid Contact, it must be numeric"});
+					
+			}else if(ph.test(phone)){
+				this.setState({phoneError : false});
 			}
 			this.setState({
 				phone: event.target.value
@@ -110,15 +108,13 @@ var AboutUs = React.createClass({
 									    <td><input type="email" name="email" id="email" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.emailError && 
 									   <div className="errorMess">{this.state.emailErrorMessage}</div>}
-									   {this.state.blankOne && 
-									   <div className="errorMess">{this.state.emailBlank}</div>}
+							
 									   </td>
 									    <td><label>Phone no.</label></td>
 									    <td><input type="text" name="phone" id="phone" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.phoneError && 
 									   <div className="errorMess">{this.state.phoneErrorMessage}</div>}
-									   {this.state.blankTwo && 
-									   <div className="errorMess">{this.state.phoneBlank }</div>}
+									   
 									   </td>
 									</tr>
 								</tbody>
@@ -144,11 +140,15 @@ var AboutUs = React.createClass({
 	_onClick: function(event){
 		
 		var currentThis = this;
-		currentThis.setState({emailError : false, phoneError : false});
+		
 		if($(event.target).attr("name") == "edit"){
+			
 			setTimeout(function() {
 				currentThis.setState({
-					edit:true
+					edit:true,
+					email : null,
+					phone : null
+
 				})	
 			}, 0);
 			setTimeout(function() {
@@ -156,19 +156,17 @@ var AboutUs = React.createClass({
 			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
-
+			
 			if(currentThis.state.email==null || currentThis.state.email=="" && currentThis.state.phone==null || currentThis.state.phone=="") {
-				currentThis.setState({blankOne: true, blankTwo : true});
-				setTimeout(function(){
-						currentThis.setState({blankOne: false, blankTwo : false}); 
-					}, 3000);
+				currentThis.setState({ emailErrorMessage : "Email cannot be left blank", emailError : true,phoneError : true, phoneErrorMessage : "Contact number cannot be left blank"});
+				
 			}else if(currentThis.state.email==null || currentThis.state.email=="" ){
-				currentThis.setState({blankOne: true});
+				currentThis.setState({emailError: true, emailErrorMessage : "Email cannot be left blank"});
 				setTimeout(function(){
 						currentThis.setState({blankOne: false}); 
 					}, 3000);
 			}else if(currentThis.state.phone==null || currentThis.state.phone==""){
-				currentThis.setState({blankTwo: true});
+				currentThis.setState({phoneError : true, phoneErrorMessage : "Contact number cannot be left blank"});
 				setTimeout(function(){
 						currentThis.setState({ blankTwo : false}); 
 					}, 3000);
