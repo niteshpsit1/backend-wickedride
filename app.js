@@ -49,5 +49,5 @@ app.use(function(req, res, next) {
 });
 
 app.listen(3000,function(){
-	console.log("server ruinng at 30000");
+	console.log("server ruinng at 3000");
 })
