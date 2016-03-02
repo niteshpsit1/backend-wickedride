@@ -9,7 +9,11 @@ var AboutUs = React.createClass({
 			emailError : false,
 			phoneError : false,
 			emailErrorMessage : "Invalid email",
-			phoneErrorMessage : "Invalid Contact, it must be numeric"
+			phoneErrorMessage : "Invalid Contact, it must be numeric",
+			blankOne : false,
+			blankTwo : false,
+			emailBlank : "Email cannot be left blank",
+			phoneBlank : "Contact number cannot be left blank"
 		}
 	},
 	componentWillMount: function () {
@@ -41,12 +45,16 @@ var AboutUs = React.createClass({
 		var ph = /^[0-9\+]{1,}[0-9\-]{3,15}$/;
 		if(event.target.name == "email"){
 			email = event.target.value;
-			
-			if(!re.test(email)){
+			if(email==null || email == "") {
+				this.setState({blankOne : true});
+				setTimeout(function(){
+						self.setState({blankOne : false}); 
+					}, 3000);
+			}else if(!re.test(email)){
 				this.setState({emailError : true});
 					setTimeout(function(){
 						self.setState({emailError : false}); 
-					}, 5000);
+					}, 3000);
 			}
 
 			this.setState({
@@ -102,11 +110,15 @@ var AboutUs = React.createClass({
 									    <td><input type="email" name="email" id="email" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.emailError && 
 									   <div className="errorMess">{this.state.emailErrorMessage}</div>}
+									   {this.state.blankOne && 
+									   <div className="errorMess">{this.state.emailBlank}</div>}
 									   </td>
 									    <td><label>Phone no.</label></td>
 									    <td><input type="text" name="phone" id="phone" onBlur={this._onchange} />&nbsp;&nbsp;
 									    {this.state.phoneError && 
 									   <div className="errorMess">{this.state.phoneErrorMessage}</div>}
+									   {this.state.blankTwo && 
+									   <div className="errorMess">{this.state.phoneBlank }</div>}
 									   </td>
 									</tr>
 								</tbody>
@@ -132,6 +144,7 @@ var AboutUs = React.createClass({
 	_onClick: function(event){
 		
 		var currentThis = this;
+		currentThis.setState({emailError : false, phoneError : false});
 		if($(event.target).attr("name") == "edit"){
 			setTimeout(function() {
 				currentThis.setState({
@@ -143,6 +156,24 @@ var AboutUs = React.createClass({
 			}, 0);	
 		}
 		else if($(event.target).attr("name") == "change"){
+
+			if(currentThis.state.email==null || currentThis.state.email=="" && currentThis.state.phone==null || currentThis.state.phone=="") {
+				currentThis.setState({blankOne: true, blankTwo : true});
+				setTimeout(function(){
+						currentThis.setState({blankOne: false, blankTwo : false}); 
+					}, 3000);
+			}else if(currentThis.state.email==null || currentThis.state.email=="" ){
+				currentThis.setState({blankOne: true});
+				setTimeout(function(){
+						currentThis.setState({blankOne: false}); 
+					}, 3000);
+			}else if(currentThis.state.phone==null || currentThis.state.phone==""){
+				currentThis.setState({blankTwo: true});
+				setTimeout(function(){
+						currentThis.setState({ blankTwo : false}); 
+					}, 3000);
+			}
+			else {
 			var requestData = {};
 			requestData.token = this.state.token;
 			requestData.htmlText = CKEDITOR.instances.aboutUsMessage.getData();
@@ -165,7 +196,7 @@ var AboutUs = React.createClass({
 			})
 			.catch(function(error){
 				
-				if(error.response.message=="Invalid Email") {
+				/*if(error.response.message=="Invalid Email") {
 					
 					currentThis.setState({emailError : true});
 					setTimeout(function(){
@@ -176,8 +207,9 @@ var AboutUs = React.createClass({
 					setTimeout(function(){
 						currentThis.setState({phoneError : false}); 
 					}, 5000);
-				}
+				}*/
 			})
 		}
 	}
+}
 });
