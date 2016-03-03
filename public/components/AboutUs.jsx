@@ -3,13 +3,15 @@ var AboutUs = React.createClass({
 		return {
 			token: localStorage.getItem("wikedrideSuperAdminIsLogin") ? JSON.parse(localStorage.getItem("wikedrideSuperAdminIsLogin")).token : "",
 			aboutUsMessage:'',
+			aboutUsEmail:'',
+			aboutUsContact:'',
 			edit:false,
 			email : null,
 			phone : null,
 			emailError : false,
 			phoneError : false,
 			emailErrorMessage : "Invalid email",
-			phoneErrorMessage : "Invalid Contact, it must be numeric",
+			phoneErrorMessage : "Invalid contact, it must be numeric",
 			blankOne : false,
 			blankTwo : false,
 			emailBlank : "Email cannot be left blank",
@@ -25,7 +27,11 @@ var AboutUs = React.createClass({
 		.then(function(data){
 			setTimeout(function() {
 				currentThis.setState({
-					aboutUsMessage:data.response.htmlText
+					aboutUsMessage:data.response.htmlText,
+					aboutUsEmail:data.response.email,
+					aboutUsContact:data.response.contact,
+					email:data.response.email,
+					phone:data.response.contact
 				})	
 			}, 0);
 			setTimeout(function() {
@@ -105,13 +111,13 @@ var AboutUs = React.createClass({
 							    <tbody>
 								    <tr>
 									    <td><label>Email</label></td>
-									    <td><input type="email" name="email" id="email" onBlur={this._onchange} />&nbsp;&nbsp;
+									    <td><input type="email" name="email" id="email" onChange={this._onchange} defaultValue={this.state.aboutUsEmail}/>&nbsp;&nbsp;
 									    {this.state.emailError && 
 									   <div className="errorMess">{this.state.emailErrorMessage}</div>}
 							
 									   </td>
 									    <td><label>Phone no.</label></td>
-									    <td><input type="text" name="phone" id="phone" onBlur={this._onchange} />&nbsp;&nbsp;
+									    <td><input type="text" name="phone" id="phone" onChange={this._onchange} defaultValue={this.state.aboutUsContact}/>&nbsp;&nbsp;
 									    {this.state.phoneError && 
 									   <div className="errorMess">{this.state.phoneErrorMessage}</div>}
 									   
@@ -144,10 +150,9 @@ var AboutUs = React.createClass({
 		if($(event.target).attr("name") == "edit"){
 			
 			setTimeout(function() {
+				
 				currentThis.setState({
-					edit:true,
-					email : null,
-					phone : null
+					edit:true
 
 				})	
 			}, 0);
@@ -157,19 +162,15 @@ var AboutUs = React.createClass({
 		}
 		else if($(event.target).attr("name") == "change"){
 			
-			if(currentThis.state.email==null || currentThis.state.email=="" && currentThis.state.phone==null || currentThis.state.phone=="") {
+			if((currentThis.state.email==null || currentThis.state.email=="") && (currentThis.state.phone==null || currentThis.state.phone=="")) {
 				currentThis.setState({ emailErrorMessage : "Email cannot be left blank", emailError : true,phoneError : true, phoneErrorMessage : "Contact number cannot be left blank"});
 				
 			}else if(currentThis.state.email==null || currentThis.state.email=="" ){
 				currentThis.setState({emailError: true, emailErrorMessage : "Email cannot be left blank"});
-				setTimeout(function(){
-						currentThis.setState({blankOne: false}); 
-					}, 3000);
+				
 			}else if(currentThis.state.phone==null || currentThis.state.phone==""){
 				currentThis.setState({phoneError : true, phoneErrorMessage : "Contact number cannot be left blank"});
-				setTimeout(function(){
-						currentThis.setState({ blankTwo : false}); 
-					}, 3000);
+				
 			}
 			else {
 			var requestData = {};
@@ -194,18 +195,7 @@ var AboutUs = React.createClass({
 			})
 			.catch(function(error){
 				
-				/*if(error.response.message=="Invalid Email") {
-					
-					currentThis.setState({emailError : true});
-					setTimeout(function(){
-						currentThis.setState({emailError : false}); 
-					}, 5000);
-				}else if(error.response.message=="Invalid Contact, it must be numeric") {
-					currentThis.setState({phoneError : true});
-					setTimeout(function(){
-						currentThis.setState({phoneError : false}); 
-					}, 5000);
-				}*/
+				
 			})
 		}
 	}
