@@ -639,6 +639,7 @@ html, body{
 body{
 	min-width: 1024px;
 	position: relative;
+	padding: 0 !important;
 }
 body, button{
 	font-family: 'Roboto', sans-serif !important; 
@@ -1383,6 +1384,7 @@ aside *, .main button{transition: all 0s; -webkit-transition: all 0s; -ms-transi
     margin: 0 15px;
     width: 23px;
     height: 23px;
+    display: inline-block;
 }
 .club-details td .gallery {
     background-position: -327px -27px;
@@ -1509,6 +1511,16 @@ cursor: pointer;
 	
     height: 24px;
     width: 18px;
+}
+
+.checkboxDefault input.customCheckbox[type=checkbox]{
+	opacity: 1;
+    appearance: checkbox;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    -ms-appearance: checkbox;
+    -o-appearance: checkbox;
+	position: static;
 }
  
 input.customCheckbox[type=checkbox] + label
@@ -2037,4 +2049,9 @@ ul.dropdown-menu > li {
 .ride-description{
 	max-width: 400px;
 	word-break: break-all;
+}
+
+.removeUser {
+	    background-position: -297px 2px;
+
 }

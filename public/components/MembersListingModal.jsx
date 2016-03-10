@@ -106,10 +106,9 @@ var MembersListingModal = React.createClass({
 		var currentThis = this;
 		var increment = this.state.pageNo;
 		this.setState({disablePrevious: false});
-			console.log("111111111",this.state.noOfPages);
-        increment = increment+1;
+		increment = increment+1;
 		if(increment==this.state.noOfPages){
-			console.log("22222222222",this.state.noOfPages);
+			
 			this.setState({disableNext : true})
 		}
 			

@@ -1,6 +1,7 @@
-var baseUrl = 'http://52.91.173.133'
+var baseUrl = 'http://14.141.28.114:5200'
 var config = {
 	url: {
+
 		adminLogin:baseUrl+'/rest/connect',
 		getAllClub:baseUrl+'/rest/service/getClubListForSuperAdmin',
 		getClubMembers:baseUrl+'/rest/service/getClubMembersListForSuperAdmin',
@@ -20,7 +21,9 @@ var config = {
 		getDeleteRequests:baseUrl+'/rest/service/deleteRequests',
 		makeNewAdmin:baseUrl+'/rest/service/makeNewAdmin',
 		handleClubDeleteRequest:baseUrl+'/rest/service/handleClubDeleteRequest',
-		changeRole:baseUrl+'/rest/service/changeRole'
+		changeRole:baseUrl+'/rest/service/changeRole',
+		deleteUser:baseUrl+'/rest/service/deleteUser',
+		deleteClub:baseUrl+'/rest/service/deleteClub'
 
 	}
 }

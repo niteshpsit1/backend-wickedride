@@ -26,23 +26,22 @@ var ClubManagement = React.createClass({
 			showButton : true,
 			action : "emptyFilterInput",
 			message : "Fill up the fields first.",
-			filterClass : "filter-block"
+			filterClass : "filter-block", 
+			myCheckbox : false,
+			checked : false,
+			location : false,
+			userID : null
 			
 
 		} 
 	},
-	
-	componentWillMount: function () {
-		
-		var self = this,
-		pages = null,
+
+	commonApi : function(requestData) {
+		var self = this;
+		var pages = null,
 		LOD = null;
-		var requestData = {
-			token: self.state.token
-			
-		};
 		services.POST(config.url.getAllClub, requestData)
-		.then(function(data){
+			.then(function(data){
 			
 			LOD = data.response.lengthOfDocument;
 
@@ -60,11 +59,54 @@ var ClubManagement = React.createClass({
 				
 		});	
 	},
+
+	componentWillMount: function () {
+		
+		this.setState({checked: true});
+		var self = this;
+		
+		if(this.props.location.state) {
+			
+			self.setState({clubFilter : true, myCheckbox : true, checked: true, loaction: true});
+			var userID = this.props.location.state.userID;
+			self.setState({userID : userID});
+			var requestData = {
+				token: self.state.token,
+				userID : userID
+			};
+			self.commonApi(requestData);
+			
+		}else {
+		
+		var requestData = {
+			token: self.state.token
+			
+		};
+		self.commonApi(requestData);
+		
+		}
+	},
     
     handleHideAlertModal: function(value){
 		
         this.setState({showAlert: false});
         
+    },
+    checkboxClicked: function() {
+    	this.setState({pageNo : 1, disablePrevious : true, disableNext : false});
+    	var self = this;
+    	if($("#checkbox").is(":checked")){
+    		var requestData = {
+				token: self.state.token,
+				userID : self.state.userID
+			};
+			self.commonApi(requestData);
+    	}else {
+    		var requestData = {
+				token: self.state.token
+			};
+			self.commonApi(requestData);
+    	}
     },
 
 	render: function (){
@@ -109,9 +151,19 @@ var ClubManagement = React.createClass({
 											    <td className="errorMess"><span>{this.state.oldPasswordError}</span></td>
 											    
 										    </tr>
-										    
+										    {this.state.myCheckbox &&
+
 										    <tr>
-											    <td colSpan="3">
+										    	<td colSpan="2"><label>My clubs:</label></td>
+											    <td colSpan="2" className="checkboxDefault">
+													<div className="text-left">
+											    		<input type="checkbox" id="checkbox" className="customCheckbox" onClick={this.checkboxClicked} defaultChecked={this.state.checked}/>
+											    	</div>
+											    </td>
+										    </tr>
+										    }
+										    <tr>
+											    <td colSpan="4">
 												    <div className="button-block text-left">
 													    <button type="reset">Reset</button>
 													    <button onSubmit={this._onFilterClick}>Search</button>
@@ -131,6 +183,7 @@ var ClubManagement = React.createClass({
 						            <th>Club Name</th>
 						            <th>Creator Name</th>
 						            <th>Date</th>
+						            <th></th>
 						            <th></th>
 						            </tr>
 						            
@@ -223,14 +276,23 @@ var ClubManagement = React.createClass({
 		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
-		   
+		   if($("#checkbox").is(":checked")) {
 			var requestData = {
 				token: this.state.token,
+				userID : this.state.userID,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo-1
 			};
+		}else {
+			var requestData = {
+					token: this.state.token,
+				    pageSize:allUrlData.pageSize,
+				    pageNumber: this.state.pageNo-1
+				};
+		}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
+				
 				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
 			})
 			.catch(function(error){
@@ -240,11 +302,20 @@ var ClubManagement = React.createClass({
 			decrement=decrement-1;
 		    this.setState({pageNo : decrement});
 		   
-			var requestData = {
-				token: this.state.token,
-			    pageSize:allUrlData.pageSize,
-			    pageNumber: this.state.pageNo-1
-			};
+		   	if(this.state.location) {
+				var requestData = {
+					token: this.state.token,
+					userID : this.state.userID,
+				    pageSize :allUrlData.pageSize,
+				    pageNumber: this.state.pageNo-1
+				};
+			}else {
+				var requestData = {
+					token: this.state.token,
+				    pageSize:allUrlData.pageSize,
+				    pageNumber: this.state.pageNo-1
+				};
+			}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
 				currentThis.setState({clubs:data.response.result});
@@ -269,14 +340,24 @@ var ClubManagement = React.createClass({
 			
 		    this.setState({pageNo : increment});
 		    
+		    if($("#checkbox").is(":checked")) {
+		    	
+		    	var requestData = {
+		        token: this.state.token,
+		        userID : this.state.userID,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo+1
+			};
+		    }else {
+		    
 			var requestData = {
 		        token: this.state.token,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo+1
 			};
+		}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-				
 				currentThis.setState({
 					clubs:data.response.result
 				});

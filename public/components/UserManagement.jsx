@@ -34,6 +34,7 @@ var UserManagement = React.createClass({
 	},
 	componentWillMount: function(){ 
 		this.pagination();
+		/*this.props.doActive();*/
 	},
 
 	pagination : function() {
@@ -67,6 +68,11 @@ var UserManagement = React.createClass({
 		
         this.setState({showAlert: false});
         
+    },
+
+    fromParent : function(value) {
+    
+    	this.props.doActive(value);
     },
 
 	render: function() {
@@ -134,10 +140,11 @@ var UserManagement = React.createClass({
 							            <th>Email</th>
 							            <th>Number</th>
 							            <th>Number of Clubs Joined</th>
+							            <th></th>
 							            <tbody>
 								            {this.state.userList.map(function(user){
 									            
-			  						           return <UserList user={user} token={self.state.token} key={user.userID}/> 
+			  						           return <UserList user={user} token={self.state.token} key={user.userID} fromParent={self.fromParent}/> 
 			  					           })}
 			  				           </tbody>
 						            </table>
@@ -157,7 +164,7 @@ var UserManagement = React.createClass({
 							            <tbody>
 								            {this.state.filterResult.map(function(user){
 									            
-			  						           return <UserList user={user} token={self.state.token} key={user.userID}/> 
+			  						           return <UserList user={user} token={self.state.token} key={user.userID} fromParent={self.fromParent}/> 
 			  					           })}
 			  				           </tbody>
 						            </table>

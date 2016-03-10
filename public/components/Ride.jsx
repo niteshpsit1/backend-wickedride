@@ -13,8 +13,7 @@ var Ride = React.createClass({
         var des = null;
         des = this.state.ride.description.substring(0, 100);
         this.setState({description :des});
-        console.log("desc",des.length);
-
+       
 	},
 
 	handleShowRideMembersModal: function(){

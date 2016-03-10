@@ -23,6 +23,10 @@ var Layout =  React.createClass({
         this.setState({adminName: value});
     },
 
+    doActive: function(value) {
+        this.setState({userClass: "",clubClass: "active"});
+    },
+
     showAlertModal: function() {
         this.setState({showAlert: true});
     },
@@ -38,7 +42,7 @@ var Layout =  React.createClass({
     render: function() {
         var self = this;
         var childrenWithProps = React.Children.map(this.props.children, function(child) {
-            return React.cloneElement(child, { doSomething: self.doSomething });
+            return React.cloneElement(child, { doSomething: self.doSomething, doActive: self.doActive });
         
         });
 

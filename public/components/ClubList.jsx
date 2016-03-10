@@ -21,7 +21,10 @@ var ClubList = React.createClass({
 			classGallery : "gallery",
 			date : {},
 			time : {},
-			memberCount : this.props.club.memberCount
+			memberCount : this.props.club.memberCount,
+			showAlert : false,
+			showtr : true
+
 		});
 	},
 	componentWillMount: function(){
@@ -75,12 +78,49 @@ var ClubList = React.createClass({
         self.setState({memberCount : length});
 	},
 
+	removeUser: function() {
+    	this.setState({showAlert: true, message : 'Are you sure you want to delete club?', action : "userDelete"});
+    },
+
+    removeUserApi: function() {
+    	var self = this;
+    	var requestData = {
+    		token : this.state.token,
+    		clubID : this.props.club.clubId
+    	};
+    	
+    	services.POST(config.url.deleteClub, requestData)
+		.then(function(data){
+			self.setState({showtr : false});
+		})
+		.catch(function(error){
+			if(error.response.message) {s
+				self.setState({showAlert : true, message : error.response.message, action : "onlyOne"})
+			}
+		});	
+    },
+
+
+    handleHideAlertModal: function(value){
+    	if(value=="userDelete") {
+    		this.setState({showAlert: false});
+        	this.removeUserApi();
+        }else if(value=="deleteUser"){
+        	this.setState({showAlert: false});
+        } else if(value=="onlyOne"){
+        	this.setState({showAlert: false});
+        }
+    },
+
+
 	render: function () {
 		var currentThis = this;
 		var time = Date.parse(this.props.club.time);
 		
 		return (
+			
 			<tbody cellSpacing="0" cellPadding="25">
+			{this.state.showtr &&
 			    <tr>
 			        <td><p>{this.props.club.clubName}</p></td>
 				    <td><p>{this.props.club.creatorName}</p></td>
@@ -88,7 +128,12 @@ var ClubList = React.createClass({
 				    <td><p><a href="javascript:void(0)" onClick={this.appendUser} className={this.state.classUser}></a>{this.state.memberCount}</p>
 				        <p><a href="javascript:void(0)" onClick={this.appendRide} className={this.state.classRide}></a>{this.props.club.rideCount}</p>
 				    </td>
-                </tr>
+				    <td>
+						<a href="javascript:void(0)" className="removeUser" onClick={this.removeUser}></a>
+					</td>
+					{this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
+
+                </tr>}
                 <tr>
 				    
 				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId} admin={this.props.club.creatorId} memberLength={this.memberLength}/>:null}

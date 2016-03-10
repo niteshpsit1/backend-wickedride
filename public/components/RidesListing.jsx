@@ -28,7 +28,6 @@ var RidesListing = React.createClass({
 		.then(function(data){
 			
 			result=data.response.result;
-			console.log("=====================",result);
 			if(result.length) {
 				
 				self.setState({

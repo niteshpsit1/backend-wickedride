@@ -28,6 +28,8 @@ var AlertModal = React.createClass({
 	cancel : function() {
         if(this.props.action=="memberDelete") {
         	this.props.handleHideAlertModal("memberDelete");
+        }else if(this.props.action=="userDelete") {
+        	this.props.handleHideAlertModal("deleteUser");
         }else{
             this.props.handleHideAlertModal("cancelled");
         }
