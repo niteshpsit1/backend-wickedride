@@ -196,10 +196,13 @@ var AboutUs = React.createClass({
 			}
 			else {
 			var requestData = {};
-			requestData.token = this.state.token;
+/*			this.setState({aboutUsEmail : this.state.email, this.state.aboutUsContact : this.state.phone});
+*/			requestData.token = this.state.token;
 			requestData.htmlText = CKEDITOR.instances.aboutUsMessage.getData();
 			requestData.email = this.state.email;
 			requestData.phone = this.state.phone;
+			this.setState({aboutUsEmail : requestData.email, aboutUsContact : requestData.phone});
+
 			services.POST(config.url.postAboutUs, requestData)
 			.then(function(data){
 				
