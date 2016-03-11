@@ -25,12 +25,13 @@ var ClubManagement = React.createClass({
 			filterData : false,
 			showButton : true,
 			action : "emptyFilterInput",
-			message : "Fill up the fields first.",
+			message : "Field cannot be left blank.",
 			filterClass : "filter-block", 
 			myCheckbox : false,
 			checked : false,
 			location : false,
-			userID : null
+			userID : null,
+			checking : false
 			
 
 		} 
@@ -55,19 +56,18 @@ var ClubManagement = React.createClass({
 			}
 		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
 		})
-		.catch(function(error){
+		.catch(function(error) {
 				
 		});	
 	},
 
 	componentWillMount: function () {
 		
-		this.setState({checked: true});
+		
 		var self = this;
 		
 		if(this.props.location.state) {
-			
-			self.setState({clubFilter : true, myCheckbox : true, checked: true, loaction: true});
+			self.setState({clubFilter : true, myCheckbox : true, loaction: true, checked: true, checking :  true});
 			var userID = this.props.location.state.userID;
 			self.setState({userID : userID});
 			var requestData = {
@@ -93,8 +93,10 @@ var ClubManagement = React.createClass({
         
     },
     checkboxClicked: function() {
-    	this.setState({pageNo : 1, disablePrevious : true, disableNext : false});
+    	var checked = this.state.checked;
+    	this.setState({pageNo : 1, disablePrevious : true, disableNext : false, checked : !checked});
     	var self = this;
+
     	if($("#checkbox").is(":checked")){
     		var requestData = {
 				token: self.state.token,
@@ -111,7 +113,12 @@ var ClubManagement = React.createClass({
 
 	render: function (){
 		var currentThis = this;
-		
+		var checked = false;
+		if(this.state.checked) {
+			checked = true;
+		}else {
+			checked = false;
+		}	
 		if(this.state.notAvailable){
 			
 		    return (
@@ -157,7 +164,7 @@ var ClubManagement = React.createClass({
 										    	<td colSpan="2"><label>My clubs:</label></td>
 											    <td colSpan="2" className="checkboxDefault">
 													<div className="text-left">
-											    		<input type="checkbox" id="checkbox" className="customCheckbox" onClick={this.checkboxClicked} defaultChecked={this.state.checked}/>
+											    		<input type="checkbox" id="checkbox" className="customCheckbox" onClick={this.checkboxClicked} defaultChecked={checked}/>
 											    	</div>
 											    </td>
 										    </tr>
@@ -165,7 +172,7 @@ var ClubManagement = React.createClass({
 										    <tr>
 											    <td colSpan="4">
 												    <div className="button-block text-left">
-													    <button type="reset">Reset</button>
+													    <button type="reset" onClick={this._onFilter}>Reset</button>
 													    <button onSubmit={this._onFilterClick}>Search</button>
 												    </div>
 											    </td>
@@ -240,7 +247,6 @@ var ClubManagement = React.createClass({
         }else if(this.state.clubFilter==true) {
         	this.setState({filterClass : "filter-block"});
         }
-
 		this.setState({
 			clubFilter: !this.state.clubFilter,
 			noResult : false,

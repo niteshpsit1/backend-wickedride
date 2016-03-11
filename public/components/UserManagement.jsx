@@ -123,7 +123,7 @@ var UserManagement = React.createClass({
 										        <tr>
 											        <td colSpan="3">
 												        <div className="button-block text-left">
-													        <button type="reset">Reset</button>
+													        <button type="reset" onClick={this._onFilter}>Reset</button>
 													        <button onSubmit={this._onClick}>Search</button>
 												        </div>
 											        </td>

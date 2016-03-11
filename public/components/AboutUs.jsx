@@ -85,6 +85,8 @@ var AboutUs = React.createClass({
 	},
 
 	render: function(){
+		
+		var email  = this.state.aboutUsEmail;
 		return (
 			<div className="main about-us-page common-table">
 				<div  className="main-content">
@@ -96,6 +98,26 @@ var AboutUs = React.createClass({
 					</div>
 					{	!this.state.edit	&&
 						<div className="content">
+
+						<table>
+							    <tbody>
+								    <tr>
+									    <td><label>Email</label></td>
+									    <td><input type="email" name="email" id="email" onChange={this._onchange} defaultValue={email} value={this.state.aboutUsEmail}/>&nbsp;&nbsp;
+									    {this.state.emailError && 
+									   <div className="errorMess">{this.state.emailErrorMessage}</div>}
+							
+									   </td>
+									    <td><label>Phone no.</label></td>
+									    <td><input type="text" name="phone" id="phone" onChange={this._onchange} defaultValue={this.state.aboutUsContact} value={this.state.aboutUsContact}/>&nbsp;&nbsp;
+									    {this.state.phoneError && 
+									   <div className="errorMess">{this.state.phoneErrorMessage}</div>}
+									   
+									   </td>
+									</tr>
+								</tbody>
+							</table>
+
 							<div className="abt-text-block">
 								<p className="abt-text">
 									<div id="aboutUsMessage"></div>
