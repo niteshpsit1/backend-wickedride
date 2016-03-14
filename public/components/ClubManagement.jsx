@@ -31,7 +31,8 @@ var ClubManagement = React.createClass({
 			checked : false,
 			location : false,
 			userID : null,
-			checking : false
+			checking : false,
+			username : null
 			
 
 		} 
@@ -67,7 +68,8 @@ var ClubManagement = React.createClass({
 		var self = this;
 		
 		if(this.props.location.state) {
-			self.setState({clubFilter : true, myCheckbox : true, loaction: true, checked: true, checking :  true});
+			var name = this.props.location.state.name;
+			self.setState({clubFilter : true, myCheckbox : true, loaction: true, checked: true, checking :  true, username : name});
 			var userID = this.props.location.state.userID;
 			self.setState({userID : userID});
 			var requestData = {
@@ -161,7 +163,7 @@ var ClubManagement = React.createClass({
 										    {this.state.myCheckbox &&
 
 										    <tr>
-										    	<td colSpan="2"><label>My clubs:</label></td>
+										    	<td colSpan="2"><label>{this.state.username} clubs:</label></td>
 											    <td colSpan="2" className="checkboxDefault">
 													<div className="text-left">
 											    		<input type="checkbox" id="checkbox" className="customCheckbox" onClick={this.checkboxClicked} defaultChecked={checked}/>

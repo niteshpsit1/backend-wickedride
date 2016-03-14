@@ -1,4 +1,4 @@
-var baseUrl = 'http://14.141.28.114:5200'
+var baseUrl = 'http://172.18.2.120:4200'
 var config = {
 	url: {
 

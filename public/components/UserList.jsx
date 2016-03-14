@@ -11,11 +11,6 @@ var UserList =	React.createClass({
 		});
 	},
 
-	/*componentWillMount : function() {
-		this.props.fromParent();
-	},*/
-
-	
 	handleShowModal: function(document){
         this.setState({showModal: true});
         
@@ -61,9 +56,14 @@ var UserList =	React.createClass({
         }else if(value=="deleteUser"){
         	this.setState({showAlert: false});
         }else if(value=="cancelled"){
+        	var extra = "'s";
+        	var name = this.props.user.userName;
+        	var fullname = name.concat(extra);
+        	
         	var val = {
         		name : "clubs",
-        		userID : this.state.userID
+        		userID : this.state.userID,
+        		name : fullname
         	};
         	
         	this.setState({showAlert: false});
