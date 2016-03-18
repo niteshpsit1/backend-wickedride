@@ -69,7 +69,7 @@ var MemberDetailModal = React.createClass({
 			                    <tr>
 			                        <th className="text-center">User Name</th>
 						            <th className="text-center">Club Name</th>
-						            <th className="text-center">Joined As</th>
+						            <th className="text-center">Designation</th>
 						        </tr>
 
 						        <tbody>

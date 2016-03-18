@@ -28,13 +28,15 @@ var UserManagement = React.createClass({
 			showButton : true,
 			showAlert: false,
 			action : "emptyFilterInput",
-			message : "Fill up the fields first.",
-			filterClass : "filter-block"
+			message : "Fields cannot be left blank",
+			filterClass : "filter-block",
+			lengthToChild : null,
+			noFilterData : false
 		}
 	},
 	componentWillMount: function(){ 
 		this.pagination();
-		/*this.props.doActive();*/
+		
 	},
 
 	pagination : function() {
@@ -56,9 +58,10 @@ var UserManagement = React.createClass({
 		    }else {
 
 			    pages = LOD/allUrlData.pageSize;
+			    currentThis.setState({disablePrevious : true, disableNext : false});
 		    }
         currentThis.setState({
-			userList:data.response.result,noOfPages : Math.ceil(pages)});
+			userList:data.response.result,noOfPages : Math.ceil(pages), pageNo : 1});
 		}) 		
 		.catch(function(error){
 		})
@@ -73,6 +76,20 @@ var UserManagement = React.createClass({
     fromParent : function(value) {
     
     	this.props.doActive(value);
+    },
+
+    filterLength : function() {
+    	var length = this.state.lengthToChild-1;
+    	this.setState({
+    		lengthToChild : length
+    	});
+
+    	if(length==0) {
+    		this.setState({
+    		noFilterData : true
+    	});
+    	}
+    	
     },
 
 	render: function() {
@@ -161,10 +178,11 @@ var UserManagement = React.createClass({
 							            <th>Email</th>
 							            <th>Number</th>
 							            <th>Number of Clubs Joined</th>
+							            <th></th>
 							            <tbody>
 								            {this.state.filterResult.map(function(user){
 									            
-			  						           return <UserList user={user} token={self.state.token} key={user.userID} fromParent={self.fromParent}/> 
+			  						           return <UserList user={user} token={self.state.token} key={user.userID} fromParent={self.fromParent} filterLength={self.filterLength}/> 
 			  					           })}
 			  				           </tbody>
 						            </table>
@@ -175,6 +193,21 @@ var UserManagement = React.createClass({
                                     </div>}
                                 </div>
                             }
+                            { this.state.noFilterData &&
+                        	<div>
+						        <table cellSpacing="0" cellPadding="25" className="club-details">
+						        	<tr>
+										<td colSpan="5" className="no-Club">
+											<div className="page-title">
+												<span className="users"></span>
+												<h4>No users available.</h4>
+											</div>
+										</td>
+									</tr>
+						        </table>
+                            </div>
+
+                        }
                             {this.state.noResult &&
 							    <div className="filter-form">
 							        <label>
@@ -199,6 +232,7 @@ var UserManagement = React.createClass({
         	this.setState({filterClass : "filter-block active"});
         }else if(this.state.userFilter==true) {
         	this.setState({filterClass : "filter-block"});
+        	this.pagination();
         }
 		var self = this;
 		self.pagination();
@@ -208,7 +242,6 @@ var UserManagement = React.createClass({
 			result : true,
 			filterData : false
 		});
-		/*this.pagination();*/
 		
 	},
 
@@ -230,12 +263,13 @@ var UserManagement = React.createClass({
 			});
 		}
 	}, 
+
 	_onClick: function(event){
 		event.preventDefault();
 		var input1 = $("#filterByName").val();
 		var input2 = $("#filterByEmail").val();
 		if((input1==null||input1=="")&&(input2==null||input2=="")) {
-            this.setState({showAlert: true});
+            this.setState({showAlert: true, message: "Fields cannot be left blank."});
 		}else {
 		var currentThis = this;
 		var requestData = {};
@@ -245,10 +279,11 @@ var UserManagement = React.createClass({
 		requestData.designation = this.state.filterByDesignation;
 		services.POST(config.url.userListFilter, requestData)
 		.then(function(data){
+			console.log("dataa",data);
 			var LOD = data.response.result.length;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
-                currentThis.setState({disableNext:true,disablePrevious:true});
+                currentThis.setState({disableNext:true, disablePrevious:true});
 			}else if(LOD==0){
 			    currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
 		    }else {
@@ -259,7 +294,8 @@ var UserManagement = React.createClass({
 				    filterResult:data.response.result,
 				    filterData : true,
 				    result : false,
-				    noOfPages : Math.ceil(pages)
+				    noOfPages : Math.ceil(pages),
+				    lengthToChild : LOD
 			    });
 		    }else {
 		    	currentThis.setState({
@@ -303,7 +339,7 @@ var UserManagement = React.createClass({
 			});	
 		}else {
 			decrement=decrement-1;
-		    this.setState({pageNo : decrement});
+		    this.setState({pageNo : decrement,disableNext:false});
 		    var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
@@ -337,7 +373,6 @@ var UserManagement = React.createClass({
 		};
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
-			
 			currentThis.setState({
 			userList:data.response.result
 		});

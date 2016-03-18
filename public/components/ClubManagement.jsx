@@ -32,7 +32,9 @@ var ClubManagement = React.createClass({
 			location : false,
 			userID : null,
 			checking : false,
-			username : null
+			username : null,
+			lengthToChild : null,
+			noFilterData : false
 			
 
 		} 
@@ -54,8 +56,9 @@ var ClubManagement = React.createClass({
 				self.setState({notAvailable : true});
 		    }else {
 			    pages = LOD/allUrlData.pageSize;
+			    self.setState({disablePrevious:true,disableNext:false});
 			}
-		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages)});
+		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages), pageNo : 1});
 		})
 		.catch(function(error) {
 				
@@ -63,7 +66,6 @@ var ClubManagement = React.createClass({
 	},
 
 	componentWillMount: function () {
-		
 		
 		var self = this;
 		
@@ -80,20 +82,17 @@ var ClubManagement = React.createClass({
 			
 		}else {
 		
-		var requestData = {
-			token: self.state.token
-			
-		};
-		self.commonApi(requestData);
-		
+			var requestData = {
+				token: self.state.token
+			};
+			self.commonApi(requestData);
 		}
 	},
     
     handleHideAlertModal: function(value){
-		
-        this.setState({showAlert: false});
-        
-    },
+		this.setState({showAlert: false});
+     },
+
     checkboxClicked: function() {
     	var checked = this.state.checked;
     	this.setState({pageNo : 1, disablePrevious : true, disableNext : false, checked : !checked});
@@ -113,7 +112,22 @@ var ClubManagement = React.createClass({
     	}
     },
 
+    filterLength : function() {
+    	var length = this.state.lengthToChild-1;
+    	this.setState({
+    		lengthToChild : length
+    	});
+
+    	if(length==0) {
+    		this.setState({
+    		noFilterData : true
+    	});
+    	}
+    	
+    },
+
 	render: function (){
+		console.log("noFilterData",this.state.noFilterData,"filterData",this.state.filterData);
 		var currentThis = this;
 		var checked = false;
 		if(this.state.checked) {
@@ -132,7 +146,7 @@ var ClubManagement = React.createClass({
 				        </div>
 				        
 				        <div className="content home-page">
-				            <div><b>No clubs present</b></div>
+				            <div className="noData"><b>No clubs present</b></div>
 			            </div>
 		            </div>
 		        </div>
@@ -222,11 +236,26 @@ var ClubManagement = React.createClass({
 							        <tbody>
 								        {this.state.filterResult.map(function(club){
 									        
-			  						       return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
+			  						       return <ClubList token={currentThis.state.token} club={club} key={club.clubId} length={currentThis.state.lengthToChild} filterLength={currentThis.filterLength}/>
 			  					       })}
 			  				       </tbody>
 						        </table>
                             </div>
+                        }
+                        { this.state.noFilterData &&
+                        	<div>
+						        <table cellSpacing="0" cellPadding="25" className="club-details">
+						        	<tr>
+										<td colSpan="5" className="no-Club">
+											<div className="page-title">
+												<span className="users"></span>
+												<h4>No clubs available.</h4>
+											</div>
+										</td>
+									</tr>
+						        </table>
+                            </div>
+
                         }
 					    {this.state.noResult &&
 						<div className="filter-form">
@@ -248,6 +277,10 @@ var ClubManagement = React.createClass({
         	this.setState({filterClass : "filter-block active"});
         }else if(this.state.clubFilter==true) {
         	this.setState({filterClass : "filter-block"});
+        	var requestData = {
+				token: this.state.token
+			};
+			this.commonApi(requestData);
         }
 		this.setState({
 			clubFilter: !this.state.clubFilter,
@@ -307,8 +340,9 @@ var ClubManagement = React.createClass({
 				
 			});	
 		}else {
+
 			decrement=decrement-1;
-		    this.setState({pageNo : decrement});
+		    this.setState({pageNo : decrement, disableNext:false});
 		   
 		   	if(this.state.location) {
 				var requestData = {
@@ -341,7 +375,6 @@ var ClubManagement = React.createClass({
 		this.setState({disablePrevious : false});
 		
         increment = increment+1;
-
 		if(increment==this.state.noOfPages){
 			this.setState({disableNext : true});
 		}
@@ -396,7 +429,7 @@ var ClubManagement = React.createClass({
 		    	var LOD = data.response.result.length;
 			    if((LOD<10&&LOD>0)||LOD==10){
                     pages = 1;
-                    currentThis.setState({disableNext:true,disablePrevious:true});
+                    currentThis.setState({disableNext : true, disablePrevious : true});
 			    }else if(LOD==0){
 			        currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
 		        }else {
@@ -407,7 +440,8 @@ var ClubManagement = React.createClass({
 				        filterResult:data.response.result,
 				        filterData : true,
 				        result : false,
-				        noOfPages : Math.ceil(pages)
+				        noOfPages : Math.ceil(pages),
+				        lengthToChild : data.response.result.length
 			        });
 		        }else {
 		    	    currentThis.setState({

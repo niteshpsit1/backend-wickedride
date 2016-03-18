@@ -8,7 +8,7 @@ var AlertModal = React.createClass({
 	},
     
     componentWillMount: function() {
-        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert"||this.props.action=="noFilterResult"||this.props.action=="onlyOne") {
+        if(this.props.action=="emptyFilterInput"||this.props.action=="makeAdminAlert"||this.props.action=="noFilterResult"||this.props.action=="onlyOne"||this.state.action=="confirmation") {
         	this.setState({okButton : true, bothButtons : false});
         }
     },
@@ -30,6 +30,8 @@ var AlertModal = React.createClass({
         	this.props.handleHideAlertModal("memberDelete");
         }else if(this.props.action=="userDelete") {
         	this.props.handleHideAlertModal("deleteUser");
+        }else if(this.props.action=="confirmation") {
+        	this.props.handleHideAlertModal("confirmation");
         }else{
             this.props.handleHideAlertModal("cancelled");
         }

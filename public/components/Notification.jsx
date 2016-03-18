@@ -123,7 +123,7 @@ var Notification = React.createClass({
 			});	
 		}else {
 			decrement=decrement-1;
-		    this.setState({pageNo : decrement});
+		    this.setState({pageNo : decrement, disableNext:false});
 		    
 			var requestData = {
 				token: this.state.token,

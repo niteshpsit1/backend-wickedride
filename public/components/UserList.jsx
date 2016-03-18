@@ -6,7 +6,8 @@ var UserList =	React.createClass({
 			showModal: false,
 			tokenID : this.props.token,
 			userID : this.props.user.userID,
-			showAlert : false
+			showAlert : false,
+            showUser : true
 			
 		});
 	},
@@ -33,10 +34,11 @@ var UserList =	React.createClass({
     		token : this.state.tokenID,
     		userID : this.state.userID
     	};
-    	
+        
     	services.POST(config.url.deleteUser, requestData)
 		.then(function(data){
-			
+            self.setState({showAlert : true, message : "User has been deleted successfully.", action : "confirmation"});
+            self.props.filterLength();
 		})
 		.catch(function(error){
 			
@@ -50,6 +52,7 @@ var UserList =	React.createClass({
     handleHideAlertModal: function(value){
     	
     	if(value=="userDelete") {
+
     		this.setState({showAlert: false});
         	this.removeUserApi();
         	
@@ -70,6 +73,8 @@ var UserList =	React.createClass({
         	this.fromParent(true);
         	History.pushState(val,"/home/clubs");
 
+        }else if(value=="confirmation") {
+            this.setState({showAlert: false, showUser : false});
         }
     },
 
@@ -79,22 +84,25 @@ var UserList =	React.createClass({
     },
 	
 	render: function() {
-		
-		return (
-			<tr key={this.props.user.userID}>
-				<td><p>{this.props.user.userName}</p></td>
-				<td><p>{this.props.user.email}</p></td>
-				<td><p>{this.props.user.number}</p></td>
-				<td onClick={this.handleShowModal} className="clubJointd">
-				    <p><a href="#" className="ride p-center"></a></p>
-				    <p className="rideNo-center spanSpace">{this.props.user.noOfClubJoined} clubs</p>
-				</td>
-				<td>
-					<a href="javascript:void(0)" className="removeUser" onClick={this.removeUser}></a>
-				</td>
-				{this.state.showModal ? <MemberDetailModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.props.user.userID} user={this.props.user}/> : null}
-				{this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
-			</tr>
-		)
-	}
+		if(this.state.showUser) {
+            
+            return (
+                <tr key={this.props.user.userID}>
+                    <td><p>{this.props.user.userName}</p></td>
+                    <td><p>{this.props.user.email}</p></td>
+                    <td><p>{this.props.user.number}</p></td>
+                    <td onClick={this.handleShowModal} className="clubJointd">
+                        <p><a href="#" className="ride p-center"></a></p>
+                        <p className="rideNo-center spanSpace">{this.props.user.noOfClubJoined} clubs</p>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)" className="removeUser" onClick={this.removeUser}></a>
+                    </td>
+                    {this.state.showModal ? <MemberDetailModal handleHideModal={this.handleHideModal} token={this.props.token} userID={this.props.user.userID} user={this.props.user}/> : null}
+                    {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
+                </tr>
+            )
+        }else return null
+    }
+	
 });

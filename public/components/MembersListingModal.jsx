@@ -157,7 +157,7 @@ var MembersListingModal = React.createClass({
 			            <div className="modal-body">
 			                <table cellSpacing="0"  className="club-details">
 						        <th>Club Name</th>
-						        <th>Joined As</th>
+						        <th>Designation</th>
 						        <tbody>
 						            {this.state.clubs.map(function(club,i){
 								        return( 

@@ -23,7 +23,9 @@ var ClubList = React.createClass({
 			time : {},
 			memberCount : this.props.club.memberCount,
 			showAlert : false,
-			showtr : true
+			showtr : true,
+			length : this.props.length,
+			noUser : false
 
 		});
 	},
@@ -83,7 +85,8 @@ var ClubList = React.createClass({
     },
 
     removeUserApi: function() {
-    	var self = this;
+    	var self = this,
+    	length = self.state.length;
     	var requestData = {
     		token : this.state.token,
     		clubID : this.props.club.clubId
@@ -91,10 +94,16 @@ var ClubList = React.createClass({
     	
     	services.POST(config.url.deleteClub, requestData)
 		.then(function(data){
-			self.setState({showtr : false});
+			console.log("lengthhh b4",self.state.length);
+			self.state.length--;
+			self.props.filterLength(self.state.length);
+			self.setState({showAlert : true, message : "Club has been deleted successfully.", action : "onlyOne"});
+			console.log("lengthhh aft",self.state.length);
+			self.setState({ showtr : false});
+			
 		})
 		.catch(function(error){
-			if(error.response.message) {s
+			if(error.response.message) {
 				self.setState({showAlert : true, message : error.response.message, action : "onlyOne"})
 			}
 		});	
@@ -102,9 +111,15 @@ var ClubList = React.createClass({
 
 
     handleHideAlertModal: function(value){
+    	var self = this;
     	if(value=="userDelete") {
-    		this.setState({showAlert: false});
-        	this.removeUserApi();
+    		setTimeout(function () {
+    			self.setState({showAlert: false});
+    		},0);
+    		setTimeout(function () {
+    			self.removeUserApi();
+    		},0) 
+        	
         }else if(value=="deleteUser"){
         	this.setState({showAlert: false});
         } else if(value=="onlyOne"){
@@ -131,15 +146,27 @@ var ClubList = React.createClass({
 				    <td>
 						<a href="javascript:void(0)" className="removeUser" onClick={this.removeUser}></a>
 					</td>
-					{this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
+				</tr>}
 
-                </tr>}
+                {this.state.showAlert ? <AlertModal handleHideAlertModal={this.handleHideAlertModal} action={this.state.action} message={this.state.message}/> : null}
                 <tr>
 				    
 				        {this.state.showUser ? <MembersListing handleHideUser={this.handleHideUser} token={this.props.token} clubID={this.props.club.clubId} admin={this.props.club.creatorId} memberLength={this.memberLength}/>:null}
 				        {this.state.showRide ? <RidesListing handleHideRide={this.handleHideRide} token={this.props.token} clubID={this.props.club.clubId}/>:null}
 				        {this.state.showGallery ? <MembersListing handleHideGallery={this.handleHideGallery}/>:null}
 				   
+				</tr>
+				<tr>
+					{this.state.noUser &&
+						<td colSpan="5" className="no-Club">
+							<div className="page-title">
+								<span className="users"></span>
+								<h4>No clubs available.</h4>
+								
+							</div>
+						</td>
+
+					}
 				</tr>
 			</tbody>
 		);
