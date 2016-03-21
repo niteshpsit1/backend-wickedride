@@ -23,10 +23,7 @@ var ClubList = React.createClass({
 			time : {},
 			memberCount : this.props.club.memberCount,
 			showAlert : false,
-			showtr : true,
-			length : this.props.length,
-			noUser : false
-
+			showtr : true
 		});
 	},
 	componentWillMount: function(){
@@ -85,8 +82,7 @@ var ClubList = React.createClass({
     },
 
     removeUserApi: function() {
-    	var self = this,
-    	length = self.state.length;
+    	var self = this;
     	var requestData = {
     		token : this.state.token,
     		clubID : this.props.club.clubId
@@ -94,13 +90,7 @@ var ClubList = React.createClass({
     	
     	services.POST(config.url.deleteClub, requestData)
 		.then(function(data){
-			console.log("lengthhh b4",self.state.length);
-			self.state.length--;
-			self.props.filterLength(self.state.length);
-			self.setState({showAlert : true, message : "Club has been deleted successfully.", action : "onlyOne"});
-			console.log("lengthhh aft",self.state.length);
 			self.setState({ showtr : false});
-			
 		})
 		.catch(function(error){
 			if(error.response.message) {
@@ -155,18 +145,6 @@ var ClubList = React.createClass({
 				        {this.state.showRide ? <RidesListing handleHideRide={this.handleHideRide} token={this.props.token} clubID={this.props.club.clubId}/>:null}
 				        {this.state.showGallery ? <MembersListing handleHideGallery={this.handleHideGallery}/>:null}
 				   
-				</tr>
-				<tr>
-					{this.state.noUser &&
-						<td colSpan="5" className="no-Club">
-							<div className="page-title">
-								<span className="users"></span>
-								<h4>No clubs available.</h4>
-								
-							</div>
-						</td>
-
-					}
 				</tr>
 			</tbody>
 		);

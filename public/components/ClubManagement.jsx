@@ -34,8 +34,8 @@ var ClubManagement = React.createClass({
 			checking : false,
 			username : null,
 			lengthToChild : null,
-			noFilterData : false
-			
+			noFilterData : false,
+			noResult:true
 
 		} 
 	},
@@ -58,7 +58,12 @@ var ClubManagement = React.createClass({
 			    pages = LOD/allUrlData.pageSize;
 			    self.setState({disablePrevious:true,disableNext:false});
 			}
-		    self.setState({clubs:data.response.result, noOfPages : Math.ceil(pages), pageNo : 1});
+		    self.setState({
+		    	clubs:data.response.result,
+		    	noOfPages : Math.ceil(pages),
+		    	pageNo : 1,
+		    	noResult: self.response.result.length
+		    });
 		})
 		.catch(function(error) {
 				
@@ -127,7 +132,7 @@ var ClubManagement = React.createClass({
     },
 
 	render: function (){
-		console.log("noFilterData",this.state.noFilterData,"filterData",this.state.filterData);
+		console.log("noFilterData",this.state.noData);
 		var currentThis = this;
 		var checked = false;
 		if(this.state.checked) {
