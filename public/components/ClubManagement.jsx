@@ -203,9 +203,12 @@ var ClubManagement = React.createClass({
 					        <div>
 					            <table cellSpacing="0" cellPadding="25" className="club-details">
 					                <tr>
-						            <th>Club Name</th>
+						            <th>Club Name<div><button type="button" onClick={this._onSorting} name="ascendingName">ascdg</button></div>
+						            <div><button type="button" onClick={this._onSorting} name="descendingName">desdg</button></div>
+						            </th>
 						            <th>Creator Name</th>
-						            <th>Date</th>
+						            <th>Date <div><button type="button" onClick={this._onSorting} name="ascendingDate">ascdg</button></div>
+						            <div><button type="button" onClick={this._onSorting} name="descendingDate">desdg</button></div></th>
 						            <th></th>
 						            <th></th>
 						            </tr>
@@ -271,6 +274,32 @@ var ClubManagement = React.createClass({
 		    </div>
 		    )
         }
+	},
+	_onSorting: function(e){
+		
+		var clubsToSort = this.state.clubs;
+		if(e.target.name === "ascendingName"){
+			clubsToSort.sort(function(a,b) {return (a.clubName > b.clubName) ? 1 : ((b.clubName > a.clubName) ? -1 : 0);} ); 
+			this.setState({
+				clubs: clubsToSort
+			});
+		}
+		else if(e.target.name === "descendingName"){
+			clubsToSort.sort(function(a,b) {return (a.clubName > b.clubName) ? -1 : ((b.clubName > a.clubName) ? 1 : 0);} ); 
+			this.setState({
+				clubs: clubsToSort
+			});	
+		}else if(e.target.name === "ascendingDate"){
+			clubsToSort.sort(function(a,b) {return ((new Date(a.date))-(new Date(b.date)));} ); 
+			this.setState({
+				clubs: clubsToSort
+			});	
+		}else if(e.target.name === "descendingDate"){
+			clubsToSort.sort(function(a,b) {return -((new Date(a.date))-(new Date(b.date)));} ); 
+			this.setState({
+				clubs: clubsToSort
+			});	
+		}
 	},
 	_onFilter: function(){
 		if(this.state.clubFilter==false) {

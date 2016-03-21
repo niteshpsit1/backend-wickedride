@@ -153,7 +153,8 @@ var UserManagement = React.createClass({
 						    {this.state.result &&
 						    	<div>
 						            <table cellSpacing="0" cellPadding="25">
-							            <th><p>User Name</p></th>
+							            <th><p>User Name<div><button type="button" onClick={this._onSorting} name="ascendingName">ascdg</button></div>
+							            <div><button type="button" onClick={this._onSorting} name="descendingName">desdg</button></div></p></th>
 							            <th>Email</th>
 							            <th>Number</th>
 							            <th>Number of Clubs Joined</th>
@@ -225,7 +226,22 @@ var UserManagement = React.createClass({
         }
     
 	},
-
+	_onSorting: function(e){
+		
+		var userListToSort = this.state.userList;
+		if(e.target.name === "ascendingName"){
+			userListToSort.sort(function(a,b) {return (a.userName > b.userName) ? 1 : ((b.userName > a.userName) ? -1 : 0);} ); 
+			this.setState({
+				clubs: userListToSort
+			});
+		}
+		else if(e.target.name === "descendingName"){
+			userListToSort.sort(function(a,b) {return (a.userName > b.userName) ? -1 : ((b.userName > a.userName) ? 1 : 0);} ); 
+			this.setState({
+				clubs: userListToSort
+			});	
+		}
+	},
 	_onFilter: function(){
 
         if(this.state.userFilter==false) {
