@@ -19,7 +19,7 @@ var App = React.createClass({
         </div>
         <div className="login-form">
             <div className="filter-form">
-                <form>
+                <form onSubmit={this._onClick}>
                     <div className="form-row">
                         <label>Email-ID</label>
                         <input name="username" type="email" onChange={this._onChange}/>
@@ -35,7 +35,7 @@ var App = React.createClass({
                         </div>
                     </div>
                     <div className="button-block">
-                        <button type="button" className="siteButton" name="login" onClick={this._onClick}>Login</button>
+                        <button type="submit" className="siteButton" name="login" onClick={this._onClick}>Login</button>
                     </div>
                 </form>
             </div>
@@ -70,9 +70,9 @@ var App = React.createClass({
         }
     },*/
   _onClick: function(event){
+        event.preventDefault();
         var currentThis = this;
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
       if(event.target.name == "login"){
             var requestData = {};
             requestData.username = this.state.username;
