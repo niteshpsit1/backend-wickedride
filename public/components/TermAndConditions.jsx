@@ -53,13 +53,19 @@ var TermAndConditions = React.createClass({
 							<div className="tc-block">
 								<p className="abt-text">
 									<textarea rows="10" cols="15" name="termAndConditionMessage"  defaultValue={this.state.termAndConditionMessage}></textarea>
-									{	this.state.error &&
+									<div className="btnBlockOuter">
+										<span className="errorMessageBlock">
+											{	this.state.error &&
 										<div>{this.state.errorMessage}</div> }
-									<div className="orangeBtn">
-									    <button type="button" name="cancel" className="btn" onClick={this._onClick}>Cancel</button>
-									</div>
-									<div className="orangeBtn">
-									    <button type="button" name="change" className="btn" onClick={this._onClick}>Save</button>
+										</span>
+										<span className="rightBtn">
+											<span className="orangeBtn">
+											    <button type="button" name="cancel" className="btn" onClick={this._onClick}>Cancel</button>
+											</span>
+											<span className="orangeBtn">
+											    <button type="button" name="change" className="btn" onClick={this._onClick}>Save</button>
+											</span>
+										</span>
 									</div>
 								</p>
 
@@ -84,7 +90,9 @@ var TermAndConditions = React.createClass({
 		}else if($(event.target).attr("name") == "cancel"){
 			setTimeout(function() {
 				currentThis.setState({
-					edit:false
+					edit:false,
+					error:false,
+					errorMessage:""
 				})	
 			}, 0);
 			setTimeout(function() {

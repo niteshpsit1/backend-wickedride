@@ -203,12 +203,12 @@ var ClubManagement = React.createClass({
 					        <div>
 					            <table cellSpacing="0" cellPadding="25" className="club-details">
 					                <tr>
-						            <th>Club Name<div><button type="button" onClick={this._onSorting} name="ascendingName">ascdg</button></div>
-						            <div><button type="button" onClick={this._onSorting} name="descendingName">desdg</button></div>
+						            <th className="sortOrder">Club Name<div className="sortButton"><button type="button"><span onClick={this._onSorting} id="ascendingName" className="glyphicon glyphicon-triangle-top"></span></button>
+						            <button type="button" ><span onClick={this._onSorting} id="descendingName" className="glyphicon glyphicon-triangle-bottom"></span></button></div>
 						            </th>
 						            <th>Creator Name</th>
-						            <th>Date <div><button type="button" onClick={this._onSorting} name="ascendingDate">ascdg</button></div>
-						            <div><button type="button" onClick={this._onSorting} name="descendingDate">desdg</button></div></th>
+						            <th className="sortOrder">Date <div className="sortButton"><button type="button"><span onClick={this._onSorting} id="ascendingDate" className="glyphicon glyphicon-triangle-top"></span></button>
+						            <button type="button"><span onClick={this._onSorting} id="descendingDate" className="glyphicon glyphicon-triangle-bottom"></span></button></div></th>
 						            <th></th>
 						            <th></th>
 						            </tr>
@@ -278,23 +278,23 @@ var ClubManagement = React.createClass({
 	_onSorting: function(e){
 		
 		var clubsToSort = this.state.clubs;
-		if(e.target.name === "ascendingName"){
+		if(e.target.id === "ascendingName"){
 			clubsToSort.sort(function(a,b) {return (a.clubName > b.clubName) ? 1 : ((b.clubName > a.clubName) ? -1 : 0);} ); 
 			this.setState({
 				clubs: clubsToSort
 			});
 		}
-		else if(e.target.name === "descendingName"){
+		else if(e.target.id === "descendingName"){
 			clubsToSort.sort(function(a,b) {return (a.clubName > b.clubName) ? -1 : ((b.clubName > a.clubName) ? 1 : 0);} ); 
 			this.setState({
 				clubs: clubsToSort
 			});	
-		}else if(e.target.name === "ascendingDate"){
+		}else if(e.target.id === "ascendingDate"){
 			clubsToSort.sort(function(a,b) {return ((new Date(a.date))-(new Date(b.date)));} ); 
 			this.setState({
 				clubs: clubsToSort
 			});	
-		}else if(e.target.name === "descendingDate"){
+		}else if(e.target.id === "descendingDate"){
 			clubsToSort.sort(function(a,b) {return -((new Date(a.date))-(new Date(b.date)));} ); 
 			this.setState({
 				clubs: clubsToSort

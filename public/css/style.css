@@ -2055,3 +2055,35 @@ ul.dropdown-menu > li {
 	    background-position: -297px 2px;
 
 }
+
+.sortOrder{
+	position: relative;
+}
+
+.sortOrder button{
+	background: none;
+	padding: 0;
+	min-width: 0;
+	line-height: 1;
+}
+
+.sortButton{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.btnBlockOuter{
+	padding: 0 10px;
+	overflow: hidden;
+}
+
+.btnBlockOuter .errorMessageBlock {
+    float: left;
+    color: red;
+    padding: 0 5px;
+}
+
+.btnBlockOuter .rightBtn{
+	float: right;
+}
