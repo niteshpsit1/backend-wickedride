@@ -92,6 +92,7 @@ var ClubList = React.createClass({
 		.then(function(data){
 			self.setState({ showtr : false});
 			self.props.filterLength();
+			self.setState({showAlert : true, message : "Club has been deleted successfully.", action : "onlyOne"});
 		})
 		.catch(function(error){
 			if(error.response.message) {
