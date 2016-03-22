@@ -91,6 +91,7 @@ var ClubList = React.createClass({
     	services.POST(config.url.deleteClub, requestData)
 		.then(function(data){
 			self.setState({ showtr : false});
+			self.props.filterLength();
 		})
 		.catch(function(error){
 			if(error.response.message) {

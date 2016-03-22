@@ -20,7 +20,6 @@ var ClubManagement = React.createClass({
 			disableNext : false,
 			notAvailable : false,
 			result : true,
-			noResult : false,
 			filterResult : [],
 			filterData : false,
 			showButton : true,
@@ -35,7 +34,7 @@ var ClubManagement = React.createClass({
 			username : null,
 			lengthToChild : null,
 			noFilterData : false,
-			noResult:true
+			noResult:0
 
 		} 
 	},
@@ -46,7 +45,7 @@ var ClubManagement = React.createClass({
 		LOD = null;
 		services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-			
+
 			LOD = data.response.lengthOfDocument;
 
 			if((LOD<10&&LOD>0)||LOD==10){
@@ -58,12 +57,14 @@ var ClubManagement = React.createClass({
 			    pages = LOD/allUrlData.pageSize;
 			    self.setState({disablePrevious:true,disableNext:false});
 			}
-		    self.setState({
-		    	clubs:data.response.result,
-		    	noOfPages : Math.ceil(pages),
-		    	pageNo : 1,
-		    	noResult: self.response.result.length
-		    });
+			setTimeout(function(){
+				self.setState({
+			    	clubs:data.response.result,
+			    	noOfPages : Math.ceil(pages),
+			    	pageNo : 1,
+			    	noResult:data.response.result.length
+		    	});
+			}, 0);
 		})
 		.catch(function(error) {
 				
@@ -118,21 +119,14 @@ var ClubManagement = React.createClass({
     },
 
     filterLength : function() {
-    	var length = this.state.lengthToChild-1;
-    	this.setState({
-    		lengthToChild : length
-    	});
-
-    	if(length==0) {
-    		this.setState({
-    		noFilterData : true
-    	});
-    	}
     	
+    	this.setState({
+    		noResult : this.state.noResult - 1
+    	});
     },
 
 	render: function (){
-		console.log("noFilterData",this.state.noData);
+		
 		var currentThis = this;
 		var checked = false;
 		if(this.state.checked) {
@@ -219,7 +213,7 @@ var ClubManagement = React.createClass({
 						            </tr>
 						            
 							            {this.state.clubs.map(function(club){
-							        	    return <ClubList token={currentThis.state.token} club={club} key={club.clubId}/>
+							        	    return <ClubList token={currentThis.state.token} club={club} key={club.clubId} filterLength={currentThis.filterLength}/>
 							            })}
 						            
 					            </table>
@@ -265,7 +259,7 @@ var ClubManagement = React.createClass({
                             </div>
 
                         }
-					    {this.state.noResult &&
+					    { this.state.noResult == 0  &&
 						<div className="filter-form">
 							
 							<label>
@@ -318,7 +312,6 @@ var ClubManagement = React.createClass({
         }
 		this.setState({
 			clubFilter: !this.state.clubFilter,
-			noResult : false,
 			result : true,
 			filterData : false
 		});
@@ -368,7 +361,12 @@ var ClubManagement = React.createClass({
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
 				
-				currentThis.setState({clubs:data.response.result, disablePrevious : true, disableNext: false});
+				currentThis.setState({
+					clubs:data.response.result,
+					disablePrevious : true,
+					disableNext: false,
+					noResult:data.response.result.length
+				});
 			})
 			.catch(function(error){
 				
@@ -394,7 +392,10 @@ var ClubManagement = React.createClass({
 			}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-				currentThis.setState({clubs:data.response.result});
+				currentThis.setState({
+					clubs:data.response.result,
+					noResult:data.response.result.length
+				});
 			})
 			.catch(function(error){
 					
@@ -434,7 +435,8 @@ var ClubManagement = React.createClass({
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
 				currentThis.setState({
-					clubs:data.response.result
+					clubs:data.response.result,
+					noResult:data.response.result.length
 				});
 				
 			})
@@ -475,11 +477,13 @@ var ClubManagement = React.createClass({
 				        filterData : true,
 				        result : false,
 				        noOfPages : Math.ceil(pages),
-				        lengthToChild : data.response.result.length
+				        noResult : data.response.result.length
 			        });
 		        }else {
 		    	    currentThis.setState({
-				        result :true
+				        result :true,
+				        noResult: currentThis.state.clubs.length,
+				        filterData:false
 			        });
 		        }
 		    }) 		
