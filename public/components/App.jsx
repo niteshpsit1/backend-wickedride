@@ -15,7 +15,7 @@ var App = React.createClass({
     return (
      <div className="wrapper login-page">
         <div className="logoOuter">
-            <img src="images/wicked-ride-logo.png" alt="Wicked Ride"/>
+            <img src="images/logo.png" alt="Wicked Ride"/>
         </div>
         <div className="login-form">
             <div className="filter-form">

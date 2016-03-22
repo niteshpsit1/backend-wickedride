@@ -51,7 +51,7 @@ var Layout =  React.createClass({
                 <header>
                     <div className="logo-wrapper">
                         
-                            <img src="/images/wicked-ride-logo.png"/>
+                            <img src="/images/logo.png"/>
                         
                     </div>
                     <div className="admin-details">
