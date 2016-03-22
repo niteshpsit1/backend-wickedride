@@ -127,7 +127,7 @@ var TermAndConditions = React.createClass({
 			}else{
 				currentThis.setState({
 					error: true,
-					errorMessage:"Term And Conditions can't be branck"
+					errorMessage:"Term And Conditions can't be blank"
 				})	
 			}
 		}
