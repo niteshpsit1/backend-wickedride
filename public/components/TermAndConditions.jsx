@@ -18,12 +18,14 @@ var TermAndConditions = React.createClass({
 		.then(function(data){
 			setTimeout(function() {
 				currentThis.setState({
-					termAndConditionMessage:data.response.tncText.trim() ? data.response.tncText : "No data found" 
+					termAndConditionMessage:data.response.tncText.trim() ? data.response.tncText : "" 
 				})	
 			}, 0);
-			setTimeout(function() {
-				$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/^\s+|\s+$/g, ''));
-			}, 0);
+			if(currentThis.state.termAndConditionMessage != ""){
+				setTimeout(function() {
+					$('#termAndConditionMessage').html((currentThis.state.termAndConditionMessage).replace(/^\s+|\s+$/g, ''));
+				}, 0);
+			}
 		})
 		.catch(function(error){
 		});	
@@ -39,7 +41,7 @@ var TermAndConditions = React.createClass({
 							<a href="#" name="edit" onClick={this._onClick}>Edit</a>
 						</div>
 					</div>
-					{	!this.state.edit	&&
+					{	!this.state.edit && this.state.termAndConditionMessage != "" &&
 						<div className="content">
 							<div className="tc-block">
 								<p className="abt-text">
@@ -47,6 +49,14 @@ var TermAndConditions = React.createClass({
 								</p>
 							</div>
 						</div>}
+					{	!this.state.edit && this.state.termAndConditionMessage == "" &&
+						<div className="content">
+							<div className="tc-block">
+								<p className="abt-text">
+									<div>No data found</div>
+								</p>
+							</div>
+						</div>}	
 
 					{	this.state.edit	&&
 						<div className="content">
