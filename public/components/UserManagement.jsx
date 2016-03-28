@@ -294,7 +294,6 @@ var UserManagement = React.createClass({
 		requestData.designation = this.state.filterByDesignation;
 		services.POST(config.url.userListFilter, requestData)
 		.then(function(data){
-			console.log("dataa",data);
 			var LOD = data.response.result.length;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
