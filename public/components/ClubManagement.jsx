@@ -32,7 +32,6 @@ var ClubManagement = React.createClass({
 			userID : null,
 			checking : false,
 			username : null,
-			lengthToChild : null,
 			noFilterData : false,
 			noResult:0
 
@@ -238,10 +237,16 @@ var ClubManagement = React.createClass({
 							        <tbody>
 								        {this.state.filterResult.map(function(club){
 									        
-			  						       return <ClubList token={currentThis.state.token} club={club} key={club.clubId} length={currentThis.state.lengthToChild} filterLength={currentThis.filterLength}/>
+			  						       return <ClubList token={currentThis.state.token} club={club} key={club.clubId} filterLength={currentThis.filterLength}/>
 			  					       })}
 			  				       </tbody>
 						        </table>
+						        {this.state.showButton &&
+					            <div className="text-right arrow-sign">
+					                <button type="button" className="btn prevBtn" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
+					                <button type="button" className="btn nextBtn" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
+                                    
+					            </div>}
                             </div>
                         }
                         { this.state.noFilterData &&
@@ -341,7 +346,6 @@ var ClubManagement = React.createClass({
 		if(decrement==1){
 			this.setState({disablePrevious : true,disableNext:false})
 		}else if(decrement==2){
-		   
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
 		   if($("#checkbox").is(":checked")) {
@@ -351,6 +355,14 @@ var ClubManagement = React.createClass({
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo-1
 			};
+		}else if(this.state.filterData){
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1,
+			    clubName : this.state.filterByClubName
+			};
+
 		}else {
 			var requestData = {
 					token: this.state.token,
@@ -360,13 +372,25 @@ var ClubManagement = React.createClass({
 		}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-				
-				currentThis.setState({
-					clubs:data.response.result,
+				if(currentThis.state.filterData) {
+					currentThis	.setState({filterData: false});
+					currentThis.setState({
+					noResult:data.response.result.length,
+					filterResult : data.response.result,
+					filterData : true,
 					disablePrevious : true,
 					disableNext: false,
-					noResult:data.response.result.length
 				});
+				
+				}else {
+					currentThis.setState({
+						clubs:data.response.result,
+						disablePrevious : true,
+						disableNext: false,
+						noResult:data.response.result.length,
+						
+					});
+				}
 			})
 			.catch(function(error){
 				
@@ -383,6 +407,14 @@ var ClubManagement = React.createClass({
 				    pageSize :allUrlData.pageSize,
 				    pageNumber: this.state.pageNo-1
 				};
+			}else if(this.state.filterData){
+				var requestData = {
+			        token: this.state.token,
+				    pageSize:allUrlData.pageSize,
+				    pageNumber: this.state.pageNo-1,
+				    clubName : this.state.filterByClubName
+				};
+
 			}else {
 				var requestData = {
 					token: this.state.token,
@@ -392,10 +424,21 @@ var ClubManagement = React.createClass({
 			}
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
+				if(currentThis.state.filterData) {
+					currentThis	.setState({filterData: false});
+					currentThis.setState({
+					noResult:data.response.result.length,
+					filterResult : data.response.result,
+					filterData : true
+				});
+				
+				}else {
 				currentThis.setState({
 					clubs:data.response.result,
-					noResult:data.response.result.length
+					noResult:data.response.result.length,
+					filterResult : data.response.result
 				});
+			}
 			})
 			.catch(function(error){
 					
@@ -424,20 +467,39 @@ var ClubManagement = React.createClass({
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo+1
 			};
-		    }else {
-		    
+		}else if(this.state.filterData){
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo+1,
+			    clubName : this.state.filterByClubName
+			};
+
+		}else {
 			var requestData = {
 		        token: this.state.token,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo+1
 			};
+
 		}
+			
 			services.POST(config.url.getAllClub, requestData)
 			.then(function(data){
-				currentThis.setState({
-					clubs:data.response.result,
-					noResult:data.response.result.length
+				if(currentThis.state.filterData) {
+					currentThis	.setState({filterData: false});
+					currentThis.setState({
+					noResult:data.response.result.length,
+					filterResult : data.response.result,
+					filterData : true
 				});
+				
+				}else {
+					currentThis.setState({
+						clubs:data.response.result,
+						noResult:data.response.result.length
+					});
+				}
 				
 			})
 			.catch(function(error){
@@ -450,34 +512,42 @@ var ClubManagement = React.createClass({
 	_onFilterClick: function(event){
         event.preventDefault();
 		var input1 = $("#filterByClubName").val();
-		
 		if(input1==null||input1=="") {
             this.setState({showAlert: true});
 		}else {
 		    var currentThis = this;
+		    var pages = null,
+			LOD = null;
 		    var requestData = {
 			    token : this.state.token,
 			    clubName : this.state.filterByClubName
 		    };
+		    currentThis.setState({
+				filterData : false,
+				showButton : false
+			});
 		    
 		    services.POST(config.url.getAllClub, requestData)
 		    .then(function(data){
-		    	var LOD = data.response.result.length;
+		    	var LOD = data.response.lengthOfDocument;
 			    if((LOD<10&&LOD>0)||LOD==10){
                     pages = 1;
-                    currentThis.setState({disableNext : true, disablePrevious : true});
+                    currentThis.setState({disablePrevious:true, disableNext:true, showButton: false});
 			    }else if(LOD==0){
 			        currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
 		        }else {
 			        pages = LOD/allUrlData.pageSize;
+
+			        currentThis.setState({disablePrevious:true,disableNext:false, showButton : true});
 		        }
-			    if(data.response.result.length){
+			    if(LOD){
 			        currentThis.setState({
 				        filterResult:data.response.result,
 				        filterData : true,
 				        result : false,
 				        noOfPages : Math.ceil(pages),
-				        noResult : data.response.result.length
+				        noResult : data.response.result.length,
+				        pageNo : 1
 			        });
 		        }else {
 		    	    currentThis.setState({
