@@ -13,7 +13,6 @@ var UserManagement = React.createClass({
 			userFilter:false,
 			filterByName:"",
 			filterByEmail:"",
-			filterByDesignation:"",
 			value:"select",
 			name: 'vidhi',
 			noOfPages: null,
@@ -262,12 +261,7 @@ var UserManagement = React.createClass({
 
 	_onchange: function(event){
 		
-		if(event.target.name == "filterByDesignation"){
-			this.setState({
-				filterByDesignation: event.target.value
-			});
-		}
-		else if(event.target.name == "filterByEmail"){
+	    if(event.target.name == "filterByEmail"){
 			this.setState({
 				filterByEmail: event.target.value
 			});
@@ -291,8 +285,7 @@ var UserManagement = React.createClass({
 		requestData.token = this.state.token;
 		requestData.name = this.state.filterByName;
 		requestData.email = this.state.filterByEmail;
-		requestData.designation = this.state.filterByDesignation;
-		services.POST(config.url.userListFilter, requestData)
+		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
 			var LOD = data.response.result.length;
 			if((LOD<10&&LOD>0)||LOD==10){
