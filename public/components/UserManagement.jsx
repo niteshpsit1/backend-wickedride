@@ -46,10 +46,14 @@ var UserManagement = React.createClass({
 		requestData.token = this.state.token;
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
+			
 			LOD = data.response.lengthOfDocument;
 			if((LOD<10&&LOD>0)||LOD==10){
                 pages = 1;
-                currentThis.setState({disableNext:true,disablePrevious:true,showButton: false
+                currentThis.setState({
+                	disableNext:true,
+                	disablePrevious:true,
+                	showButton: false
                 });
 			}else if(LOD==0){
 				
@@ -164,10 +168,11 @@ var UserManagement = React.createClass({
 			  					           })}
 			  				           </tbody>
 						            </table>
+						            {this.state.showButton &&
 						            <div className="text-right arrow-sign">
 					                    <button type="button" className="btn prevBtn" onClick={this._onPaginationPrevious} name="previous" disabled={this.state.disablePrevious}>Previous</button>&nbsp; 
 					                    <button type="button" className="btn nextBtn" onClick={this._onPaginationNext} name="next" disabled={this.state.disableNext}>Next</button>
-                                    </div>
+                                    </div>}
                                 </div>
                             }
                             {this.state.filterData &&
@@ -287,14 +292,20 @@ var UserManagement = React.createClass({
 		requestData.email = this.state.filterByEmail;
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
-			var LOD = data.response.result.length;
+			
+			var LOD = data.response.lengthOfDocument;
+			
 			if((LOD<10&&LOD>0)||LOD==10){
+				
                 pages = 1;
-                currentThis.setState({disableNext:true, disablePrevious:true});
+                currentThis.setState({disableNext:true, disablePrevious:true, showButton : false});
 			}else if(LOD==0){
 			    currentThis.setState({showAlert : true, action: "noFilterResult", message: "No result found."});
+
 		    }else {
+		    	
 			    pages = LOD/allUrlData.pageSize;
+			    currentThis.setState({disablePrevious:true,disableNext:false, showButton : true});
 		    }
 			if(LOD){
 			    currentThis.setState({
@@ -302,7 +313,8 @@ var UserManagement = React.createClass({
 				    filterData : true,
 				    result : false,
 				    noOfPages : Math.ceil(pages),
-				    lengthToChild : LOD
+				    lengthToChild : LOD,
+				    pageNo : 1
 			    });
 		    }else {
 		    	currentThis.setState({
@@ -332,29 +344,76 @@ var UserManagement = React.createClass({
 		    decrement=decrement-1;
 		    this.setState({pageNo : decrement});
 		    
-		    
+		if(this.state.filterData){
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo-1,
+			    name : this.state.filterByName,
+			    email : this.state.filterByEmail
+			};
+
+		}else{
 			var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo-1
 			};
+		}
 			services.GET(config.url.getAllUser, requestData)
 			.then(function(data){
-				currentThis.setState({userList:data.response.result, disablePrevious : true, disableNext: false});
+				if(currentThis.state.filterData) {
+					currentThis	.setState({filterData: false});
+					currentThis.setState({
+					
+					filterResult : data.response.result,
+					filterData : true,
+					disablePrevious : true,
+					disableNext: false,
+				});
+				
+				}else {
+					currentThis.setState({
+						userList:data.response.result, 
+						disablePrevious : true, 
+						disableNext: false
+					});
+				}
 			})
 			.catch(function(error){
 			});	
 		}else {
 			decrement=decrement-1;
 		    this.setState({pageNo : decrement,disableNext:false});
+		    if(this.state.filterData){
+				var requestData = {
+			        token: this.state.token,
+				    pageSize:allUrlData.pageSize,
+				    pageNumber: this.state.pageNo-1,
+				    name : this.state.filterByName,
+				    email : this.state.filterByEmail
+				};
+
+			}else {
 		    var requestData = {
 				token: this.state.token,
 			    pageSize:allUrlData.pageSize,
 			    pageNumber: this.state.pageNo-1
 			};
+		}
 			services.GET(config.url.getAllUser, requestData)
 			.then(function(data){
-				currentThis.setState({userList:data.response.result});
+				if(currentThis.state.filterData) {
+					currentThis	.setState({filterData: false});
+					currentThis.setState({
+					
+					filterResult : data.response.result,
+					filterData : true
+				});
+				
+				}else {
+					currentThis.setState({userList:data.response.result});
+				}
 			})
 			.catch(function(error){
 			});
@@ -372,17 +431,39 @@ var UserManagement = React.createClass({
 		}
 			
 		this.setState({pageNo : increment}); 
-		
+		if(this.state.filterData){
+			var requestData = {
+		        token: this.state.token,
+			    pageSize:allUrlData.pageSize,
+			    pageNumber: this.state.pageNo+1,
+			    name : this.state.filterByName,
+			    email : this.state.filterByEmail
+			};
+
+		}else {
 		var requestData = {
 		    token: this.state.token,
 			pageSize:allUrlData.pageSize,
 			pageNumber: this.state.pageNo+1
 		};
+	}
+	
 		services.GET(config.url.getAllUser, requestData)
 		.then(function(data){
-			currentThis.setState({
-			userList:data.response.result
-		});
+			
+			if(currentThis.state.filterData) {
+				currentThis	.setState({filterData: false});
+					currentThis.setState({
+					
+					filterResult : data.response.result,
+					filterData : true
+				});
+				
+			}else {
+				currentThis.setState({
+					userList:data.response.result
+				});
+			}
 			
 		})
 		.catch(function(error){

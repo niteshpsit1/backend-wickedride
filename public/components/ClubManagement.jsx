@@ -530,6 +530,7 @@ var ClubManagement = React.createClass({
 		    services.POST(config.url.getAllClub, requestData)
 		    .then(function(data){
 		    	var LOD = data.response.lengthOfDocument;
+		    	
 			    if((LOD<10&&LOD>0)||LOD==10){
                     pages = 1;
                     currentThis.setState({disablePrevious:true, disableNext:true, showButton: false});
