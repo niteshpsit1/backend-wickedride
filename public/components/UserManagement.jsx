@@ -61,7 +61,7 @@ var UserManagement = React.createClass({
 		    }else {
 
 			    pages = LOD/allUrlData.pageSize;
-			    currentThis.setState({disablePrevious : true, disableNext : false});
+			    currentThis.setState({disablePrevious : true, disableNext : false, showButton : true});
 		    }
         currentThis.setState({
 			userList:data.response.result,noOfPages : Math.ceil(pages), pageNo : 1});
