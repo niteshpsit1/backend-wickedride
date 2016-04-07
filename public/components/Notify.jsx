@@ -123,6 +123,7 @@ var Notify = React.createClass({
 
 	approveRequestApi : function() {
         var self= this,
+        
         result = [];
 		var requestData = {
 			token: this.props.token,

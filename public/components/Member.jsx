@@ -39,7 +39,7 @@ var Member = React.createClass({
 				self.setState({showMember:false});
 		})
 	    .catch(function(error){
-	    	if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+	    	if(error.response.message=="Sole club admin can't be removed.") {
 	    		self.setState({
                     showAlert: true,
                     message: "This member is the only admin of this club, make another admin first.",
@@ -84,7 +84,7 @@ var Member = React.createClass({
 			    
 		    })
 	        .catch(function(error){
-			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+			    if(error.response.message=="Sole club admin can't be removed.") {
                     self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
 			    }
 		    });
@@ -109,7 +109,7 @@ var Member = React.createClass({
 		    })
 	        .catch(function(error){
 
-			    if(error.response.message=="This member is the only admin of this club, make another admin first.") {
+			    if(error.response.message=="Sole club admin can't be removed.") {
                     self.setState({showAlert: true, message: "This member is the only admin of this club, make another admin first.", action: "makeAdminAlert"});
 			    }	
 		    });
