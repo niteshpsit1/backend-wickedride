@@ -1,4 +1,4 @@
-var baseUrl = 'http://172.18.2.120:4200'
+var baseUrl = 'http://api.ridenation.club'
 var config = {
 	url: {
 
